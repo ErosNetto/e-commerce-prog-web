@@ -40,7 +40,7 @@
     <div class="container">
       <h1>Entre em Contato</h1>
       <div class="breadcrumb">
-        <a href="index.html">Início</a> / <span>Contato</span>
+        <a href="<?= BASE_URL ?>/home">Início</a> / <span>Contato</span>
       </div>
     </div>
   </section>

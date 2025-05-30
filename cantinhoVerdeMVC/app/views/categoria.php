@@ -41,7 +41,7 @@
     <div class="container">
       <h1>Categorias de Plantas</h1>
       <div class="breadcrumb">
-        <a href="index.html">Home</a> / <span>Categorias</span>
+        <a href="<?= BASE_URL ?>/home">Home</a> / <span>Categorias</span>
       </div>
     </div>
   </section>

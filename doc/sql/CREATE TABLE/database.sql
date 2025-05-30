@@ -43,7 +43,15 @@ CREATE TABLE categorias (
     imagem VARCHAR(255),
     categoria_pai_id INT,
     status ENUM('ativo', 'inativo') DEFAULT 'ativo',
-    FOREIGN KEY (categoria_pai_id) REFERENCES categorias(id) ON DELETE SET NULL
+    FORIGEN KEY (categoria_pai_id) REFERENCES categorias(id) ON DELETE SET NULL
+);
+
+-- TESTE
+CREATE TABLE categoria_imagem (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    categoria_id INT NOT NULL,
+    url VARCHAR(255) NOT NULL,
+    FOREIGN KEY (categoria_id) REFERENCES categorias(id) ON DELETE CASCADE
 );
 
 -- Tabela de Fornecedores

@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title><?= APP_NAME ?></title>
   <link rel="stylesheet" href="<?= BASE_URL ?>/css/style.css" />
+  <link rel="stylesheet" href="<?= BASE_URL ?>/css/home.css" />
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -38,7 +39,8 @@
             <div class="category-card">
               <img src="<?= $categoria['imagem'] ?>" alt="<?= htmlspecialchars($categoria['nome']) ?>" />
               <h3><?= htmlspecialchars($categoria['nome']) ?></h3>
-              <a href="categorias.html?cat=<?= urlencode($categoria['slug']) ?>" class="btn-small">Ver Mais</a>
+              <a href="produtos?categoria=<?= urlencode($categoria['id']) ?>&&url=produtos" class="btn-small">Ver Mais</a>
+              <!-- <a href="categorias.html?cat=<?= urlencode($categoria['slug']) ?>" class="btn-small">Ver Mais</a> -->
             </div>
         <?php
           }
@@ -60,7 +62,9 @@
         ?>
             <div class="product-card">
               <div class="product-image">
-                <img src="<?= $produto['imagem_principal'] ?>" alt="<?= htmlspecialchars($produto['nome']) ?>" />
+                <a href="<?= BASE_URL . '/detalheProduto?idProduto=' . htmlspecialchars($produto['id']) ?>">
+                  <img src="<?= $produto['imagem_principal'] ?>" alt="<?= htmlspecialchars($produto['nome']) ?>" />
+                </a>
                 <?php if ($produto['novo'] === 1) { ?>
                   <div class="product-tag">Novo</div>
                 <?php } else { ?>

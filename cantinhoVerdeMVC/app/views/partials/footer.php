@@ -44,7 +44,8 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2025 CantinhoVerde - Todos os direitos reservados</p>
+
+      <p><a href="https://github.com/ErosNetto/e-commerce-prog-web" target="_blank" rel="noopener noreferrer">&copy; 2025 CantinhoVerde - Todos os direitos reservados</a></p>
     </div>
   </div>
 </footer>

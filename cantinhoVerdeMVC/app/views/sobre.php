@@ -41,7 +41,7 @@
     <div class="container">
       <h1>Sobre Nós</h1>
       <div class="breadcrumb">
-        <a href="index.html">Home</a> / <span>Sobre Nós</span>
+        <a href="<?= BASE_URL ?>/home">Home</a> / <span>Sobre Nós</span>
       </div>
     </div>
   </section>

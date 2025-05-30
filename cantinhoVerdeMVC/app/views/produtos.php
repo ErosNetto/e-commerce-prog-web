@@ -44,7 +44,7 @@
     <div class="container">
       <h1>Nossos Produtos</h1>
       <div class="breadcrumb">
-        <a href="index.html">Início</a> / <span>Produtos</span>
+        <a href="<?= BASE_URL ?>/home">Início</a> / <span>Produtos</span>
       </div>
     </div>
   </section>
@@ -165,8 +165,10 @@
               <?php foreach ($produtos as $produto): ?>
                 <div class="product-card">
                   <div class="product-image">
-                    <img src="<?= htmlspecialchars($produto['imagem_principal'] ?? BASE_URL . '/img/sem-imagem.jpg') ?>"
-                      alt="<?= htmlspecialchars($produto['nome']) ?>" />
+                    <a href="<?= BASE_URL . '/detalheProduto?idProduto=' . htmlspecialchars($produto['id']) ?>">
+                      <img src="<?= htmlspecialchars($produto['imagem_principal'] ?? BASE_URL . '/img/sem-imagem.jpg') ?>"
+                        alt="<?= htmlspecialchars($produto['nome']) ?>" />
+                    </a>
 
                     <?php /* if ($produto['novo'] == 1): ?>
                           <div class="product-tag">Novo</div>
