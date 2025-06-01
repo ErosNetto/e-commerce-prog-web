@@ -19,7 +19,8 @@ class ProdutosController extends Controller
     $produtoModel = $this->model('Produto');
     $resultado = $produtoModel->getProdutos($pagina, $itensPorPagina, $filtros);
 
-    $categorias = $produtoModel->getCategoriasAtivas();
+    $categoriaModel = $this->model('Categoria');
+    $categorias = $categoriaModel->getCategoriasAtivas();
 
     $totalProdutos = $resultado['total'] ?? 0;
     $totalPaginas = max(1, ceil($totalProdutos / $itensPorPagina));

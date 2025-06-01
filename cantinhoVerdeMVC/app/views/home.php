@@ -75,11 +75,7 @@
                 <h3><?= htmlspecialchars($produto['nome']) ?></h3>
                 <p class="product-description"><?= htmlspecialchars($produto['descricao_curta']) ?></p>
                 <div class="product-price">
-                  <?php if (!empty($produto['preco_promocional'])) { ?>
-                    <span class="price">R$ <?= number_format($produto['preco_promocional'], 2, ',', '.') ?></span>
-                  <?php } else { ?>
-                    <span class="price">R$ <?= number_format($produto['preco'], 2, ',', '.') ?></span>
-                  <?php } ?>
+                  <span class="price">R$ <?= number_format($produto['preco'], 2, ',', '.') ?></span>
                 </div>
                 <button class="btn-add-cart">Adicionar ao Carrinho</button>
               </div>

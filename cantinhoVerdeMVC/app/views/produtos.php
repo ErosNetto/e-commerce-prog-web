@@ -184,11 +184,7 @@
                       <?= htmlspecialchars($produto['descricao_curta']) ?>
                     </p>
                     <div class="product-price">
-                      <?php if (!empty($produto['preco_promocional']) && $produto['preco_promocional'] < $produto['preco']): ?>
-                        <span class="price">R$ <?= number_format($produto['preco_promocional'], 2, ',', '.') ?></span>
-                      <?php else: ?>
-                        <span class="price">R$ <?= number_format($produto['preco'], 2, ',', '.') ?></span>
-                      <?php endif; ?>
+                      <span class="price">R$ <?= number_format($produto['preco'], 2, ',', '.') ?></span>
                     </div>
                     <button class="btn-add-cart">Adicionar ao Carrinho</button>
                   </div>

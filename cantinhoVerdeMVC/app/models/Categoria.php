@@ -29,4 +29,15 @@ class Categoria extends Model
       return [];
     }
   }
+
+  public function getCategoriasAtivas()
+  {
+    try {
+      $stmt = $this->db->query("SELECT id, nome, slug FROM categorias WHERE status = 'ativo'");
+      return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+      error_log("[ERRO] Falha ao buscar categorias: " . $e->getMessage());
+      return [];
+    }
+  }
 }

@@ -39,7 +39,12 @@
     <div class="container">
       <h1>Detalhes do Produto</h1>
       <div class="breadcrumb">
-        <a href="<?= BASE_URL ?>/home">Início</a> / <a href="<?= BASE_URL ?>/produtos">Produtos</a> / <a href="<?= BASE_URL ?>/home">Plantas de Interior</a> / <span>Zamioculca</span>
+        <a href="<?= BASE_URL ?>/home">Início</a> /
+        <a href="<?= BASE_URL ?>/produtos">Produtos</a> /
+        <?php if (!empty($produto['categorias'])): ?>
+          <a href="<?= BASE_URL ?>/categorias/<?= $produto['categorias'][0] ?>"><?= $produto['categorias'][0] ?></a> /
+        <?php endif; ?>
+        <span><?= $produto['nome'] ?></span>
       </div>
     </div>
   </section>
@@ -51,103 +56,82 @@
         <!-- Product Images -->
         <div class="product-images">
           <div class="product-main-image">
-            <img
-              src="images/products/planta1.jpg"
-              alt="Zamioculca"
-              id="mainImage" />
-            <div class="image-zoom-icon">
-              <i class="fas fa-search-plus"></i>
-            </div>
+            <img src="<?= $produto['imagem_principal'] ?>" alt="<?= $produto['nome'] ?>" id="mainImage" />
           </div>
+
           <div class="product-thumbnails">
-            <div
-              class="thumbnail active"
-              data-image="images/products/planta1.jpg">
-              <img
-                src="images/products/planta1.jpg"
-                alt="Zamioculca - Imagem 1" />
+            <!-- Miniatura da imagem principal -->
+            <div class="thumbnail active" data-image="<?= $produto['imagem_principal'] ?>">
+              <img src="<?= $produto['imagem_principal'] ?>" alt="<?= $produto['nome'] ?> - Imagem principal" />
             </div>
-            <div class="thumbnail" data-image="images/products/planta1-2.jpg">
-              <img
-                src="images/products/planta1-2.jpg"
-                alt="Zamioculca - Imagem 2" />
-            </div>
-            <div class="thumbnail" data-image="images/products/planta1-3.jpg">
-              <img
-                src="images/products/planta1-3.jpg"
-                alt="Zamioculca - Imagem 3" />
-            </div>
-            <div class="thumbnail" data-image="images/products/planta1-4.jpg">
-              <img
-                src="images/products/planta1-4.jpg"
-                alt="Zamioculca - Imagem 4" />
-            </div>
+
+            <!-- Miniaturas adicionais -->
+            <?php if (!empty($produto['imagens_adicionais'])): ?>
+              <?php foreach ($produto['imagens_adicionais'] as $imagem): ?>
+                <?php if ($imagem !== $produto['imagem_principal']): ?>
+                  <div class="thumbnail" data-image="<?= BASE_URL ?>/<?= $imagem ?>">
+                    <img src="<?= $imagem ?>" alt="<?= $produto['nome'] ?>" />
+                  </div>
+                <?php endif; ?>
+              <?php endforeach; ?>
+            <?php endif; ?>
           </div>
         </div>
 
         <!-- Product Info -->
         <div class="product-info">
-          <h1 class="product-title">Zamioculca</h1>
-
-          <!-- <div class="product-rating">
-            <div class="stars">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star-half-alt"></i>
-            </div>
-            <span class="rating-count">(32 avaliações)</span>
-          </div> -->
+          <h1 class="product-title"><?= $produto['nome'] ?></h1>
 
           <div class="product-price">
-            <span class="current-price">R$89,90</span>
-            <span class="installment">ou 3x de R$29,97 sem juros</span>
+            <span class="current-price">R$<?= $produto['preco_formatado'] ?></span>&nbsp;
+            <span class="installment"><?= $produto['parcelamento'] ?></span>
           </div>
+
           <div class="product-short-description">
-            <p>
-              A Zamioculca é uma planta de interior conhecida por sua
-              resistência e baixa manutenção. Ideal para ambientes internos
-              com pouca luz.
-            </p>
+            <p><?= $produto['descricao_curta'] ?></p>
           </div>
+
           <div class="product-meta">
-            <div class="meta-item">
-              <span class="meta-label">Categoria:</span>
-              <span class="meta-value">Planta de Interior</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">Tamanho:</span>
-              <span class="meta-value">Médio (40-60cm)</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">Nível de Cuidado:</span>
-              <span class="meta-value">Fácil</span>
-            </div>
+            <?php if (!empty($produto['categorias'])): ?>
+              <div class="meta-item">
+                <span class="meta-label">Categoria:</span>
+                <span class="meta-value"><?= implode(', ', $produto['categorias']) ?></span>
+              </div>
+            <?php endif; ?>
+
+            <?php if (!empty($produto['tamanho'])): ?>
+              <div class="meta-item">
+                <span class="meta-label">Tamanho:</span>
+                <span class="meta-value"><?= ucfirst($produto['tamanho']) ?></span>
+              </div>
+            <?php endif; ?>
+
+            <?php if (!empty($produto['nivel_cuidado'])): ?>
+              <div class="meta-item">
+                <span class="meta-label">Nível de Cuidado:</span>
+                <span class="meta-value"><?= ucfirst($produto['nivel_cuidado']) ?></span>
+              </div>
+            <?php endif; ?>
+
             <div class="meta-item">
               <span class="meta-label">Disponibilidade:</span>
-              <span class="meta-value in-stock">Em estoque</span>
+              <span class="meta-value <?= $produto['estoque'] > 0 ? 'in-stock' : 'out-of-stock' ?>">
+                <?= $produto['estoque'] > 0 ? 'Em estoque' : 'Esgotado' ?>
+              </span>
             </div>
           </div>
-          <div class="product-options">
-            <div class="option-group">
-              <label>Tamanho do Vaso:</label>
-              <div class="option-buttons">
-                <button class="option-button">P (13cm)</button>
-                <button class="option-button active">M (15cm)</button>
-                <button class="option-button">G (21cm)</button>
+
+          <?php if ($produto['estoque'] > 0): ?>
+            <div class="product-actions">
+              <div class="quantity-selector">
+                <button class="quantity-btn minus">-</button>
+                <input type="number" value="1" min="1" max="<?= $produto['estoque'] ?>" class="quantity-input" />
+                <button class="quantity-btn plus">+</button>
               </div>
+              <button class="btn-add-to-cart">Adicionar ao Carrinho</button>
+              <button class="btn-buy-now">Comprar Agora</button>
             </div>
-          </div>
-          <div class="product-actions">
-            <div class="quantity-selector">
-              <button class="quantity-btn minus">-</button>
-              <input type="number" value="1" min="1" class="quantity-input" />
-              <button class="quantity-btn plus">+</button>
-            </div>
-            <button class="btn-add-to-cart">Adicionar ao Carrinho</button>
-            <button class="btn-buy-now">Comprar Agora</button>
-          </div>
+          <?php endif; ?>
         </div>
       </div>
 
@@ -157,33 +141,8 @@
         <div class="tabs-content">
           <div class="tab-panel active" id="description">
             <div class="tab-content">
-              <h3>Sobre a Zamioculca</h3>
-              <p>
-                A Zamioculca (Zamioculcas zamiifolia), também conhecida como
-                planta ZZ, é uma planta tropical originária da África
-                Oriental. Ela se tornou extremamente popular como planta de
-                interior devido à sua aparência elegante e à facilidade de
-                cultivo.
-              </p>
-              <p>
-                Com folhas brilhantes, verde-escuras e uma estrutura ereta, a
-                Zamioculca adiciona um toque de sofisticação a qualquer
-                ambiente. Suas folhas são compostas por folíolos ovais que
-                crescem em hastes carnudas, criando um visual arquitetônico
-                distinto.
-              </p>
-              <p>
-                Uma das características mais apreciadas da Zamioculca é sua
-                incrível resistência. Ela pode sobreviver em condições de
-                pouca luz, baixa umidade e até mesmo com regas esporádicas, o
-                que a torna ideal para iniciantes ou para pessoas com pouco
-                tempo para cuidar de plantas.
-              </p>
-              <p>
-                Além de sua beleza e facilidade de cultivo, a Zamioculca
-                também é conhecida por suas propriedades purificadoras de ar,
-                ajudando a melhorar a qualidade do ambiente interno.
-              </p>
+              <h3>Informações sobre <?= $produto['nome'] ?></h3>
+              <p><?= nl2br($produto['descricao']) ?></p>
 
               <div class="product-features">
                 <div class="feature">
@@ -192,10 +151,7 @@
                   </div>
                   <div class="feature-text">
                     <h4>Luz</h4>
-                    <p>
-                      Tolera baixa luminosidade, mas cresce melhor em luz
-                      indireta.
-                    </p>
+                    <p><?= $produto['luz'] ?></p>
                   </div>
                 </div>
                 <div class="feature">
@@ -204,27 +160,16 @@
                   </div>
                   <div class="feature-text">
                     <h4>Água</h4>
-                    <p>
-                      Rega moderada, deixando o solo secar entre as regas.
-                    </p>
+                    <p><?= $produto['agua'] ?></p>
                   </div>
                 </div>
                 <div class="feature">
                   <div class="feature-icon">
-                    <i class="fas fa-thermometer-half"></i>
+                    <i class="fas fa-seedling"></i>
                   </div>
                   <div class="feature-text">
-                    <h4>Temperatura</h4>
-                    <p>Prefere temperaturas entre 18°C e 26°C.</p>
-                  </div>
-                </div>
-                <div class="feature">
-                  <div class="feature-icon">
-                    <i class="fas fa-paw"></i>
-                  </div>
-                  <div class="feature-text">
-                    <h4>Pet Friendly</h4>
-                    <p>Não. Tóxica para cães e gatos.</p>
+                    <h4>Ambiente</h4>
+                    <p><?= $produto['ambiente'] ?></p>
                   </div>
                 </div>
               </div>
@@ -261,6 +206,32 @@
   </div>
 
   <?php require_once 'partials/footer.php'; ?>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Seleciona os elementos
+      const mainImage = document.getElementById('mainImage');
+      const thumbnails = document.querySelectorAll('.thumbnail');
+
+      // Adiciona evento de clique para cada miniatura
+      thumbnails.forEach(thumbnail => {
+        thumbnail.addEventListener('click', function() {
+          // Obtém a imagem da miniatura clicada
+          const thumbnailImg = this.querySelector('img');
+          const newSrc = thumbnailImg.src;
+
+          // Atualiza a imagem principal
+          mainImage.src = newSrc;
+
+          // Remove a classe 'active' de todas as miniaturas
+          thumbnails.forEach(t => t.classList.remove('active'));
+
+          // Adiciona a classe 'active' na miniatura clicada
+          this.classList.add('active');
+        });
+      });
+    });
+  </script>
 </body>
 
 </html>

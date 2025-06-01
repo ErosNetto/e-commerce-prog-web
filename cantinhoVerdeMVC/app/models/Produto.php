@@ -131,14 +131,58 @@ class Produto extends Model
     }
   }
 
-  public function getCategoriasAtivas()
+  public function getDetalheProduto($id)
   {
     try {
-      $stmt = $this->db->query("SELECT id, nome, slug FROM categorias WHERE status = 'ativo'");
-      return $stmt->fetchAll(PDO::FETCH_ASSOC);
+      $query = "SELECT 
+                    p.*,
+                    pi.url as imagem_principal,
+                    GROUP_CONCAT(DISTINCT pi2.url) as imagens_adicionais,
+                    GROUP_CONCAT(DISTINCT c.nome) as categorias
+                FROM produtos p
+                LEFT JOIN produto_imagens pi ON (p.id = pi.produto_id AND pi.principal = TRUE)
+                LEFT JOIN produto_imagens pi2 ON (p.id = pi2.produto_id AND pi2.principal = FALSE)
+                LEFT JOIN produto_categoria pc ON p.id = pc.produto_id
+                LEFT JOIN categorias c ON pc.categoria_id = c.id
+                WHERE p.id = :id AND p.status = 'ativo'
+                GROUP BY p.id";
+
+      $stmt = $this->db->prepare($query);
+      $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+      $stmt->execute();
+
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+      if ($result) {
+        // Processa as imagens adicionais
+        $result['imagens_adicionais'] = $result['imagens_adicionais']
+          ? explode(',', $result['imagens_adicionais'])
+          : [];
+
+        // Processa as categorias
+        $result['categorias'] = $result['categorias']
+          ? explode(',', $result['categorias'])
+          : [];
+
+        // Formata o preço
+        $result['preco_formatado'] = number_format($result['preco'], 2, ',', '.');
+
+        if ($result['preco_promocional']) {
+          $result['preco_promocional_formatado'] = number_format($result['preco_promocional'], 2, ',', '.');
+          $result['parcelamento'] = $result['preco_promocional'] > 0
+            ? 'ou 3x de R$' . number_format($result['preco_promocional'] / 3, 2, ',', '.') . ' sem juros'
+            : '';
+        } else {
+          $result['parcelamento'] = $result['preco'] > 0
+            ? 'ou 3x de R$' . number_format($result['preco'] / 3, 2, ',', '.') . ' sem juros'
+            : '';
+        }
+      }
+
+      return $result;
     } catch (PDOException $e) {
-      error_log("[ERRO] Falha ao buscar categorias: " . $e->getMessage());
-      return [];
+      error_log("[ERRO] Falha ao buscar detalhes do produto: " . $e->getMessage());
+      return false;
     }
   }
 }
