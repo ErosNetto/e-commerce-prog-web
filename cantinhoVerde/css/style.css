@@ -1,5 +1,5 @@
 /* Estilos Gerais */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
   --primary-color: #4caf50;
@@ -21,7 +21,7 @@
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: var(--text-color);
   line-height: 1.6;
   background-color: var(--white);
@@ -83,7 +83,7 @@ img {
 }
 
 .section-title::after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -133,7 +133,7 @@ nav ul li a {
 }
 
 nav ul li a::after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: -5px;
   left: 0;
@@ -165,7 +165,7 @@ nav ul li a.active::after {
 /* Hero Section */
 .hero {
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../img/hero-bg.jpg");
+    url('../img/hero-bg.jpg');
   background-size: cover;
   background-position: center;
   color: var(--white);
@@ -367,7 +367,7 @@ nav ul li a.active::after {
 .newsletter {
   padding: 80px 0;
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url("../img/newsletter-bg.jpg");
+    url('../img/newsletter-bg.jpg');
   background-size: cover;
   background-position: center;
   color: var(--white);
@@ -435,7 +435,7 @@ footer {
 }
 
 .footer-col h4::after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 0;
   left: 0;
