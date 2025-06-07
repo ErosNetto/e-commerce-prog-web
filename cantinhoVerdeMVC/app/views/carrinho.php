@@ -13,7 +13,6 @@
 </head>
 
 <body>
-  <!-- <?php require_once 'partials/navbar.php'; ?> -->
   <header>
     <div class="container">
       <div class="logo">
@@ -31,7 +30,7 @@
       <div class="icons">
         <a href="<?= BASE_URL ?>/carrinho" class="active"><i class="fas fa-shopping-cart"></i></a>
         <a href="<?= BASE_URL ?>/conta"><i class="fas fa-user"></i></a>
-        <a href="<?= BASE_URL ?>/pesquisa"><i class="fas fa-search"></i></a>
+        <!-- <a href="<?= BASE_URL ?>/pesquisa"><i class="fas fa-search"></i></a> -->
       </div>
     </div>
   </header>
@@ -41,7 +40,7 @@
     <div class="container">
       <h1>Categorias de Plantas</h1>
       <div class="breadcrumb">
-        <a href="<?= BASE_URL ?>/home">Home</a> / <span>Carrinho</span>
+        <a href="<?= BASE_URL ?>/home">Início</a> / <span>Carrinho</span>
       </div>
     </div>
   </section>
@@ -229,75 +228,6 @@
               <i class="fab fa-pix"></i>
               <i class="fas fa-barcode"></i>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="recommended-products">
-    <div class="container">
-      <h2 class="section-title">Você Também Pode Gostar</h2>
-      <div class="product-grid">
-        <div class="product-card">
-          <div class="product-image">
-            <img src="img/produto3.jpg" alt="Suculenta Echeveria" />
-          </div>
-          <div class="product-info">
-            <h3>Suculenta Echeveria</h3>
-            <p class="product-description">
-              Suculenta decorativa com roseta de folhas
-            </p>
-            <div class="product-price">
-              <span class="price">R$ 29,90</span>
-            </div>
-            <button class="btn-add-cart">Adicionar ao Carrinho</button>
-          </div>
-        </div>
-
-        <div class="product-card">
-          <div class="product-image">
-            <img src="img/produto7.jpg" alt="Lírio da Paz" />
-          </div>
-          <div class="product-info">
-            <h3>Lírio da Paz</h3>
-            <p class="product-description">
-              Planta com flores brancas elegantes
-            </p>
-            <div class="product-price">
-              <span class="price">R$ 59,90</span>
-            </div>
-            <button class="btn-add-cart">Adicionar ao Carrinho</button>
-          </div>
-        </div>
-
-        <div class="product-card">
-          <div class="product-image">
-            <img src="img/produto10.jpg" alt="Vaso Cerâmica" />
-          </div>
-          <div class="product-info">
-            <h3>Vaso Cerâmica</h3>
-            <p class="product-description">Vaso decorativo em cerâmica</p>
-            <div class="product-price">
-              <span class="price">R$ 79,90</span>
-            </div>
-            <button class="btn-add-cart">Adicionar ao Carrinho</button>
-          </div>
-        </div>
-
-        <div class="product-card">
-          <div class="product-image">
-            <img src="img/produto8.jpg" alt="Jiboia" />
-          </div>
-          <div class="product-info">
-            <h3>Jiboia</h3>
-            <p class="product-description">
-              Planta trepadeira de fácil cultivo
-            </p>
-            <div class="product-price">
-              <span class="price">R$ 39,90</span>
-            </div>
-            <button class="btn-add-cart">Adicionar ao Carrinho</button>
           </div>
         </div>
       </div>

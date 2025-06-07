@@ -4,12 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login Administrativo | Plantas Marketplace</title>
-    <link rel="stylesheet" href="../css/style.css" />
+    <!-- <link rel="stylesheet" href="../css/style.css" /> -->
     <link rel="stylesheet" href="../css/admin.css" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   </head>
   <body class="admin-body">
     <div class="admin-login-container">
@@ -23,8 +22,7 @@
           id="adminLoginForm"
           class="admin-login-form"
           action="dashboard.html"
-          method="post"
-        >
+          method="post">
           <div class="form-group">
             <label for="username">Email</label>
             <div class="input-icon-wrapper">
@@ -34,8 +32,7 @@
                 id="username"
                 name="username"
                 placeholder="Digite seu email"
-                required
-              />
+                required />
             </div>
           </div>
           <div class="form-group">
@@ -47,8 +44,7 @@
                 id="password"
                 name="password"
                 placeholder="Digite sua senha"
-                required
-              />
+                required />
             </div>
           </div>
           <div class="form-group remember-me">
@@ -71,27 +67,27 @@
     <script src="../js/admin.js"></script>
     <script>
       document
-        .getElementById("adminLoginForm")
-        .addEventListener("submit", function (e) {
+        .getElementById('adminLoginForm')
+        .addEventListener('submit', function (e) {
           e.preventDefault();
 
-          const email = document.getElementById("username").value;
-          const password = document.getElementById("password").value;
-          const messageDiv = document.getElementById("loginMessage");
+          const email = document.getElementById('username').value;
+          const password = document.getElementById('password').value;
+          const messageDiv = document.getElementById('loginMessage');
 
           // Simulação de validação (em um ambiente real, isso seria feito no servidor)
-          if (email === "admin@admin.com" && password === "pass") {
+          if (email === 'admin@admin.com' && password === 'pass') {
             // Login bem-sucedido
             messageDiv.innerHTML =
               '<div class="alert alert-success">Login realizado com sucesso! Redirecionando...</div>';
 
             // Simular armazenamento de sessão
-            localStorage.setItem("adminLoggedIn", "true");
-            localStorage.setItem("adminName", "Administrador");
+            localStorage.setItem('adminLoggedIn', 'true');
+            localStorage.setItem('adminName', 'Administrador');
 
             // Redirecionar após um breve delay
             setTimeout(() => {
-              window.location.href = "dashboard.html";
+              window.location.href = 'dashboard.html';
             }, 1000);
           } else {
             // Login falhou

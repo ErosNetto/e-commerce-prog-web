@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><?= APP_NAME ?></title>
+  <link rel="stylesheet" href="<?= BASE_URL ?>/css/style.css" />
+  <link rel="stylesheet" href="<?= BASE_URL ?>/css/auth.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="logo">
+        <h1>Cantinho<span>Verde</span></h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="<?= BASE_URL ?>/home">Início</a></li>
+          <li><a href="<?= BASE_URL ?>/produtos">Produtos</a></li>
+          <li><a href="<?= BASE_URL ?>/categorias">Categorias</a></li>
+          <li><a href="<?= BASE_URL ?>/sobre">Sobre</a></li>
+          <li><a href="<?= BASE_URL ?>/contato">Contato</a></li>
+        </ul>
+      </nav>
+      <div class="icons">
+        <a href="<?= BASE_URL ?>/carrinho"><i class="fas fa-shopping-cart"></i></a>
+        <a href="<?= BASE_URL ?>/conta" class="active"><i class="fas fa-user"></i></a>
+        <!-- <a href="<?= BASE_URL ?>/pesquisa"><i class="fas fa-search"></i></a> -->
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <div class="auth-container">
+        <div class="auth-card">
+          <div class="auth-header">
+            <h1>Entrar na sua conta</h1>
+            <p>Bem-vindo de volta! Entre com seus dados para acessar sua conta.</p>
+          </div>
+
+          <form class="auth-form" id="loginForm">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <div class="input-wrapper">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="email" name="email" placeholder="Digite seu email" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="password">Senha</label>
+              <div class="input-wrapper">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+                <button type="button" class="toggle-password" id="togglePassword">
+                  <i class="far fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-options">
+              <a href="recuperar-senha.html" class="forgot-password">Esqueceu a senha?</a>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full">
+              <i class="fas fa-sign-in-alt"></i>
+              Entrar
+            </button>
+          </form>
+
+          <div class="auth-footer">
+            <p>Não tem uma conta? <a href="<?= BASE_URL ?>/cadastro">Cadastre-se aqui</a></p>
+          </div>
+        </div>
+
+        <div class="auth-benefits">
+          <h3>Vantagens de ter uma conta</h3>
+          <ul>
+            <li>
+              <i class="fas fa-heart"></i>
+              <div>
+                <strong>Lista de Desejos</strong>
+                <p>Salve seus produtos favoritos para comprar depois</p>
+              </div>
+            </li>
+            <li>
+              <i class="fas fa-shipping-fast"></i>
+              <div>
+                <strong>Checkout Rápido</strong>
+                <p>Finalize suas compras mais rapidamente</p>
+              </div>
+            </li>
+            <li>
+              <i class="fas fa-history"></i>
+              <div>
+                <strong>Histórico de Pedidos</strong>
+                <p>Acompanhe todos os seus pedidos em um só lugar</p>
+              </div>
+            </li>
+            <li>
+              <i class="fas fa-gift"></i>
+              <div>
+                <strong>Ofertas Exclusivas</strong>
+                <p>Receba promoções especiais por email</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <?php require_once 'partials/footer.php'; ?>
+
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+
+</html>

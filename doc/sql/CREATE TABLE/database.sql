@@ -11,10 +11,11 @@ CREATE TABLE usuarios (
     senha VARCHAR(255) NOT NULL,
     telefone VARCHAR(20),
     data_nascimento DATE,
-    data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
-    ultimo_acesso DATETIME,
-    status ENUM('ativo', 'inativo', 'bloqueado') DEFAULT 'ativo',
-    tipo ENUM('cliente', 'admin', 'vendedor') DEFAULT 'cliente'
+    -- data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
+    -- ultimo_acesso DATETIME,
+    -- status ENUM('ativo', 'inativo', 'bloqueado') DEFAULT 'ativo',
+    -- tipo ENUM('cliente', 'admin', 'vendedor') DEFAULT 'cliente'
+    tipo ENUM('cliente', 'admin') DEFAULT 'cliente'
 );
 
 -- Tabela de Endereços

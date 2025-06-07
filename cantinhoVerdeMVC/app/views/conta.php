@@ -13,7 +13,6 @@
 </head>
 
 <body>
-  <!-- <?php require_once 'partials/navbar.php'; ?> -->
   <header>
     <div class="container">
       <div class="logo">
@@ -31,7 +30,7 @@
       <div class="icons">
         <a href="<?= BASE_URL ?>/carrinho"><i class="fas fa-shopping-cart"></i></a>
         <a href="<?= BASE_URL ?>/conta" class="active"><i class="fas fa-user"></i></a>
-        <a href="<?= BASE_URL ?>/pesquisa"><i class="fas fa-search"></i></a>
+        <!-- <a href="<?= BASE_URL ?>/pesquisa"><i class="fas fa-search"></i></a> -->
       </div>
     </div>
   </header>
@@ -41,7 +40,7 @@
     <div class="container">
       <h1>Categorias de Plantas</h1>
       <div class="breadcrumb">
-        <a href="<?= BASE_URL ?>/home">Home</a> / <span>Minha Conta</span>
+        <a href="<?= BASE_URL ?>/home">Início</a> / <span>Minha Conta</span>
       </div>
     </div>
   </section>
