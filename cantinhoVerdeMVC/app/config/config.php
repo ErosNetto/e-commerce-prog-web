@@ -14,7 +14,7 @@ define('DB_PASS', '');
 define('DB_NAME', 'cantinhoverde_db');
 
 // URL base do projeto
-define('BASE_URL', 'http://localhost/cantinhoVerde/cantinhoVerdeMVC/public');
+define('BASE_URL', 'http://localhost/e-commerce-prog-web/cantinhoVerdeMVC/public');
 
 // Configurações de debug
 define('DEBUG_MODE', 'true');

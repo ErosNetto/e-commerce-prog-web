@@ -56,16 +56,16 @@ CREATE TABLE categoria_imagem (
 );
 
 -- Tabela de Fornecedores
-CREATE TABLE fornecedores (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    cnpj VARCHAR(20) UNIQUE,
-    email VARCHAR(100),
-    telefone VARCHAR(20),
-    endereco VARCHAR(255),
-    contato_nome VARCHAR(100),
-    status ENUM('ativo', 'inativo') DEFAULT 'ativo'
-);
+-- CREATE TABLE fornecedores (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     nome VARCHAR(100) NOT NULL,
+--     cnpj VARCHAR(20) UNIQUE,
+--     email VARCHAR(100),
+--     telefone VARCHAR(20),
+--     endereco VARCHAR(255),
+--     contato_nome VARCHAR(100),
+--     status ENUM('ativo', 'inativo') DEFAULT 'ativo'
+-- );
 
 -- Tabela de Produtos
 CREATE TABLE produtos (
@@ -114,17 +114,17 @@ CREATE TABLE produto_imagens (
 );
 
 -- Tabela de Avaliações de Produtos
-CREATE TABLE avaliacoes (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    produto_id INT NOT NULL,
-    usuario_id INT NOT NULL,
-    nota INT NOT NULL CHECK (nota BETWEEN 1 AND 5),
-    comentario TEXT,
-    data_avaliacao DATETIME DEFAULT CURRENT_TIMESTAMP,
-    status ENUM('pendente', 'aprovado', 'rejeitado') DEFAULT 'pendente',
-    FOREIGN KEY (produto_id) REFERENCES produtos(id) ON DELETE CASCADE,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
-);
+-- CREATE TABLE avaliacoes (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     produto_id INT NOT NULL,
+--     usuario_id INT NOT NULL,
+--     nota INT NOT NULL CHECK (nota BETWEEN 1 AND 5),
+--     comentario TEXT,
+--     data_avaliacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+--     status ENUM('pendente', 'aprovado', 'rejeitado') DEFAULT 'pendente',
+--     FOREIGN KEY (produto_id) REFERENCES produtos(id) ON DELETE CASCADE,
+--     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+-- );
 
 -- Tabela de Carrinhos
 CREATE TABLE carrinhos (
@@ -150,18 +150,18 @@ CREATE TABLE carrinho_itens (
 );
 
 -- Tabela de Cupons de Desconto
-CREATE TABLE cupons (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    codigo VARCHAR(50) NOT NULL UNIQUE,
-    tipo ENUM('percentual', 'valor_fixo') NOT NULL,
-    valor DECIMAL(10, 2) NOT NULL,
-    data_inicio DATETIME NOT NULL,
-    data_fim DATETIME NOT NULL,
-    uso_maximo INT,
-    uso_atual INT DEFAULT 0,
-    valor_minimo DECIMAL(10, 2),
-    status ENUM('ativo', 'inativo') DEFAULT 'ativo'
-);
+-- CREATE TABLE cupons (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     codigo VARCHAR(50) NOT NULL UNIQUE,
+--     tipo ENUM('percentual', 'valor_fixo') NOT NULL,
+--     valor DECIMAL(10, 2) NOT NULL,
+--     data_inicio DATETIME NOT NULL,
+--     data_fim DATETIME NOT NULL,
+--     uso_maximo INT,
+--     uso_atual INT DEFAULT 0,
+--     valor_minimo DECIMAL(10, 2),
+--     status ENUM('ativo', 'inativo') DEFAULT 'ativo'
+-- );
 
 -- Tabela de Pedidos
 CREATE TABLE pedidos (
@@ -182,7 +182,7 @@ CREATE TABLE pedidos (
     data_atualizacao DATETIME ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE SET NULL,
     FOREIGN KEY (endereco_entrega_id) REFERENCES enderecos(id) ON DELETE SET NULL,
-    FOREIGN KEY (cupom_id) REFERENCES cupons(id) ON DELETE SET NULL
+    -- FOREIGN KEY (cupom_id) REFERENCES cupons(id) ON DELETE SET NULL
 );
 
 -- Tabela de Itens do Pedido
@@ -221,67 +221,67 @@ CREATE TABLE pagamentos (
 );
 
 -- Tabela de Lista de Desejos
-CREATE TABLE lista_desejos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    usuario_id INT NOT NULL,
-    produto_id INT NOT NULL,
-    data_adicao DATETIME DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE KEY (usuario_id, produto_id),
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
-    FOREIGN KEY (produto_id) REFERENCES produtos(id) ON DELETE CASCADE
-);
+-- CREATE TABLE lista_desejos (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     usuario_id INT NOT NULL,
+--     produto_id INT NOT NULL,
+--     data_adicao DATETIME DEFAULT CURRENT_TIMESTAMP,
+--     UNIQUE KEY (usuario_id, produto_id),
+--     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+--     FOREIGN KEY (produto_id) REFERENCES produtos(id) ON DELETE CASCADE
+-- );
 
 -- Tabela de Perguntas e Respostas
-CREATE TABLE perguntas_respostas (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    produto_id INT NOT NULL,
-    usuario_id INT NOT NULL,
-    pergunta TEXT NOT NULL,
-    resposta TEXT,
-    data_pergunta DATETIME DEFAULT CURRENT_TIMESTAMP,
-    data_resposta DATETIME,
-    status ENUM('pendente', 'respondida', 'rejeitada') DEFAULT 'pendente',
-    FOREIGN KEY (produto_id) REFERENCES produtos(id) ON DELETE CASCADE,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
-);
+-- CREATE TABLE perguntas_respostas (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     produto_id INT NOT NULL,
+--     usuario_id INT NOT NULL,
+--     pergunta TEXT NOT NULL,
+--     resposta TEXT,
+--     data_pergunta DATETIME DEFAULT CURRENT_TIMESTAMP,
+--     data_resposta DATETIME,
+--     status ENUM('pendente', 'respondida', 'rejeitada') DEFAULT 'pendente',
+--     FOREIGN KEY (produto_id) REFERENCES produtos(id) ON DELETE CASCADE,
+--     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+-- );
 
 -- Tabela de Newsletter
-CREATE TABLE newsletter (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    nome VARCHAR(100),
-    data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
-    status ENUM('ativo', 'inativo') DEFAULT 'ativo'
-);
+-- CREATE TABLE newsletter (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     email VARCHAR(100) NOT NULL UNIQUE,
+--     nome VARCHAR(100),
+--     data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
+--     status ENUM('ativo', 'inativo') DEFAULT 'ativo'
+-- );
 
 -- Tabela de Contatos/Mensagens
-CREATE TABLE contatos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    telefone VARCHAR(20),
-    assunto VARCHAR(100),
-    mensagem TEXT NOT NULL,
-    data_envio DATETIME DEFAULT CURRENT_TIMESTAMP,
-    status ENUM('novo', 'lido', 'respondido') DEFAULT 'novo'
-);
+-- CREATE TABLE contatos (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     nome VARCHAR(100) NOT NULL,
+--     email VARCHAR(100) NOT NULL,
+--     telefone VARCHAR(20),
+--     assunto VARCHAR(100),
+--     mensagem TEXT NOT NULL,
+--     data_envio DATETIME DEFAULT CURRENT_TIMESTAMP,
+--     status ENUM('novo', 'lido', 'respondido') DEFAULT 'novo'
+-- );
 
 -- Tabela de Configurações do Site
-CREATE TABLE configuracoes (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    chave VARCHAR(50) NOT NULL UNIQUE,
-    valor TEXT,
-    descricao VARCHAR(255)
-);
+-- CREATE TABLE configuracoes (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     chave VARCHAR(50) NOT NULL UNIQUE,
+--     valor TEXT,
+--     descricao VARCHAR(255)
+-- );
 
--- Inserir algumas configurações iniciais
-INSERT INTO configuracoes (chave, valor, descricao) VALUES
-('site_nome', 'PlantaShop', 'Nome do site'),
-('site_descricao', 'Marketplace de plantas online', 'Descrição do site'),
-('email_contato', 'contato@plantashop.com.br', 'Email de contato'),
-('telefone_contato', '(11) 99999-9999', 'Telefone de contato'),
-('endereco', 'Av. das Plantas, 123 - São Paulo', 'Endereço físico'),
-('redes_sociais', '{"facebook":"https://facebook.com/plantashop","instagram":"https://instagram.com/plantashop"}', 'Redes sociais em formato JSON');
+-- -- Inserir algumas configurações iniciais
+-- INSERT INTO configuracoes (chave, valor, descricao) VALUES
+-- ('site_nome', 'PlantaShop', 'Nome do site'),
+-- ('site_descricao', 'Marketplace de plantas online', 'Descrição do site'),
+-- ('email_contato', 'contato@plantashop.com.br', 'Email de contato'),
+-- ('telefone_contato', '(11) 99999-9999', 'Telefone de contato'),
+-- ('endereco', 'Av. das Plantas, 123 - São Paulo', 'Endereço físico'),
+-- ('redes_sociais', '{"facebook":"https://facebook.com/plantashop","instagram":"https://instagram.com/plantashop"}', 'Redes sociais em formato JSON');
 
 -- Índices para melhorar a performance
 CREATE INDEX idx_produtos_nome ON produtos(nome);
@@ -289,4 +289,4 @@ CREATE INDEX idx_produtos_preco ON produtos(preco);
 CREATE INDEX idx_produtos_status ON produtos(status);
 CREATE INDEX idx_pedidos_usuario ON pedidos(usuario_id);
 CREATE INDEX idx_pedidos_status ON pedidos(status);
-CREATE INDEX idx_avaliacoes_produto ON avaliacoes(produto_id);
+-- CREATE INDEX idx_avaliacoes_produto ON avaliacoes(produto_id);
