@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Máscara para telefone
-  const phoneInput = document.getElementById('phone');
+  // Máscara para telefone (usa)
+  const phoneInput = document.getElementById('telefone');
   if (phoneInput) {
     phoneInput.addEventListener('input', function () {
       this.value = formatPhone(this.value);
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Validação de data de nascimento
-  const birthDateInput = document.getElementById('birthDate');
+  const birthDateInput = document.getElementById('data_nascimento');
   if (birthDateInput) {
     // Definir data máxima (18 anos atrás)
     const today = new Date();
@@ -175,22 +175,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
-
-// Função para verificar sessão do usuário
-function checkUserSession() {
-  const user = JSON.parse(localStorage.getItem('user'));
-
-  if (user && user.loggedIn) {
-    // Se estiver na página de login ou cadastro, redirecionar
-    const currentPage = window.location.pathname;
-    if (
-      currentPage.includes('login.html') ||
-      currentPage.includes('cadastro.html')
-    ) {
-      window.location.href = 'index.html';
-    }
-  }
-}
 
 // Função para validar confirmação de senha
 function validatePasswordMatch() {
@@ -607,16 +591,6 @@ function handleRegister() {
   }, 2000);
 }
 
-// Função para obter parâmetros da URL
-function getUrlParameter(name) {
-  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-  const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-  const results = regex.exec(location.search);
-  return results === null
-    ? ''
-    : decodeURIComponent(results[1].replace(/\+/g, ' '));
-}
-
 // Função para mostrar notificações
 function showNotification(message, type = 'info') {
   // Remover notificação existente
@@ -702,22 +676,6 @@ function showNotification(message, type = 'info') {
       }
     }, 300);
   });
-}
-
-// Função para logout (pode ser chamada de outras páginas)
-function logout() {
-  fetch(`${BASE_URL}/login/logout`, {
-    method: 'POST',
-  })
-    .then((response) => {
-      if (response.redirected) {
-        window.location.href = response.url;
-      }
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-      showNotification('Erro ao fazer logout', 'error');
-    });
 }
 
 // Exportar funções para uso global

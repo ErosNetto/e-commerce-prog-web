@@ -46,21 +46,50 @@
             <p>Junte-se à nossa comunidade de amantes de plantas!</p>
           </div>
 
-          <form class="auth-form" id="registerForm">
+          <?php if (isset($_SESSION['mensagem_sucesso'])): ?>
+            <div class="alert alert-success">
+              <i class="fas fa-check-circle"></i>
+              <?= $_SESSION['mensagem_sucesso'] ?>
+            </div>
+            <?php unset($_SESSION['mensagem_sucesso']); ?>
+          <?php endif; ?>
+
+          <?php if (isset($_SESSION['mensagem_erro'])): ?>
+            <div class="alert alert-error">
+              <i class="fas fa-exclamation-circle"></i>
+              <?= $_SESSION['mensagem_erro'] ?>
+            </div>
+            <?php unset($_SESSION['mensagem_erro']); ?>
+          <?php endif; ?>
+
+          <?php if (isset($erros) && !empty($erros)): ?>
+            <div class="alert alert-error">
+              <i class="fas fa-exclamation-circle"></i>
+              <ul>
+                <?php foreach ($erros as $erro): ?>
+                  <li><?= htmlspecialchars($erro) ?></li>
+                <?php endforeach; ?>
+              </ul>
+            </div>
+          <?php endif; ?>
+
+          <form class="auth-form" method="POST" action="<?= BASE_URL ?>/usuario/cadastro">
             <div class="form-row">
               <div class="form-group">
-                <label for="firstName">Nome</label>
+                <label for="nome">Nome</label>
                 <div class="input-wrapper">
                   <i class="fas fa-user"></i>
-                  <input type="text" id="firstName" name="firstName" placeholder="Seu nome" required>
+                  <input type="text" id="nome" name="nome" placeholder="Seu nome"
+                    value="<?= isset($dados_antigos['nome']) ? htmlspecialchars($dados_antigos['nome']) : '' ?>" required>
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="lastName">Sobrenome</label>
+                <label for="sobrenome">Sobrenome</label>
                 <div class="input-wrapper">
                   <i class="fas fa-user"></i>
-                  <input type="text" id="lastName" name="lastName" placeholder="Seu sobrenome" required>
+                  <input type="text" id="sobrenome" name="sobrenome" placeholder="Seu sobrenome"
+                    value="<?= isset($dados_antigos['sobrenome']) ? htmlspecialchars($dados_antigos['sobrenome']) : '' ?>" required>
                 </div>
               </div>
             </div>
@@ -69,31 +98,34 @@
               <label for="email">Email</label>
               <div class="input-wrapper">
                 <i class="fas fa-envelope"></i>
-                <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                <input type="email" id="email" name="email" placeholder="seu@email.com"
+                  value="<?= isset($dados_antigos['email']) ? htmlspecialchars($dados_antigos['email']) : '' ?>" required>
               </div>
             </div>
 
             <div class="form-group">
-              <label for="phone">Telefone</label>
+              <label for="telefone">Telefone</label>
               <div class="input-wrapper">
                 <i class="fas fa-phone"></i>
-                <input type="tel" id="phone" name="phone" placeholder="(11) 99999-9999" required>
+                <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999"
+                  value="<?= isset($dados_antigos['telefone']) ? htmlspecialchars($dados_antigos['telefone']) : '' ?>">
               </div>
             </div>
 
             <div class="form-group">
-              <label for="birthDate">Data de Nascimento</label>
+              <label for="data_nascimento">Data de Nascimento</label>
               <div class="input-wrapper">
                 <i class="fas fa-calendar"></i>
-                <input type="date" id="birthDate" name="birthDate" required>
+                <input type="date" id="data_nascimento" name="data_nascimento"
+                  value="<?= isset($dados_antigos['data_nascimento']) ? htmlspecialchars($dados_antigos['data_nascimento']) : '' ?>">
               </div>
             </div>
 
             <div class="form-group">
-              <label for="password">Senha</label>
+              <label for="senha">Senha</label>
               <div class="input-wrapper">
                 <i class="fas fa-lock"></i>
-                <input type="password" id="password" name="password" placeholder="Mínimo 8 caracteres" required>
+                <input type="password" id="senha" name="senha" placeholder="Mínimo 6 caracteres" required>
                 <button type="button" class="toggle-password" id="togglePassword">
                   <i class="far fa-eye"></i>
                 </button>
@@ -101,10 +133,10 @@
             </div>
 
             <div class="form-group">
-              <label for="confirmPassword">Confirmar Senha</label>
+              <label for="confirmar_senha">Confirmar Senha</label>
               <div class="input-wrapper">
                 <i class="fas fa-lock"></i>
-                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Digite a senha novamente" required>
+                <input type="password" id="confirmar_senha" name="confirmar_senha" placeholder="Digite a senha novamente" required>
                 <button type="button" class="toggle-password" id="toggleConfirmPassword">
                   <i class="far fa-eye"></i>
                 </button>
@@ -118,7 +150,7 @@
           </form>
 
           <div class="auth-footer">
-            <p>Já tem uma conta? <a href="<?= BASE_URL ?>/login">Entre aqui</a></p>
+            <p>Já tem uma conta? <a href="<?= BASE_URL ?>/usuario/login">Entre aqui</a></p>
           </div>
         </div>
 
@@ -169,8 +201,7 @@
   <!-- Footer -->
   <?php require_once 'partials/footer.php'; ?>
 
-  <script src="js/main.js"></script>
-  <script src="js/auth.js"></script>
+  <script src="<?= BASE_URL ?>/js/auth.js"></script>
 </body>
 
 </html>

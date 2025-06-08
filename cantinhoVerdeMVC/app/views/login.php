@@ -46,20 +46,48 @@
             <p>Bem-vindo de volta! Entre com seus dados para acessar sua conta.</p>
           </div>
 
-          <form class="auth-form" id="loginForm">
+          <?php if (isset($_SESSION['mensagem_sucesso'])): ?>
+            <div class="alert alert-success">
+              <i class="fas fa-check-circle"></i>
+              <?= $_SESSION['mensagem_sucesso'] ?>
+            </div>
+            <?php unset($_SESSION['mensagem_sucesso']); ?>
+          <?php endif; ?>
+
+          <?php if (isset($_SESSION['mensagem_erro'])): ?>
+            <div class="alert alert-error">
+              <i class="fas fa-exclamation-circle"></i>
+              <?= $_SESSION['mensagem_erro'] ?>
+            </div>
+            <?php unset($_SESSION['mensagem_erro']); ?>
+          <?php endif; ?>
+
+          <?php if (isset($erros) && !empty($erros)): ?>
+            <div class="alert alert-error">
+              <i class="fas fa-exclamation-circle"></i>
+              <ul>
+                <?php foreach ($erros as $erro): ?>
+                  <li><?= htmlspecialchars($erro) ?></li>
+                <?php endforeach; ?>
+              </ul>
+            </div>
+          <?php endif; ?>
+
+          <form class="auth-form" method="POST" action="<?= BASE_URL ?>/usuario/login">
             <div class="form-group">
               <label for="email">Email</label>
               <div class="input-wrapper">
                 <i class="fas fa-envelope"></i>
-                <input type="email" id="email" name="email" placeholder="Digite seu email" required>
+                <input type="email" id="email" name="email" placeholder="Digite seu email"
+                  value="<?= isset($dados_antigos['email']) ? htmlspecialchars($dados_antigos['email']) : '' ?>" required>
               </div>
             </div>
 
             <div class="form-group">
-              <label for="password">Senha</label>
+              <label for="senha">Senha</label>
               <div class="input-wrapper">
                 <i class="fas fa-lock"></i>
-                <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+                <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
                 <button type="button" class="toggle-password" id="togglePassword">
                   <i class="far fa-eye"></i>
                 </button>
@@ -67,7 +95,7 @@
             </div>
 
             <div class="form-options">
-              <a href="recuperar-senha.html" class="forgot-password">Esqueceu a senha?</a>
+              <a href="#" class="forgot-password">Esqueceu a senha?</a>
             </div>
 
             <button type="submit" class="btn btn-primary btn-full">
@@ -77,7 +105,7 @@
           </form>
 
           <div class="auth-footer">
-            <p>Não tem uma conta? <a href="<?= BASE_URL ?>/cadastro">Cadastre-se aqui</a></p>
+            <p>Não tem uma conta? <a href="<?= BASE_URL ?>/usuario/cadastro">Cadastre-se aqui</a></p>
           </div>
         </div>
 
@@ -121,8 +149,7 @@
   <!-- Footer -->
   <?php require_once 'partials/footer.php'; ?>
 
-  <script src="js/main.js"></script>
-  <script src="js/auth.js"></script>
+  <script src="<?= BASE_URL ?>/js/auth.js"></script>
 </body>
 
 </html>
