@@ -1,3 +1,8 @@
+<?php
+require_once '../app/helpers/Auth.php';
+$usuario = Auth::getUser();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -51,22 +56,10 @@
               <span>Pedidos</span>
             </a>
           </li>
-          <!-- <li>
-            <a href="clientes.html">
-              <i class="fas fa-users"></i>
-              <span>Clientes</span>
-            </a>
-          </li>
-          <li>
-            <a href="configuracoes.html">
-              <i class="fas fa-cog"></i>
-              <span>Configurações</span>
-            </a>
-          </li> -->
         </ul>
       </nav>
       <div class="admin-sidebar-footer">
-        <a href="login.html" class="admin-logout">
+        <a href="<?= BASE_URL ?>/usuario/logout" class="admin-logout">
           <i class="fas fa-sign-out-alt"></i>
           <span>Sair</span>
         </a>
@@ -85,25 +78,7 @@
         </div>
 
         <div class="admin-header-right">
-          <div class="admin-profile">
-            <button class="admin-profile-btn">
-              <span>Admin</span>
-              <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="admin-profile-dropdown">
-              <ul>
-                <li>
-                  <a href="#"><i class="fas fa-user"></i> Meu Perfil</a>
-                </li>
-                <li>
-                  <a href="#"><i class="fas fa-cog"></i> Configurações</a>
-                </li>
-                <li>
-                  <a href="login.html"><i class="fas fa-sign-out-alt"></i> Sair</a>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <h3><?= htmlspecialchars($usuario["name"]) ?></h3>
         </div>
       </header>
 
@@ -119,7 +94,7 @@
             </a>
           </div>
           <div class="admin-card-body">
-            <div class="admin-filters">
+            <!-- <div class="admin-filters">
               <div class="admin-filter-group">
                 <select id="categoryFilter">
                   <option value="">Todas as Categorias</option>
@@ -138,28 +113,15 @@
                   <option value="outofstock">Fora de Estoque</option>
                 </select>
               </div>
-              <div class="admin-filter-group">
-                <select id="sortFilter">
-                  <option value="newest">Mais Recentes</option>
-                  <option value="oldest">Mais Antigos</option>
-                  <option value="name-asc">Nome (A-Z)</option>
-                  <option value="name-desc">Nome (Z-A)</option>
-                  <option value="price-asc">Preço (Menor-Maior)</option>
-                  <option value="price-desc">Preço (Maior-Menor)</option>
-                </select>
-              </div>
               <button class="admin-btn admin-btn-secondary" id="filterButton">
                 <i class="fas fa-filter"></i> Filtrar
               </button>
-            </div>
+            </div> -->
 
             <div class="admin-table-responsive">
               <table class="admin-table">
                 <thead>
                   <tr>
-                    <th>
-                      <input type="checkbox" id="selectAll" />
-                    </th>
                     <th>Imagem</th>
                     <th>Nome</th>
                     <th>Categoria</th>
@@ -169,14 +131,9 @@
                     <th>Ações</th>
                   </tr>
                 </thead>
+
                 <tbody>
                   <tr>
-                    <td>
-                      <input
-                        type="checkbox"
-                        class="product-checkbox"
-                        data-id="1" />
-                    </td>
                     <td>
                       <img
                         src="../images/products/planta1.jpg"
@@ -213,248 +170,17 @@
                       </div>
                     </td>
                   </tr>
-                  <tr>
-                    <td>
-                      <input
-                        type="checkbox"
-                        class="product-checkbox"
-                        data-id="2" />
-                    </td>
-                    <td>
-                      <img
-                        src="../images/products/planta2.jpg"
-                        alt="Espada de São Jorge"
-                        class="product-thumbnail" />
-                    </td>
-                    <td>Espada de São Jorge</td>
-                    <td>Planta de Interior</td>
-                    <td>R$ 64,50</td>
-                    <td>23</td>
-                    <td>
-                      <span class="status-badge instock">Em Estoque</span>
-                    </td>
-                    <td>
-                      <div class="action-buttons">
-                        <a
-                          href="produto-editar.html?id=2"
-                          class="action-btn edit-btn"
-                          title="Editar">
-                          <i class="fas fa-edit"></i>
-                        </a>
-                        <button
-                          class="action-btn delete-btn"
-                          title="Excluir"
-                          data-id="2">
-                          <i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button
-                          class="action-btn view-btn"
-                          title="Visualizar"
-                          data-id="2">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input
-                        type="checkbox"
-                        class="product-checkbox"
-                        data-id="3" />
-                    </td>
-                    <td>
-                      <img
-                        src="../images/products/planta3.jpg"
-                        alt="Suculenta Echeveria"
-                        class="product-thumbnail" />
-                    </td>
-                    <td>Suculenta Echeveria</td>
-                    <td>Suculenta</td>
-                    <td>R$ 29,90</td>
-                    <td>42</td>
-                    <td>
-                      <span class="status-badge instock">Em Estoque</span>
-                    </td>
-                    <td>
-                      <div class="action-buttons">
-                        <a
-                          href="produto-editar.html?id=3"
-                          class="action-btn edit-btn"
-                          title="Editar">
-                          <i class="fas fa-edit"></i>
-                        </a>
-                        <button
-                          class="action-btn delete-btn"
-                          title="Excluir"
-                          data-id="3">
-                          <i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button
-                          class="action-btn view-btn"
-                          title="Visualizar"
-                          data-id="3">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input
-                        type="checkbox"
-                        class="product-checkbox"
-                        data-id="4" />
-                    </td>
-                    <td>
-                      <img
-                        src="../images/products/planta4.jpg"
-                        alt="Cacto Mandacaru"
-                        class="product-thumbnail" />
-                    </td>
-                    <td>Cacto Mandacaru</td>
-                    <td>Cacto</td>
-                    <td>R$ 39,90</td>
-                    <td>18</td>
-                    <td>
-                      <span class="status-badge instock">Em Estoque</span>
-                    </td>
-                    <td>
-                      <div class="action-buttons">
-                        <a
-                          href="produto-editar.html?id=4"
-                          class="action-btn edit-btn"
-                          title="Editar">
-                          <i class="fas fa-edit"></i>
-                        </a>
-                        <button
-                          class="action-btn delete-btn"
-                          title="Excluir"
-                          data-id="4">
-                          <i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button
-                          class="action-btn view-btn"
-                          title="Visualizar"
-                          data-id="4">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input
-                        type="checkbox"
-                        class="product-checkbox"
-                        data-id="5" />
-                    </td>
-                    <td>
-                      <img
-                        src="../images/products/planta5.jpg"
-                        alt="Orquídea Phalaenopsis"
-                        class="product-thumbnail" />
-                    </td>
-                    <td>Orquídea Phalaenopsis</td>
-                    <td>Flor</td>
-                    <td>R$ 96,00</td>
-                    <td>3</td>
-                    <td>
-                      <span class="status-badge lowstock">Estoque Baixo</span>
-                    </td>
-                    <td>
-                      <div class="action-buttons">
-                        <a
-                          href="produto-editar.html?id=5"
-                          class="action-btn edit-btn"
-                          title="Editar">
-                          <i class="fas fa-edit"></i>
-                        </a>
-                        <button
-                          class="action-btn delete-btn"
-                          title="Excluir"
-                          data-id="5">
-                          <i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button
-                          class="action-btn view-btn"
-                          title="Visualizar"
-                          data-id="5">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input
-                        type="checkbox"
-                        class="product-checkbox"
-                        data-id="6" />
-                    </td>
-                    <td>
-                      <img
-                        src="../images/products/planta6.jpg"
-                        alt="Costela de Adão"
-                        class="product-thumbnail" />
-                    </td>
-                    <td>Costela de Adão</td>
-                    <td>Planta de Interior</td>
-                    <td>R$ 79,90</td>
-                    <td>0</td>
-                    <td>
-                      <span class="status-badge outofstock">Fora de Estoque</span>
-                    </td>
-                    <td>
-                      <div class="action-buttons">
-                        <a
-                          href="produto-editar.html?id=6"
-                          class="action-btn edit-btn"
-                          title="Editar">
-                          <i class="fas fa-edit"></i>
-                        </a>
-                        <button
-                          class="action-btn delete-btn"
-                          title="Excluir"
-                          data-id="6">
-                          <i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button
-                          class="action-btn view-btn"
-                          title="Visualizar"
-                          data-id="6">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
                 </tbody>
               </table>
             </div>
 
             <div class="admin-table-actions">
-              <div class="bulk-actions">
-                <select id="bulkAction">
-                  <option value="">Ações em Massa</option>
-                  <option value="delete">Excluir Selecionados</option>
-                  <option value="instock">Marcar como Em Estoque</option>
-                  <option value="outofstock">
-                    Marcar como Fora de Estoque
-                  </option>
-                </select>
-                <button
-                  class="admin-btn admin-btn-secondary"
-                  id="applyBulkAction">
-                  Aplicar
-                </button>
-              </div>
               <div class="pagination">
                 <button class="pagination-btn" disabled>
                   <i class="fas fa-chevron-left"></i>
                 </button>
                 <button class="pagination-btn active">1</button>
                 <button class="pagination-btn">2</button>
-                <button class="pagination-btn">3</button>
                 <button class="pagination-btn">
                   <i class="fas fa-chevron-right"></i>
                 </button>
@@ -531,116 +257,27 @@
         });
     });
 
-    // Select All Checkbox
-    document
-      .getElementById("selectAll")
-      .addEventListener("change", function() {
-        const checkboxes = document.querySelectorAll(".product-checkbox");
-        checkboxes.forEach((checkbox) => {
-          checkbox.checked = this.checked;
+    // Close Modal
+    const closeButtons = document.querySelectorAll(
+      ".admin-modal-close, .admin-modal-cancel"
+    );
+    closeButtons.forEach((button) => {
+      button.addEventListener("click", function() {
+        document.querySelectorAll(".admin-modal").forEach((modal) => {
+          modal.classList.remove("show");
         });
       });
+    });
 
     // Delete Product
-    let productIdToDelete = null;
     const deleteModal = document.getElementById("deleteModal");
     const deleteButtons = document.querySelectorAll(".delete-btn");
 
     deleteButtons.forEach((button) => {
       button.addEventListener("click", function() {
-        productIdToDelete = this.getAttribute("data-id");
         deleteModal.classList.add("show");
       });
     });
-
-    document
-      .querySelector(".admin-modal-close")
-      .addEventListener("click", function() {
-        deleteModal.classList.remove("show");
-      });
-
-    document
-      .querySelector(".admin-modal-cancel")
-      .addEventListener("click", function() {
-        deleteModal.classList.remove("show");
-      });
-
-    document
-      .getElementById("confirmDelete")
-      .addEventListener("click", function() {
-        // Aqui você faria uma requisição AJAX para excluir o produto
-        console.log(`Produto ${productIdToDelete} excluído`);
-        deleteModal.classList.remove("show");
-
-        // Simulando a exclusão do produto da tabela
-        const row = document
-          .querySelector(`.product-checkbox[data-id="${productIdToDelete}"]`)
-          .closest("tr");
-        row.remove();
-      });
-
-    // Bulk Actions
-    document
-      .getElementById("applyBulkAction")
-      .addEventListener("click", function() {
-        const action = document.getElementById("bulkAction").value;
-        if (!action) return;
-
-        const selectedProducts = [];
-        document
-          .querySelectorAll(".product-checkbox:checked")
-          .forEach((checkbox) => {
-            selectedProducts.push(checkbox.getAttribute("data-id"));
-          });
-
-        if (selectedProducts.length === 0) {
-          alert("Selecione pelo menos um produto");
-          return;
-        }
-
-        if (action === "delete") {
-          if (
-            confirm(
-              `Tem certeza que deseja excluir ${selectedProducts.length} produtos?`
-            )
-          ) {
-            // Aqui você faria uma requisição AJAX para excluir os produtos
-            console.log(`Produtos ${selectedProducts.join(", ")} excluídos`);
-
-            // Simulando a exclusão dos produtos da tabela
-            selectedProducts.forEach((id) => {
-              const row = document
-                .querySelector(`.product-checkbox[data-id="${id}"]`)
-                .closest("tr");
-              row.remove();
-            });
-          }
-        } else if (action === "instock" || action === "outofstock") {
-          // Aqui você faria uma requisição AJAX para atualizar o status dos produtos
-          console.log(
-            `Produtos ${selectedProducts.join(", ")} marcados como ${
-                action === "instock" ? "Em Estoque" : "Fora de Estoque"
-              }`
-          );
-
-          // Simulando a atualização do status dos produtos na tabela
-          selectedProducts.forEach((id) => {
-            const statusCell = document
-              .querySelector(`.product-checkbox[data-id="${id}"]`)
-              .closest("tr")
-              .querySelector("td:nth-child(7) .status-badge");
-            statusCell.className = `status-badge ${action}`;
-            statusCell.textContent =
-              action === "instock" ? "Em Estoque" : "Fora de Estoque";
-          });
-        }
-
-        // Desmarcar todos os checkboxes
-        document.getElementById("selectAll").checked = false;
-        document.querySelectorAll(".product-checkbox").forEach((checkbox) => {
-          checkbox.checked = false;
-        });
-      });
   </script>
 </body>
 

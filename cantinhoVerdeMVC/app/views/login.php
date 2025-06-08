@@ -1,3 +1,8 @@
+<?php
+require_once '../app/helpers/Auth.php';
+Auth::iniciarSessao();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -23,15 +28,38 @@
         <ul>
           <li><a href="<?= BASE_URL ?>/home">Início</a></li>
           <li><a href="<?= BASE_URL ?>/produtos">Produtos</a></li>
-          <li><a href="<?= BASE_URL ?>/categorias">Categorias</a></li>
           <li><a href="<?= BASE_URL ?>/sobre">Sobre</a></li>
           <li><a href="<?= BASE_URL ?>/contato">Contato</a></li>
         </ul>
       </nav>
       <div class="icons">
-        <a href="<?= BASE_URL ?>/carrinho"><i class="fas fa-shopping-cart"></i></a>
-        <a href="<?= BASE_URL ?>/conta" class="active"><i class="fas fa-user"></i></a>
-        <!-- <a href="<?= BASE_URL ?>/pesquisa"><i class="fas fa-search"></i></a> -->
+        <?php if (Auth::isLoggedIn()): ?>
+          <?php if (Auth::isAdmin()): ?>
+            <a href="<?= BASE_URL ?>/adminDashboard" title="Painel Administrativo">
+              <i class="fas fa-tachometer-alt"></i>
+            </a>
+          <?php endif; ?>
+
+          <a href="<?= BASE_URL ?>/carrinho" title="Carrinho">
+            <i class="fas fa-shopping-cart"></i>
+          </a>
+
+          <a href="<?= BASE_URL ?>/usuario/perfil" title="Meu Perfil">
+            <i class="fas fa-user"></i>
+            <!-- <span><?= htmlspecialchars(Auth::getUser()['name']) ?></span> -->
+          </a>
+
+          <a href="<?= BASE_URL ?>/usuario/logout" title="Sair">
+            <i class="fas fa-sign-out-alt"></i>
+          </a>
+        <?php else: ?>
+          <a href="<?= BASE_URL ?>/usuario/login" title="Carrinho">
+            <i class="fas fa-shopping-cart"></i>
+          </a>
+          <a href="<?= BASE_URL ?>/usuario/login" title="Login">
+            <i class="fas fa-user"></i>
+          </a>
+        <?php endif; ?>
       </div>
     </div>
   </header>

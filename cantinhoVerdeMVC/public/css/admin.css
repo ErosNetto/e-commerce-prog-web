@@ -251,84 +251,6 @@
   gap: 20px;
 }
 
-.admin-profile {
-  position: relative;
-}
-
-.admin-profile-btn {
-  background: none;
-  border: none;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  padding: 5px;
-  border-radius: 4px;
-  transition: var(--admin-transition);
-}
-
-.admin-profile-btn:hover {
-  background-color: var(--admin-bg);
-}
-
-.admin-profile-btn span {
-  font-weight: 500;
-}
-
-.admin-profile-btn i {
-  font-size: 0.8rem;
-  color: var(--admin-text-light);
-}
-
-.admin-profile-dropdown {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  width: 200px;
-  background-color: var(--admin-white);
-  border-radius: 4px;
-  box-shadow: var(--admin-shadow);
-  display: none;
-  z-index: 100;
-}
-
-.admin-profile-dropdown.show {
-  display: block;
-}
-
-.admin-profile-dropdown ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.admin-profile-dropdown li {
-  border-bottom: 1px solid var(--admin-border);
-}
-
-.admin-profile-dropdown li:last-child {
-  border-bottom: none;
-}
-
-.admin-profile-dropdown a {
-  display: flex;
-  align-items: center;
-  padding: 12px 15px;
-  text-decoration: none;
-  color: var(--admin-text);
-  transition: var(--admin-transition);
-}
-
-.admin-profile-dropdown a:hover {
-  background-color: var(--admin-bg);
-}
-
-.admin-profile-dropdown a i {
-  margin-right: 10px;
-  width: 20px;
-  text-align: center;
-}
-
 /* Content */
 .admin-content {
   flex: 1;
@@ -631,22 +553,9 @@
 
 .admin-table-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   margin-top: 20px;
-}
-
-.bulk-actions {
-  display: flex;
-  gap: 10px;
-}
-
-.bulk-actions select {
-  padding: 8px 10px;
-  border: 1px solid var(--admin-border);
-  border-radius: 4px;
-  background-color: var(--admin-white);
-  min-width: 150px;
 }
 
 .pagination {
@@ -748,20 +657,9 @@
   width: 100%;
 }
 
-.form-row {
-  display: flex;
-  flex-wrap: wrap;
-  margin: -10px;
-}
-
 .form-group {
   margin-bottom: 20px;
   padding: 0 10px;
-}
-
-.form-row .form-group {
-  flex: 1;
-  min-width: 200px;
 }
 
 .form-group label {
@@ -816,94 +714,6 @@
 .form-actions > div {
   display: flex;
   gap: 10px;
-}
-
-/* Product Images Uploader */
-.product-images-uploader {
-  margin-top: 10px;
-}
-
-.product-image-preview {
-  border: 2px dashed var(--admin-border);
-  border-radius: 8px;
-  padding: 20px;
-  text-align: center;
-  position: relative;
-  margin-bottom: 20px;
-  cursor: pointer;
-}
-
-.image-upload-placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  color: var(--admin-text-light);
-}
-
-.image-upload-placeholder i {
-  font-size: 2rem;
-}
-
-.product-image-preview input[type='file'] {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.product-image-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-
-.image-item {
-  width: 100px;
-  height: 100px;
-  border-radius: 8px;
-  overflow: hidden;
-  position: relative;
-}
-
-.image-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.image-actions {
-  position: absolute;
-  top: 0;
-  right: 0;
-  display: flex;
-  gap: 5px;
-  padding: 5px;
-}
-
-.image-action-btn {
-  width: 25px;
-  height: 25px;
-  border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.8);
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 0.8rem;
-  transition: var(--admin-transition);
-}
-
-.image-action-btn:hover {
-  background-color: var(--admin-white);
-}
-
-.image-action-btn.active {
-  color: var(--admin-primary);
 }
 
 /* Login Page */
@@ -1035,10 +845,6 @@
     grid-template-columns: 1fr;
   }
 
-  .admin-profile-btn span {
-    display: none;
-  }
-
   .form-actions {
     flex-direction: column;
     gap: 15px;
@@ -1064,7 +870,7 @@
 
   .admin-header-right {
     width: 100%;
-    justify-content: flex-end;
+    justify-content: flex-start;
     margin-top: 15px;
   }
 
@@ -1085,14 +891,6 @@
     flex-direction: column;
     gap: 15px;
     align-items: flex-start;
-  }
-
-  .bulk-actions {
-    width: 100%;
-  }
-
-  .bulk-actions select {
-    flex: 1;
   }
 
   .pagination {

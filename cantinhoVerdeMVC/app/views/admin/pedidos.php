@@ -1,3 +1,8 @@
+<?php
+require_once '../app/helpers/Auth.php';
+$usuario = Auth::getUser();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -51,22 +56,11 @@
               <span>Pedidos</span>
             </a>
           </li>
-          <!-- <li>
-            <a href="clientes.html">
-              <i class="fas fa-users"></i>
-              <span>Clientes</span>
-            </a>
-          </li>
-          <li>
-            <a href="configuracoes.html">
-              <i class="fas fa-cog"></i>
-              <span>Configurações</span>
-            </a>
-          </li> -->
+
         </ul>
       </nav>
       <div class="admin-sidebar-footer">
-        <a href="login.html" class="admin-logout">
+        <a href="<?= BASE_URL ?>/usuario/logout" class="admin-logout">
           <i class="fas fa-sign-out-alt"></i>
           <span>Sair</span>
         </a>
@@ -85,25 +79,7 @@
         </div>
 
         <div class="admin-header-right">
-          <div class="admin-profile">
-            <button class="admin-profile-btn">
-              <span>Admin</span>
-              <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="admin-profile-dropdown">
-              <ul>
-                <li>
-                  <a href="#"><i class="fas fa-user"></i> Meu Perfil</a>
-                </li>
-                <li>
-                  <a href="#"><i class="fas fa-cog"></i> Configurações</a>
-                </li>
-                <li>
-                  <a href="login.html"><i class="fas fa-sign-out-alt"></i> Sair</a>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <h3><?= htmlspecialchars($usuario["name"]) ?></h3>
         </div>
       </header>
 
@@ -124,8 +100,10 @@
               </button>
             </div>
           </div>
+
           <div class="admin-card-body">
-            <div class="admin-filters">
+            <!-- <div class="admin-filters">
+
               <div class="admin-filter-group">
                 <select id="statusFilter">
                   <option value="">Todos os Status</option>
@@ -141,6 +119,7 @@
                   <option value="cancelado">Cancelado</option>
                 </select>
               </div>
+
               <div class="admin-filter-group">
                 <select id="paymentFilter">
                   <option value="">Todos os Pagamentos</option>
@@ -150,21 +129,19 @@
                   <option value="transferencia">Transferência</option>
                 </select>
               </div>
+
               <button class="admin-btn admin-btn-secondary" id="filterButton">
                 <i class="fas fa-filter"></i> Filtrar
               </button>
               <button class="admin-btn admin-btn-secondary" id="exportButton">
                 <i class="fas fa-file-export"></i> Exportar
               </button>
-            </div>
+            </div> -->
 
             <div class="admin-table-responsive">
               <table class="admin-table">
                 <thead>
                   <tr>
-                    <th>
-                      <input type="checkbox" id="selectAll" />
-                    </th>
                     <th>Pedido</th>
                     <th>Cliente</th>
                     <th>Data</th>
@@ -176,12 +153,6 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>
-                      <input
-                        type="checkbox"
-                        class="order-checkbox"
-                        data-id="25" />
-                    </td>
                     <td>#ORD-0025</td>
                     <td>Maria Silva</td>
                     <td>15/04/2023</td>
@@ -213,222 +184,17 @@
                       </div>
                     </td>
                   </tr>
-                  <tr>
-                    <td>
-                      <input
-                        type="checkbox"
-                        class="order-checkbox"
-                        data-id="24" />
-                    </td>
-                    <td>#ORD-0024</td>
-                    <td>João Santos</td>
-                    <td>15/04/2023</td>
-                    <td>
-                      <span class="status-badge processing">Em Processamento</span>
-                    </td>
-                    <td>Boleto</td>
-                    <td>R$ 64,50</td>
-                    <td>
-                      <div class="action-buttons">
-                        <button
-                          class="action-btn view-btn"
-                          title="Visualizar"
-                          data-id="24">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                        <button
-                          class="action-btn edit-btn"
-                          title="Editar"
-                          data-id="24">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button
-                          class="action-btn invoice-btn"
-                          title="Nota Fiscal"
-                          data-id="24">
-                          <i class="fas fa-file-invoice"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input
-                        type="checkbox"
-                        class="order-checkbox"
-                        data-id="23" />
-                    </td>
-                    <td>#ORD-0023</td>
-                    <td>Ana Oliveira</td>
-                    <td>14/04/2023</td>
-                    <td><span class="status-badge shipped">Enviado</span></td>
-                    <td>PIX</td>
-                    <td>R$ 29,90</td>
-                    <td>
-                      <div class="action-buttons">
-                        <button
-                          class="action-btn view-btn"
-                          title="Visualizar"
-                          data-id="23">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                        <button
-                          class="action-btn edit-btn"
-                          title="Editar"
-                          data-id="23">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button
-                          class="action-btn invoice-btn"
-                          title="Nota Fiscal"
-                          data-id="23">
-                          <i class="fas fa-file-invoice"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input
-                        type="checkbox"
-                        class="order-checkbox"
-                        data-id="22" />
-                    </td>
-                    <td>#ORD-0022</td>
-                    <td>Carlos Pereira</td>
-                    <td>14/04/2023</td>
-                    <td>
-                      <span class="status-badge completed">Entregue</span>
-                    </td>
-                    <td>Cartão de Crédito</td>
-                    <td>R$ 39,90</td>
-                    <td>
-                      <div class="action-buttons">
-                        <button
-                          class="action-btn view-btn"
-                          title="Visualizar"
-                          data-id="22">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                        <button
-                          class="action-btn edit-btn"
-                          title="Editar"
-                          data-id="22">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button
-                          class="action-btn invoice-btn"
-                          title="Nota Fiscal"
-                          data-id="22">
-                          <i class="fas fa-file-invoice"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input
-                        type="checkbox"
-                        class="order-checkbox"
-                        data-id="21" />
-                    </td>
-                    <td>#ORD-0021</td>
-                    <td>Fernanda Lima</td>
-                    <td>13/04/2023</td>
-                    <td>
-                      <span class="status-badge cancelled">Cancelado</span>
-                    </td>
-                    <td>Boleto</td>
-                    <td>R$ 96,00</td>
-                    <td>
-                      <div class="action-buttons">
-                        <button
-                          class="action-btn view-btn"
-                          title="Visualizar"
-                          data-id="21">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                        <button
-                          class="action-btn edit-btn"
-                          title="Editar"
-                          data-id="21">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button
-                          class="action-btn invoice-btn"
-                          title="Nota Fiscal"
-                          data-id="21">
-                          <i class="fas fa-file-invoice"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input
-                        type="checkbox"
-                        class="order-checkbox"
-                        data-id="20" />
-                    </td>
-                    <td>#ORD-0020</td>
-                    <td>Roberto Alves</td>
-                    <td>12/04/2023</td>
-                    <td>
-                      <span class="status-badge completed">Entregue</span>
-                    </td>
-                    <td>PIX</td>
-                    <td>R$ 149,80</td>
-                    <td>
-                      <div class="action-buttons">
-                        <button
-                          class="action-btn view-btn"
-                          title="Visualizar"
-                          data-id="20">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                        <button
-                          class="action-btn edit-btn"
-                          title="Editar"
-                          data-id="20">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button
-                          class="action-btn invoice-btn"
-                          title="Nota Fiscal"
-                          data-id="20">
-                          <i class="fas fa-file-invoice"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
                 </tbody>
               </table>
             </div>
 
             <div class="admin-table-actions">
-              <div class="bulk-actions">
-                <select id="bulkAction">
-                  <option value="">Ações em Massa</option>
-                  <option value="processing">
-                    Marcar como Em Processamento
-                  </option>
-                  <option value="shipped">Marcar como Enviado</option>
-                  <option value="completed">Marcar como Entregue</option>
-                  <option value="cancelled">Marcar como Cancelado</option>
-                </select>
-                <button
-                  class="admin-btn admin-btn-secondary"
-                  id="applyBulkAction">
-                  Aplicar
-                </button>
-              </div>
               <div class="pagination">
                 <button class="pagination-btn" disabled>
                   <i class="fas fa-chevron-left"></i>
                 </button>
                 <button class="pagination-btn active">1</button>
                 <button class="pagination-btn">2</button>
-                <button class="pagination-btn">3</button>
                 <button class="pagination-btn">
                   <i class="fas fa-chevron-right"></i>
                 </button>
@@ -701,14 +467,6 @@
       });
     });
 
-    // Save Order Status
-    document
-      .getElementById("saveOrderStatus")
-      .addEventListener("click", function() {
-        const status = document.getElementById("orderStatus").value;
-        // Em um ambiente real, você faria uma requisição AJAX para atualizar o status do pedido
-        alert(`Status do pedido atualizado para: ${status}`);
-      });
 
     // Add Comment
     document
@@ -748,68 +506,6 @@
                 `;
 
         orderHistory.appendChild(newHistoryItem);
-      });
-
-    // Bulk Actions
-    document
-      .getElementById("applyBulkAction")
-      .addEventListener("click", function() {
-        const action = document.getElementById("bulkAction").value;
-        if (!action) return;
-
-        const selectedOrders = [];
-        document
-          .querySelectorAll(".order-checkbox:checked")
-          .forEach((checkbox) => {
-            selectedOrders.push(checkbox.getAttribute("data-id"));
-          });
-
-        if (selectedOrders.length === 0) {
-          alert("Selecione pelo menos um pedido");
-          return;
-        }
-
-        // Em um ambiente real, você faria uma requisição AJAX para atualizar os pedidos
-        alert(
-          `Status dos pedidos ${selectedOrders.join(
-                ", "
-              )} atualizado para: ${action}`
-        );
-
-        // Simulando a atualização do status na tabela
-        const statusMap = {
-          processing: {
-            class: "processing",
-            text: "Em Processamento"
-          },
-          shipped: {
-            class: "shipped",
-            text: "Enviado"
-          },
-          completed: {
-            class: "completed",
-            text: "Entregue"
-          },
-          cancelled: {
-            class: "cancelled",
-            text: "Cancelado"
-          },
-        };
-
-        selectedOrders.forEach((id) => {
-          const statusCell = document
-            .querySelector(`.order-checkbox[data-id="${id}"]`)
-            .closest("tr")
-            .querySelector("td:nth-child(5) .status-badge");
-          statusCell.className = `status-badge ${statusMap[action].class}`;
-          statusCell.textContent = statusMap[action].text;
-        });
-
-        // Desmarcar todos os checkboxes
-        document.getElementById("selectAll").checked = false;
-        document.querySelectorAll(".order-checkbox").forEach((checkbox) => {
-          checkbox.checked = false;
-        });
       });
 
     // Export Button

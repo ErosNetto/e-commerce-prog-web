@@ -1,3 +1,8 @@
+<?php
+require_once '../app/helpers/Auth.php';
+$usuario = Auth::getUser();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -51,22 +56,10 @@
               <span>Pedidos</span>
             </a>
           </li>
-          <!-- <li>
-            <a href="clientes.html">
-              <i class="fas fa-users"></i>
-              <span>Clientes</span>
-            </a>
-          </li>
-          <li>
-            <a href="configuracoes.html">
-              <i class="fas fa-cog"></i>
-              <span>Configurações</span>
-            </a>
-          </li> -->
         </ul>
       </nav>
       <div class="admin-sidebar-footer">
-        <a href="login.html" class="admin-logout">
+        <a href="<?= BASE_URL ?>/usuario/logout" class="admin-logout">
           <i class="fas fa-sign-out-alt"></i>
           <span>Sair</span>
         </a>
@@ -85,25 +78,7 @@
         </div>
 
         <div class="admin-header-right">
-          <div class="admin-profile">
-            <button class="admin-profile-btn">
-              <span>Admin</span>
-              <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="admin-profile-dropdown">
-              <ul>
-                <li>
-                  <a href="#"><i class="fas fa-user"></i> Meu Perfil</a>
-                </li>
-                <li>
-                  <a href="#"><i class="fas fa-cog"></i> Configurações</a>
-                </li>
-                <li>
-                  <a href="login.html"><i class="fas fa-sign-out-alt"></i> Sair</a>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <h3><?= htmlspecialchars($usuario["name"]) ?></h3>
         </div>
       </header>
 
@@ -265,25 +240,6 @@
           .querySelector(".admin-container")
           .classList.toggle("sidebar-collapsed");
       });
-
-    // Toggle dropdowns
-    const dropdownToggles = document.querySelectorAll(
-      ".admin-notification-btn, .admin-profile-btn"
-    );
-    dropdownToggles.forEach((toggle) => {
-      toggle.addEventListener("click", function(e) {
-        e.stopPropagation();
-        const dropdown = this.nextElementSibling;
-        dropdown.classList.toggle("show");
-
-        // Fechar outros dropdowns
-        dropdownToggles.forEach((otherToggle) => {
-          if (otherToggle !== toggle) {
-            otherToggle.nextElementSibling.classList.remove("show");
-          }
-        });
-      });
-    });
 
     // Fechar dropdowns ao clicar fora
     document.addEventListener("click", function() {

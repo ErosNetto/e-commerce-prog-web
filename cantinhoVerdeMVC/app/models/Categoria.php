@@ -7,7 +7,7 @@ class Categoria extends Model
     try {
       $query = "SELECT id, nome, imagem, slug 
       FROM categorias 
-      WHERE destaque = 1 AND status = 'ativo'
+      WHERE destaque = 1
       LIMIT :limit";
 
       $stmt = $this->db->prepare($query);
@@ -30,10 +30,10 @@ class Categoria extends Model
     }
   }
 
-  public function getCategoriasAtivas()
+  public function getCategorias()
   {
     try {
-      $stmt = $this->db->query("SELECT id, nome, slug FROM categorias WHERE status = 'ativo'");
+      $stmt = $this->db->query("SELECT id, nome, slug FROM categorias");
       return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
       error_log("[ERRO] Falha ao buscar categorias: " . $e->getMessage());

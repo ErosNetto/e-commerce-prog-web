@@ -20,7 +20,7 @@ class ProdutosController extends Controller
     $resultado = $produtoModel->getProdutos($pagina, $itensPorPagina, $filtros);
 
     $categoriaModel = $this->model('Categoria');
-    $categorias = $categoriaModel->getCategoriasAtivas();
+    $categorias = $categoriaModel->getCategorias();
 
     $totalProdutos = $resultado['total'] ?? 0;
     $totalPaginas = max(1, ceil($totalProdutos / $itensPorPagina));

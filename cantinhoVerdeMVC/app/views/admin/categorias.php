@@ -1,3 +1,8 @@
+<?php
+require_once '../app/helpers/Auth.php';
+$usuario = Auth::getUser();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -51,22 +56,10 @@
               <span>Pedidos</span>
             </a>
           </li>
-          <!-- <li>
-            <a href="clientes.html">
-              <i class="fas fa-users"></i>
-              <span>Clientes</span>
-            </a>
-          </li>
-          <li>
-            <a href="configuracoes.html">
-              <i class="fas fa-cog"></i>
-              <span>Configurações</span>
-            </a>
-          </li> -->
         </ul>
       </nav>
       <div class="admin-sidebar-footer">
-        <a href="login.html" class="admin-logout">
+        <a href="<?= BASE_URL ?>/usuario/logout" class="admin-logout">
           <i class="fas fa-sign-out-alt"></i>
           <span>Sair</span>
         </a>
@@ -85,25 +78,7 @@
         </div>
 
         <div class="admin-header-right">
-          <div class="admin-profile">
-            <button class="admin-profile-btn">
-              <span>Admin</span>
-              <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="admin-profile-dropdown">
-              <ul>
-                <li>
-                  <a href="#"><i class="fas fa-user"></i> Meu Perfil</a>
-                </li>
-                <li>
-                  <a href="#"><i class="fas fa-cog"></i> Configurações</a>
-                </li>
-                <li>
-                  <a href="login.html"><i class="fas fa-sign-out-alt"></i> Sair</a>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <h3><?= htmlspecialchars($usuario["name"]) ?></h3>
         </div>
       </header>
 
@@ -116,31 +91,22 @@
               <i class="fas fa-plus"></i> Adicionar Categoria
             </button>
           </div>
+
           <div class="admin-card-body">
             <div class="admin-table-responsive">
               <table class="admin-table">
                 <thead>
                   <tr>
-                    <th>
-                      <input type="checkbox" id="selectAll" />
-                    </th>
                     <th>Imagem</th>
                     <th>Nome</th>
                     <th>Slug</th>
                     <th>Produtos</th>
                     <th>Destaque</th>
-                    <th>Ordem</th>
                     <th>Ações</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>
-                      <input
-                        type="checkbox"
-                        class="category-checkbox"
-                        data-id="1" />
-                    </td>
                     <td>
                       <img
                         src="../images/categories/interior.jpg"
@@ -151,7 +117,6 @@
                     <td>plantas-de-interior</td>
                     <td>32</td>
                     <td><span class="status-badge instock">Sim</span></td>
-                    <td>1</td>
                     <td>
                       <div class="action-buttons">
                         <button
@@ -170,211 +135,6 @@
                           class="action-btn view-btn"
                           title="Visualizar"
                           data-id="1">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input
-                        type="checkbox"
-                        class="category-checkbox"
-                        data-id="2" />
-                    </td>
-                    <td>
-                      <img
-                        src="../images/categories/exterior.jpg"
-                        alt="Plantas de Exterior"
-                        class="product-thumbnail" />
-                    </td>
-                    <td>Plantas de Exterior</td>
-                    <td>plantas-de-exterior</td>
-                    <td>18</td>
-                    <td><span class="status-badge instock">Sim</span></td>
-                    <td>2</td>
-                    <td>
-                      <div class="action-buttons">
-                        <button
-                          class="action-btn edit-btn"
-                          title="Editar"
-                          data-id="2">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button
-                          class="action-btn delete-btn"
-                          title="Excluir"
-                          data-id="2">
-                          <i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button
-                          class="action-btn view-btn"
-                          title="Visualizar"
-                          data-id="2">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input
-                        type="checkbox"
-                        class="category-checkbox"
-                        data-id="3" />
-                    </td>
-                    <td>
-                      <img
-                        src="../images/categories/suculentas.jpg"
-                        alt="Suculentas"
-                        class="product-thumbnail" />
-                    </td>
-                    <td>Suculentas</td>
-                    <td>suculentas</td>
-                    <td>15</td>
-                    <td><span class="status-badge instock">Sim</span></td>
-                    <td>3</td>
-                    <td>
-                      <div class="action-buttons">
-                        <button
-                          class="action-btn edit-btn"
-                          title="Editar"
-                          data-id="3">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button
-                          class="action-btn delete-btn"
-                          title="Excluir"
-                          data-id="3">
-                          <i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button
-                          class="action-btn view-btn"
-                          title="Visualizar"
-                          data-id="3">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input
-                        type="checkbox"
-                        class="category-checkbox"
-                        data-id="4" />
-                    </td>
-                    <td>
-                      <img
-                        src="../images/categories/cactos.jpg"
-                        alt="Cactos"
-                        class="product-thumbnail" />
-                    </td>
-                    <td>Cactos</td>
-                    <td>cactos</td>
-                    <td>10</td>
-                    <td><span class="status-badge instock">Sim</span></td>
-                    <td>4</td>
-                    <td>
-                      <div class="action-buttons">
-                        <button
-                          class="action-btn edit-btn"
-                          title="Editar"
-                          data-id="4">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button
-                          class="action-btn delete-btn"
-                          title="Excluir"
-                          data-id="4">
-                          <i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button
-                          class="action-btn view-btn"
-                          title="Visualizar"
-                          data-id="4">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input
-                        type="checkbox"
-                        class="category-checkbox"
-                        data-id="5" />
-                    </td>
-                    <td>
-                      <img
-                        src="../images/categories/flores.jpg"
-                        alt="Flores"
-                        class="product-thumbnail" />
-                    </td>
-                    <td>Flores</td>
-                    <td>flores</td>
-                    <td>8</td>
-                    <td><span class="status-badge instock">Sim</span></td>
-                    <td>5</td>
-                    <td>
-                      <div class="action-buttons">
-                        <button
-                          class="action-btn edit-btn"
-                          title="Editar"
-                          data-id="5">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button
-                          class="action-btn delete-btn"
-                          title="Excluir"
-                          data-id="5">
-                          <i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button
-                          class="action-btn view-btn"
-                          title="Visualizar"
-                          data-id="5">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input
-                        type="checkbox"
-                        class="category-checkbox"
-                        data-id="6" />
-                    </td>
-                    <td>
-                      <img
-                        src="../images/categories/acessorios.jpg"
-                        alt="Acessórios"
-                        class="product-thumbnail" />
-                    </td>
-                    <td>Acessórios</td>
-                    <td>acessorios</td>
-                    <td>12</td>
-                    <td><span class="status-badge outofstock">Não</span></td>
-                    <td>6</td>
-                    <td>
-                      <div class="action-buttons">
-                        <button
-                          class="action-btn edit-btn"
-                          title="Editar"
-                          data-id="6">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button
-                          class="action-btn delete-btn"
-                          title="Excluir"
-                          data-id="6">
-                          <i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button
-                          class="action-btn view-btn"
-                          title="Visualizar"
-                          data-id="6">
                           <i class="fas fa-eye"></i>
                         </button>
                       </div>
@@ -385,19 +145,6 @@
             </div>
 
             <div class="admin-table-actions">
-              <div class="bulk-actions">
-                <select id="bulkAction">
-                  <option value="">Ações em Massa</option>
-                  <option value="delete">Excluir Selecionados</option>
-                  <option value="featured">Marcar como Destaque</option>
-                  <option value="unfeatured">Remover Destaque</option>
-                </select>
-                <button
-                  class="admin-btn admin-btn-secondary"
-                  id="applyBulkAction">
-                  Aplicar
-                </button>
-              </div>
               <div class="pagination">
                 <button class="pagination-btn" disabled>
                   <i class="fas fa-chevron-left"></i>
@@ -442,51 +189,19 @@
               required />
           </div>
           <div class="form-group">
-            <label for="categoryDescription">Descrição</label>
-            <textarea
-              id="categoryDescription"
-              name="categoryDescription"
-              rows="3"></textarea>
+            <label for="categoryImage">Imagem da Categoria*</label>
+            <input
+              type="text"
+              id="categoryImage"
+              name="categoryImage"
+              required />
           </div>
           <div class="form-group">
-            <label>Imagem da Categoria</label>
-            <div class="product-images-uploader">
-              <div class="product-image-preview">
-                <div class="image-upload-placeholder">
-                  <i class="fas fa-cloud-upload-alt"></i>
-                  <p>Arraste e solte ou clique para fazer upload</p>
-                </div>
-                <input
-                  type="file"
-                  id="categoryImage"
-                  name="categoryImage"
-                  accept="image/*" />
-              </div>
-              <div class="product-image-list" id="categoryImagePreview">
-                <p>Nenhuma imagem selecionada</p>
-              </div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="categoryOrder">Ordem</label>
-              <input
-                type="number"
-                id="categoryOrder"
-                name="categoryOrder"
-                min="0"
-                value="0" />
-            </div>
-            <div class="form-group col-md-6">
-              <label>Destaque</label>
-              <div class="toggle-switch">
-                <input
-                  type="checkbox"
-                  id="categoryFeatured"
-                  name="categoryFeatured" />
-                <label for="categoryFeatured"></label>
-              </div>
-            </div>
+            <label>Destaque</label>
+            <input
+              type="checkbox"
+              id="categoryFeatured"
+              name="categoryFeatured" />
           </div>
         </form>
       </div>
@@ -567,16 +282,6 @@
         });
     });
 
-    // Select All Checkbox
-    document
-      .getElementById("selectAll")
-      .addEventListener("change", function() {
-        const checkboxes = document.querySelectorAll(".product-checkbox");
-        checkboxes.forEach((checkbox) => {
-          checkbox.checked = this.checked;
-        });
-      });
-
     // Category Modal
     const categoryModal = document.getElementById("categoryModal");
     const categoryForm = document.getElementById("categoryForm");
@@ -590,8 +295,6 @@
         categoryModalTitle.textContent = "Adicionar Categoria";
         categoryForm.reset();
         document.getElementById("categoryId").value = "";
-        document.getElementById("categoryImagePreview").innerHTML =
-          "<p>Nenhuma imagem selecionada</p>";
         categoryModal.classList.add("show");
       });
 
@@ -599,78 +302,7 @@
     const editButtons = document.querySelectorAll(".edit-btn");
     editButtons.forEach((button) => {
       button.addEventListener("click", function() {
-        const categoryId = this.getAttribute("data-id");
         categoryModalTitle.textContent = "Editar Categoria";
-
-        // Simulação de carregamento de dados (em um ambiente real, você faria uma requisição AJAX)
-        const categories = {
-          1: {
-            name: "Plantas de Interior",
-            slug: "plantas-de-interior",
-            description: "Plantas ideais para ambientes internos com pouca luz direta",
-            order: 1,
-            featured: true,
-          },
-          2: {
-            name: "Plantas de Exterior",
-            slug: "plantas-de-exterior",
-            description: "Plantas resistentes para jardins e áreas externas",
-            order: 2,
-            featured: true,
-          },
-          3: {
-            name: "Suculentas",
-            slug: "suculentas",
-            description: "Plantas suculentas de baixa manutenção",
-            order: 3,
-            featured: true,
-          },
-          4: {
-            name: "Cactos",
-            slug: "cactos",
-            description: "Variedade de cactos decorativos",
-            order: 4,
-            featured: true,
-          },
-          5: {
-            name: "Flores",
-            slug: "flores",
-            description: "Plantas com flores para decoração",
-            order: 5,
-            featured: true,
-          },
-          6: {
-            name: "Acessórios",
-            slug: "acessorios",
-            description: "Vasos, substratos e ferramentas para jardinagem",
-            order: 6,
-            featured: false,
-          },
-        };
-
-        const category = categories[categoryId];
-
-        document.getElementById("categoryId").value = categoryId;
-        document.getElementById("categoryName").value = category.name;
-        document.getElementById("categorySlug").value = category.slug;
-        document.getElementById("categoryDescription").value =
-          category.description;
-        document.getElementById("categoryOrder").value = category.order;
-        document.getElementById("categoryFeatured").checked =
-          category.featured;
-
-        // Simulação de imagem
-        document.getElementById("categoryImagePreview").innerHTML = `
-                        <div class="image-item">
-                            <img src="../images/categories/${category.slug}.jpg" alt="${category.name}">
-                            <div class="image-actions">
-                                <button type="button" class="image-action-btn" title="Remover">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </div>
-                        </div>
-                    `;
-
         categoryModal.classList.add("show");
       });
     });
@@ -687,167 +319,15 @@
       });
     });
 
-    // Save Category
-    document
-      .getElementById("saveCategoryBtn")
-      .addEventListener("click", function() {
-        if (!categoryForm.checkValidity()) {
-          categoryForm.reportValidity();
-          return;
-        }
-
-        // Simulação de salvamento (em um ambiente real, você faria uma requisição AJAX)
-        alert("Categoria salva com sucesso!");
-        categoryModal.classList.remove("show");
-
-        // Recarregar a página para ver as alterações (em um ambiente real, você atualizaria a tabela dinamicamente)
-        // window.location.reload();
-      });
 
     // Delete Category
     const deleteModal = document.getElementById("deleteModal");
-    let categoryIdToDelete = null;
-
     const deleteButtons = document.querySelectorAll(".delete-btn");
     deleteButtons.forEach((button) => {
       button.addEventListener("click", function() {
-        categoryIdToDelete = this.getAttribute("data-id");
         deleteModal.classList.add("show");
       });
     });
-
-    document
-      .getElementById("confirmDelete")
-      .addEventListener("click", function() {
-        // Simulação de exclusão (em um ambiente real, você faria uma requisição AJAX)
-        alert(`Categoria ${categoryIdToDelete} excluída com sucesso!`);
-        deleteModal.classList.remove("show");
-
-        // Simulando a remoção da linha da tabela
-        const row = document
-          .querySelector(
-            `.category-checkbox[data-id="${categoryIdToDelete}"]`
-          )
-          .closest("tr");
-        row.remove();
-      });
-
-    // Bulk Actions
-    document
-      .getElementById("applyBulkAction")
-      .addEventListener("click", function() {
-        const action = document.getElementById("bulkAction").value;
-        if (!action) return;
-
-        const selectedCategories = [];
-        document
-          .querySelectorAll(".category-checkbox:checked")
-          .forEach((checkbox) => {
-            selectedCategories.push(checkbox.getAttribute("data-id"));
-          });
-
-        if (selectedCategories.length === 0) {
-          alert("Selecione pelo menos uma categoria");
-          return;
-        }
-
-        if (action === "delete") {
-          if (
-            confirm(
-              `Tem certeza que deseja excluir ${selectedCategories.length} categorias?`
-            )
-          ) {
-            // Simulação de exclusão em massa (em um ambiente real, você faria uma requisição AJAX)
-            alert(
-              `Categorias ${selectedCategories.join(
-                    ", "
-                  )} excluídas com sucesso!`
-            );
-
-            // Simulando a remoção das linhas da tabela
-            selectedCategories.forEach((id) => {
-              const row = document
-                .querySelector(`.category-checkbox[data-id="${id}"]`)
-                .closest("tr");
-              row.remove();
-            });
-          }
-        } else if (action === "featured" || action === "unfeatured") {
-          // Simulação de atualização em massa (em um ambiente real, você faria uma requisição AJAX)
-          alert(
-            `Categorias ${selectedCategories.join(
-                  ", "
-                )} atualizadas com sucesso!`
-          );
-
-          // Simulando a atualização do status na tabela
-          selectedCategories.forEach((id) => {
-            const statusCell = document
-              .querySelector(`.category-checkbox[data-id="${id}"]`)
-              .closest("tr")
-              .querySelector("td:nth-child(6) .status-badge");
-            if (action === "featured") {
-              statusCell.className = "status-badge instock";
-              statusCell.textContent = "Sim";
-            } else {
-              statusCell.className = "status-badge outofstock";
-              statusCell.textContent = "Não";
-            }
-          });
-        }
-
-        // Desmarcar todos os checkboxes
-        document.getElementById("selectAll").checked = false;
-        document
-          .querySelectorAll(".category-checkbox")
-          .forEach((checkbox) => {
-            checkbox.checked = false;
-          });
-      });
-
-    // Imagem Preview
-    document
-      .getElementById("categoryImage")
-      .addEventListener("change", function(e) {
-        const files = e.target.files;
-        const imagePreview = document.getElementById(
-          "categoryImagePreview"
-        );
-
-        if (files.length > 0) {
-          imagePreview.innerHTML = "";
-
-          const file = files[0];
-          const reader = new FileReader();
-
-          reader.onload = function(e) {
-            const imageItem = document.createElement("div");
-            imageItem.className = "image-item";
-
-            imageItem.innerHTML = `
-                            <img src="${e.target.result}" alt="Preview">
-                            <div class="image-actions">
-                                <button type="button" class="image-action-btn" title="Remover">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </div>
-                        `;
-
-            imagePreview.appendChild(imageItem);
-
-            // Adicionar evento para remover a imagem
-            imageItem
-              .querySelector(".image-action-btn")
-              .addEventListener("click", function() {
-                imagePreview.innerHTML =
-                  "<p>Nenhuma imagem selecionada</p>";
-                document.getElementById("categoryImage").value = "";
-              });
-          };
-
-          reader.readAsDataURL(file);
-        }
-      });
   </script>
 </body>
 

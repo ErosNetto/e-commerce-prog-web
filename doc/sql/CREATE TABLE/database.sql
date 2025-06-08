@@ -38,13 +38,13 @@ CREATE TABLE enderecos (
 CREATE TABLE categorias (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    descricao TEXT,
+    -- descricao TEXT,
     destaque BOOLEAN DEFAULT FALSE,
     slug VARCHAR(100) NOT NULL UNIQUE,
     imagem VARCHAR(255),
-    categoria_pai_id INT,
-    status ENUM('ativo', 'inativo') DEFAULT 'ativo',
-    FORIGEN KEY (categoria_pai_id) REFERENCES categorias(id) ON DELETE SET NULL
+    -- categoria_pai_id INT,
+    -- status ENUM('ativo', 'inativo') DEFAULT 'ativo',
+    -- FORIGEN KEY (categoria_pai_id) REFERENCES categorias(id) ON DELETE SET NULL
 );
 
 -- TESTE
