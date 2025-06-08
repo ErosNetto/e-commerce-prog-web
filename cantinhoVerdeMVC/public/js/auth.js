@@ -40,23 +40,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Validação de data de nascimento
-  const birthDateInput = document.getElementById('data_nascimento');
-  if (birthDateInput) {
-    // Definir data máxima (18 anos atrás)
-    const today = new Date();
-    const maxDate = new Date(
-      today.getFullYear() - 18,
-      today.getMonth(),
-      today.getDate()
-    );
-    birthDateInput.max = maxDate.toISOString().split('T')[0];
-
-    birthDateInput.addEventListener('change', function () {
-      validateAge(this.value);
-    });
-  }
-
   // Validação de confirmação de senha em tempo real para cadastro
   const confirmPasswordInput = document.getElementById('confirmar_senha');
   if (confirmPasswordInput) {
@@ -165,7 +148,7 @@ function validatePhone(phone) {
     showFieldError(phoneGroup, 'Formato de telefone inválido');
     return false;
   }
-  return true; // Permite campo vazio
+  return true;
 }
 
 // Função para validar email
@@ -195,11 +178,10 @@ function validateEmailField(email) {
 }
 
 // Função para validar idade
-function validateAge(birthDate) {
+function validateBirthDate(birthDate) {
   const birthGroup = document
     .getElementById('data_nascimento')
     .closest('.form-group');
-
   clearFieldError(birthGroup);
 
   if (!birthDate) {
@@ -207,22 +189,15 @@ function validateAge(birthDate) {
     return false;
   }
 
-  const today = new Date();
-  const birth = new Date(birthDate + 'T00:00:00');
-  let age = today.getFullYear() - birth.getFullYear();
-  const monthDiff = today.getMonth() - birth.getMonth();
-
-  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-    age--;
-  }
-
-  if (age < 18) {
-    showFieldError(birthGroup, 'Você deve ter pelo menos 18 anos');
+  // Verifica se a data é válida (evita 31/02/2000, etc.)
+  const dateObj = new Date(birthDate);
+  if (isNaN(dateObj.getTime())) {
+    showFieldError(birthGroup, 'Data inválida');
     return false;
-  } else {
-    showFieldSuccess(birthGroup);
-    return true;
   }
+
+  showFieldSuccess(birthGroup);
+  return true;
 }
 
 // Função para mostrar erro em campo específico
@@ -289,9 +264,9 @@ function validateForm(formData, isRegister = false) {
       errors.telefone = 'Por favor, digite um telefone válido';
     }
 
-    // if (!validateAge(formData.data_nascimento)) {
-    //   errors.data_nascimento = 'Você deve ter pelo menos 18 anos';
-    // }
+    if (!validateBirthDate(formData.data_nascimento)) {
+      errors.data_nascimento = 'Por favor, insira uma data válida';
+    }
 
     if (formData.senha !== formData.confirmar_senha) {
       errors.confirmar_senha = 'As senhas não coincidem';
