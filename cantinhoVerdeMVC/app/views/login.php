@@ -73,7 +73,7 @@
             </div>
           <?php endif; ?>
 
-          <form class="auth-form" method="POST" action="<?= BASE_URL ?>/usuario/login">
+          <form class="auth-form" method="POST" action="<?= BASE_URL ?>/usuario/login" id="loginForm">
             <div class="form-group">
               <label for="email">Email</label>
               <div class="input-wrapper">

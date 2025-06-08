@@ -73,7 +73,7 @@
             </div>
           <?php endif; ?>
 
-          <form class="auth-form" method="POST" action="<?= BASE_URL ?>/usuario/cadastro">
+          <form class="auth-form" method="POST" action="<?= BASE_URL ?>/usuario/cadastro" id="registerForm">
             <div class="form-row">
               <div class="form-group">
                 <label for="nome">Nome</label>

@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Máscara para telefone (usa)
+  // Máscara para telefone
   const phoneInput = document.getElementById('telefone');
   if (phoneInput) {
     phoneInput.addEventListener('input', function () {
@@ -57,120 +57,53 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Formulário de login - Alterado para AJAX
-  if (loginForm) {
-    loginForm.addEventListener('submit', async function (e) {
-      e.preventDefault();
+  // Validação de confirmação de senha em tempo real para cadastro
+  const confirmPasswordInput = document.getElementById('confirmar_senha');
+  if (confirmPasswordInput) {
+    confirmPasswordInput.addEventListener('blur', validatePasswordMatch);
+  }
 
+  // Formulário de login - Adiciona validação no submit
+  if (loginForm) {
+    loginForm.addEventListener('submit', function (e) {
       const formData = {
         email: document.getElementById('email').value.trim(),
-        password: document.getElementById('password').value,
+        senha: document.getElementById('senha').value,
       };
 
       const errors = validateForm(formData);
 
       if (Object.keys(errors).length > 0) {
+        e.preventDefault(); // Impede a submissão do formulário
         showFormErrors(errors);
-        return;
-      }
-
-      const submitBtn = loginForm.querySelector('button[type="submit"]');
-      const originalText = submitBtn.innerHTML;
-
-      submitBtn.disabled = true;
-      submitBtn.innerHTML =
-        '<i class="fas fa-spinner fa-spin"></i> Entrando...';
-
-      try {
-        const response = await fetch(`${BASE_URL}/login/autenticar`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: new URLSearchParams({
-            email: formData.email,
-            password: formData.password,
-          }),
-        });
-
-        if (response.redirected) {
-          window.location.href = response.url;
-        } else {
-          const result = await response.json();
-          if (result.erro) {
-            showNotification(result.erro, 'error');
-          }
-        }
-      } catch (error) {
-        showNotification('Erro na comunicação com o servidor', 'error');
-        console.error('Error:', error);
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalText;
+      } else {
+        // Se não houver erros, o formulário será submetido normalmente
+        // O PHP no backend fará a validação final
       }
     });
   }
 
-  // Formulário de cadastro - Alterado para AJAX
+  // Formulário de cadastro - Adiciona validação no submit
   if (registerForm) {
-    registerForm.addEventListener('submit', async function (e) {
-      e.preventDefault();
-
+    registerForm.addEventListener('submit', function (e) {
       const formData = {
-        firstName: document.getElementById('firstName').value.trim(),
-        lastName: document.getElementById('lastName').value.trim(),
+        nome: document.getElementById('nome').value.trim(),
+        sobrenome: document.getElementById('sobrenome').value.trim(),
         email: document.getElementById('email').value.trim(),
-        phone: document.getElementById('phone').value,
-        birthDate: document.getElementById('birthDate').value,
-        password: document.getElementById('password').value,
-        confirmPassword: document.getElementById('confirmPassword').value,
+        telefone: document.getElementById('telefone').value,
+        data_nascimento: document.getElementById('data_nascimento').value,
+        senha: document.getElementById('senha').value,
+        confirmar_senha: document.getElementById('confirmar_senha').value,
       };
 
       const errors = validateForm(formData, true);
 
       if (Object.keys(errors).length > 0) {
+        e.preventDefault(); // Impede a submissão do formulário
         showFormErrors(errors);
-        return;
-      }
-
-      const submitBtn = registerForm.querySelector('button[type="submit"]');
-      const originalText = submitBtn.innerHTML;
-
-      submitBtn.disabled = true;
-      submitBtn.innerHTML =
-        '<i class="fas fa-spinner fa-spin"></i> Criando conta...';
-
-      try {
-        const response = await fetch(`${BASE_URL}/cadastro/registrar`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: new URLSearchParams({
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            email: formData.email,
-            phone: formData.phone,
-            birthDate: formData.birthDate,
-            password: formData.password,
-          }),
-        });
-
-        if (response.redirected) {
-          window.location.href = response.url;
-        } else {
-          const result = await response.json();
-          if (result.erro) {
-            showNotification(result.erro, 'error');
-            showFormErrors(result.erros || {});
-          }
-        }
-      } catch (error) {
-        showNotification('Erro na comunicação com o servidor', 'error');
-        console.error('Error:', error);
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalText;
+      } else {
+        // Se não houver erros, o formulário será submetido normalmente
+        // O PHP no backend fará a validação final
       }
     });
   }
@@ -178,10 +111,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Função para validar confirmação de senha
 function validatePasswordMatch() {
-  const password = document.getElementById('password').value;
-  const confirmPassword = document.getElementById('confirmPassword').value;
+  const password = document.getElementById('senha').value;
+  const confirmPassword = document.getElementById('confirmar_senha').value;
   const confirmGroup = document
-    .getElementById('confirmPassword')
+    .getElementById('confirmar_senha')
     .closest('.form-group');
 
   clearFieldError(confirmGroup);
@@ -217,26 +150,27 @@ function formatPhone(value) {
 
 // Função para validar telefone
 function validatePhone(phone) {
-  const phoneGroup = document.getElementById('phone').closest('.form-group');
+  const phoneGroup = document.getElementById('telefone').closest('.form-group');
   const cleanPhone = phone.replace(/\D/g, '');
 
   clearFieldError(phoneGroup);
 
-  if (cleanPhone.length < 10) {
+  if (cleanPhone.length > 0 && cleanPhone.length < 10) {
     showFieldError(phoneGroup, 'Telefone deve ter pelo menos 10 dígitos');
     return false;
   } else if (cleanPhone.length === 10 || cleanPhone.length === 11) {
     showFieldSuccess(phoneGroup);
     return true;
-  } else {
+  } else if (cleanPhone.length > 11) {
     showFieldError(phoneGroup, 'Formato de telefone inválido');
     return false;
   }
+  return true; // Permite campo vazio
 }
 
 // Função para validar email
 function validateEmail(email) {
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   return re.test(email);
 }
 
@@ -247,7 +181,8 @@ function validateEmailField(email) {
   clearFieldError(emailGroup);
 
   if (!email) {
-    return true; // Campo vazio é válido para validação em tempo real
+    showFieldError(emailGroup, 'O e-mail é obrigatório');
+    return false;
   }
 
   if (!validateEmail(email)) {
@@ -262,18 +197,19 @@ function validateEmailField(email) {
 // Função para validar idade
 function validateAge(birthDate) {
   const birthGroup = document
-    .getElementById('birthDate')
+    .getElementById('data_nascimento')
     .closest('.form-group');
 
   clearFieldError(birthGroup);
 
   if (!birthDate) {
-    return true;
+    showFieldError(birthGroup, 'A data de nascimento é obrigatória');
+    return false;
   }
 
   const today = new Date();
-  const birth = new Date(birthDate);
-  const age = today.getFullYear() - birth.getFullYear();
+  const birth = new Date(birthDate + 'T00:00:00');
+  let age = today.getFullYear() - birth.getFullYear();
   const monthDiff = today.getMonth() - birth.getMonth();
 
   if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
@@ -325,78 +261,40 @@ function clearFieldError(formGroup) {
   }
 }
 
-// Função para validar formulário
+// Função para validar formulário completo
 function validateForm(formData, isRegister = false) {
   const errors = {};
 
   // Validar email
-  if (!formData.email || !validateEmail(formData.email)) {
+  if (!validateEmailField(formData.email)) {
     errors.email = 'Por favor, digite um email válido';
   }
 
   // Validar senha
-  if (!formData.password || formData.password.length < 8) {
-    errors.password = 'A senha deve ter pelo menos 8 caracteres';
+  if (!formData.senha || formData.senha.length < 6) {
+    errors.senha = 'A senha deve ter no mínimo 6 caracteres';
   }
 
   if (isRegister) {
     // Validações específicas do cadastro
-    if (!formData.firstName || formData.firstName.trim().length < 2) {
-      errors.firstName = 'Nome deve ter pelo menos 2 caracteres';
+    if (!formData.nome || formData.nome.trim().length < 2) {
+      errors.nome = 'Nome deve ter pelo menos 2 caracteres';
     }
 
-    if (!formData.lastName || formData.lastName.trim().length < 2) {
-      errors.lastName = 'Sobrenome deve ter pelo menos 2 caracteres';
+    if (!formData.sobrenome || formData.sobrenome.trim().length < 2) {
+      errors.sobrenome = 'Sobrenome deve ter pelo menos 2 caracteres';
     }
 
-    if (!formData.phone || formData.phone.replace(/\D/g, '').length < 10) {
-      errors.phone = 'Por favor, digite um telefone válido';
+    if (!validatePhone(formData.telefone)) {
+      errors.telefone = 'Por favor, digite um telefone válido';
     }
 
-    if (!formData.birthDate) {
-      errors.birthDate = 'Por favor, digite sua data de nascimento';
-    } else {
-      // Validar idade
-      const today = new Date();
-      const birth = new Date(formData.birthDate);
-      let age = today.getFullYear() - birth.getFullYear();
-      const monthDiff = today.getMonth() - birth.getMonth();
+    // if (!validateAge(formData.data_nascimento)) {
+    //   errors.data_nascimento = 'Você deve ter pelo menos 18 anos';
+    // }
 
-      if (
-        monthDiff < 0 ||
-        (monthDiff === 0 && today.getDate() < birth.getDate())
-      ) {
-        age--;
-      }
-
-      if (age < 18) {
-        errors.birthDate = 'Você deve ter pelo menos 18 anos';
-      }
-    }
-
-    if (!formData.gender) {
-      errors.gender = 'Por favor, selecione seu gênero';
-    }
-
-    if (formData.password !== formData.confirmPassword) {
-      errors.confirmPassword = 'As senhas não coincidem';
-    }
-
-    if (!formData.terms) {
-      errors.terms = 'Você deve aceitar os termos de uso';
-    }
-
-    // Validar força da senha
-    let passwordScore = 0;
-    if (formData.password.length >= 8) passwordScore++;
-    if (/[a-z]/.test(formData.password)) passwordScore++;
-    if (/[A-Z]/.test(formData.password)) passwordScore++;
-    if (/[0-9]/.test(formData.password)) passwordScore++;
-    if (/[^A-Za-z0-9]/.test(formData.password)) passwordScore++;
-
-    if (passwordScore < 3) {
-      errors.password =
-        'Senha muito fraca. Use letras maiúsculas, minúsculas, números e símbolos';
+    if (formData.senha !== formData.confirmar_senha) {
+      errors.confirmar_senha = 'As senhas não coincidem';
     }
   }
 
@@ -429,255 +327,3 @@ function showFormErrors(errors) {
     firstError.focus();
   }
 }
-
-// Função para lidar com login
-function handleLogin() {
-  const formData = {
-    email: document.getElementById('email').value.trim(),
-    password: document.getElementById('password').value,
-    rememberMe: document.getElementById('rememberMe').checked,
-  };
-
-  const errors = validateForm(formData);
-
-  if (Object.keys(errors).length > 0) {
-    showFormErrors(errors);
-    return;
-  }
-
-  // Simular login
-  const submitBtn = document.querySelector('button[type="submit"]');
-  const originalText = submitBtn.innerHTML;
-
-  submitBtn.classList.add('loading');
-  submitBtn.disabled = true;
-  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Entrando...';
-
-  setTimeout(() => {
-    // Simular usuários cadastrados
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-    const user = users.find(
-      (u) => u.email === formData.email && u.password === formData.password
-    );
-
-    if (user) {
-      // Login bem-sucedido
-      const userData = {
-        id: user.id,
-        name: `${user.firstName} ${user.lastName}`,
-        email: user.email,
-        phone: user.phone,
-        loggedIn: true,
-        loginTime: new Date().toISOString(),
-      };
-
-      localStorage.setItem('user', JSON.stringify(userData));
-
-      // Salvar email se "lembrar de mim" estiver marcado
-      if (formData.rememberMe) {
-        localStorage.setItem('savedEmail', formData.email);
-        localStorage.setItem('rememberMe', 'true');
-      } else {
-        localStorage.removeItem('savedEmail');
-        localStorage.removeItem('rememberMe');
-      }
-
-      showNotification('Login realizado com sucesso!', 'success');
-
-      // Redirecionar após 1 segundo
-      setTimeout(() => {
-        const redirectUrl = getUrlParameter('redirect') || 'index.html';
-        window.location.href = redirectUrl;
-      }, 1000);
-    } else {
-      showNotification('Email ou senha incorretos', 'error');
-      submitBtn.classList.remove('loading');
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = originalText;
-
-      // Focar no campo de senha
-      document.getElementById('password').focus();
-      document.getElementById('password').select();
-    }
-  }, 1500);
-}
-
-// Função para lidar com cadastro
-function handleRegister() {
-  const formData = {
-    firstName: document.getElementById('firstName').value.trim(),
-    lastName: document.getElementById('lastName').value.trim(),
-    email: document.getElementById('email').value.trim(),
-    phone: document.getElementById('phone').value,
-    birthDate: document.getElementById('birthDate').value,
-    password: document.getElementById('password').value,
-    confirmPassword: document.getElementById('confirmPassword').value,
-    gender: document.getElementById('gender').value,
-    newsletter: document.getElementById('newsletter').checked,
-    terms: document.getElementById('terms').checked,
-  };
-
-  const errors = validateForm(formData, true);
-
-  if (Object.keys(errors).length > 0) {
-    showFormErrors(errors);
-    return;
-  }
-
-  // Simular cadastro
-  const submitBtn = document.querySelector('button[type="submit"]');
-  const originalText = submitBtn.innerHTML;
-
-  submitBtn.classList.add('loading');
-  submitBtn.disabled = true;
-  submitBtn.innerHTML =
-    '<i class="fas fa-spinner fa-spin"></i> Criando conta...';
-
-  setTimeout(() => {
-    // Verificar se o email já existe
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-    const existingUser = users.find((u) => u.email === formData.email);
-
-    if (existingUser) {
-      showNotification('Este email já está cadastrado', 'error');
-      showFormErrors({ email: 'Este email já está cadastrado' });
-      submitBtn.classList.remove('loading');
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = originalText;
-      return;
-    }
-
-    // Criar novo usuário
-    const newUser = {
-      id: Date.now().toString(),
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      email: formData.email,
-      phone: formData.phone,
-      birthDate: formData.birthDate,
-      password: formData.password,
-      gender: formData.gender,
-      newsletter: formData.newsletter,
-      createdAt: new Date().toISOString(),
-      isActive: true,
-    };
-
-    users.push(newUser);
-    localStorage.setItem('users', JSON.stringify(users));
-
-    // Fazer login automático
-    const userData = {
-      id: newUser.id,
-      name: `${newUser.firstName} ${newUser.lastName}`,
-      email: newUser.email,
-      phone: newUser.phone,
-      loggedIn: true,
-      loginTime: new Date().toISOString(),
-    };
-
-    localStorage.setItem('user', JSON.stringify(userData));
-
-    showNotification('Cadastro realizado com sucesso! Bem-vindo!', 'success');
-
-    // Enviar email de boas-vindas (simulado)
-    if (formData.newsletter) {
-      console.log('Email de boas-vindas enviado para:', formData.email);
-    }
-
-    // Redirecionar após 1.5 segundos
-    setTimeout(() => {
-      window.location.href = 'index.html';
-    }, 1500);
-  }, 2000);
-}
-
-// Função para mostrar notificações
-function showNotification(message, type = 'info') {
-  // Remover notificação existente
-  const existingNotification = document.querySelector('.notification');
-  if (existingNotification) {
-    existingNotification.remove();
-  }
-
-  const notification = document.createElement('div');
-  notification.className = `notification notification-${type}`;
-
-  // Adicionar ícone baseado no tipo
-  let icon = '';
-  switch (type) {
-    case 'success':
-      icon = '<i class="fas fa-check-circle"></i>';
-      notification.style.backgroundColor = '#4caf50';
-      break;
-    case 'error':
-      icon = '<i class="fas fa-exclamation-circle"></i>';
-      notification.style.backgroundColor = '#d32f2f';
-      break;
-    case 'warning':
-      icon = '<i class="fas fa-exclamation-triangle"></i>';
-      notification.style.backgroundColor = '#ff9800';
-      break;
-    case 'info':
-    default:
-      icon = '<i class="fas fa-info-circle"></i>';
-      notification.style.backgroundColor = '#2196f3';
-      break;
-  }
-
-  notification.innerHTML = `${icon} <span>${message}</span>`;
-
-  // Adicionar estilos
-  notification.style.cssText = `
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        color: white;
-        padding: 15px 20px;
-        border-radius: 4px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        z-index: 10000;
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.3s ease, transform 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        max-width: 400px;
-        font-size: 14px;
-        font-weight: 500;
-    `;
-
-  document.body.appendChild(notification);
-
-  // Mostrar notificação
-  setTimeout(() => {
-    notification.style.opacity = '1';
-    notification.style.transform = 'translateY(0)';
-  }, 100);
-
-  // Remover notificação após 4 segundos
-  setTimeout(() => {
-    notification.style.opacity = '0';
-    notification.style.transform = 'translateY(20px)';
-    setTimeout(() => {
-      if (notification.parentNode) {
-        notification.remove();
-      }
-    }, 300);
-  }, 4000);
-
-  // Permitir fechar clicando na notificação
-  notification.addEventListener('click', function () {
-    this.style.opacity = '0';
-    this.style.transform = 'translateY(20px)';
-    setTimeout(() => {
-      if (this.parentNode) {
-        this.remove();
-      }
-    }, 300);
-  });
-}
-
-// Exportar funções para uso global
-window.logout = logout;
-window.showNotification = showNotification;
