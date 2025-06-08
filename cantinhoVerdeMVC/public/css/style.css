@@ -170,7 +170,7 @@ nav ul li a.active::after {
 /* Hero Section */
 .hero {
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('/cantinhoVerde/cantinhoVerdeMVC/public/images/img-home.avif');
+    url('/e-commerce-prog-web/cantinhoVerdeMVC/public/images/img-home.avif');
   background-size: cover;
   background-position: center;
   color: var(--white);

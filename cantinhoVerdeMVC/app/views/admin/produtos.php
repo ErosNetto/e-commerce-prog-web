@@ -18,7 +18,7 @@
     <aside class="admin-sidebar">
       <div class="admin-sidebar-header">
         <div class="admin-logo">
-          <img src="../images/logo.png" alt="Plantas Marketplace" />
+          <h1>Cantinho<span>Verde</span></h1>
         </div>
         <button class="admin-sidebar-toggle" id="sidebarToggle">
           <i class="fas fa-bars"></i>
