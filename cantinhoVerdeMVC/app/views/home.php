@@ -40,7 +40,6 @@
               <img src="<?= $categoria['imagem'] ?>" alt="<?= htmlspecialchars($categoria['nome']) ?>" />
               <h3><?= htmlspecialchars($categoria['nome']) ?></h3>
               <a href="produtos?categoria=<?= urlencode($categoria['id']) ?>&&url=produtos" class="btn-small">Ver Mais</a>
-              <!-- <a href="categorias.html?cat=<?= urlencode($categoria['slug']) ?>" class="btn-small">Ver Mais</a> -->
             </div>
         <?php
           }
@@ -65,9 +64,7 @@
                 <a href="<?= BASE_URL . '/detalheProduto?idProduto=' . htmlspecialchars($produto['id']) ?>">
                   <img src="<?= $produto['imagem_principal'] ?>" alt="<?= htmlspecialchars($produto['nome']) ?>" />
                 </a>
-                <?php if ($produto['novo'] === 1) { ?>
-                  <div class="product-tag">Novo</div>
-                <?php } else { ?>
+                <?php if ($produto['destaque'] === 1) { ?>
                   <div class="product-tag">Destaque</div>
                 <?php } ?>
               </div>

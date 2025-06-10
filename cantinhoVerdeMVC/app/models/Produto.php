@@ -7,7 +7,7 @@ class Produto extends Model
   {
     try {
       $query = "SELECT p.id, p.nome, p.descricao_curta, p.preco, p.preco_promocional, 
-                       p.slug, p.destaque, p.novo, pi.url as imagem_principal
+                  p.destaque, pi.url as imagem_principal
               FROM produtos p
               LEFT JOIN produto_imagens pi ON (p.id = pi.produto_id AND pi.principal = TRUE)
               WHERE p.destaque = 1 AND p.status = 'ativo' AND p.estoque > 0
@@ -37,8 +37,7 @@ class Produto extends Model
       $params = [];
 
       $query = "SELECT SQL_CALC_FOUND_ROWS p.id, p.nome, p.descricao_curta, p.preco, 
-                  p.preco_promocional, p.slug, p.destaque, p.novo, 
-                  pi.url as imagem_principal
+                  p.preco_promocional, p.destaque, pi.url as imagem_principal
                 FROM produtos p
                 LEFT JOIN produto_imagens pi ON (p.id = pi.produto_id AND pi.principal = TRUE)";
 
@@ -124,8 +123,6 @@ class Produto extends Model
         return " ORDER BY COALESCE(preco_promocional, preco) DESC";
       case 'newest':
         return " ORDER BY p.data_cadastro DESC";
-      case 'popular':
-        return " ORDER BY p.visualizacoes DESC";
       default:
         return " ORDER BY p.destaque DESC, p.data_cadastro DESC";
     }
@@ -184,5 +181,28 @@ class Produto extends Model
       error_log("[ERRO] Falha ao buscar detalhes do produto: " . $e->getMessage());
       return false;
     }
+  }
+
+  public function getProdutosAdmin()
+  {
+    // try {
+    //   $query = "SELECT 
+    //                 c.id, 
+    //                 c.nome, 
+    //                 c.destaque, 
+    //                 c.imagem,
+    //                 COUNT(pc.produto_id) as quantidade_produtos
+    //               FROM categorias c
+    //               LEFT JOIN produto_categoria pc ON pc.categoria_id = c.id
+    //               LEFT JOIN produtos p ON p.id = pc.produto_id AND p.status = 'ativo'
+    //               GROUP BY c.id
+    //               ORDER BY c.nome ASC";
+
+    //   $stmt = $this->db->query($query);
+    //   return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // } catch (PDOException $e) {
+    //   error_log("[ERRO] Falha ao buscar categorias e contagem de produtos: " . $e->getMessage());
+    //   return [];
+    // }
   }
 }

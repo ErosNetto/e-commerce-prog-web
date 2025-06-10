@@ -84,6 +84,20 @@ $usuario = Auth::getUser();
 
       <!-- Categories Content -->
       <div class="admin-content">
+        <?php if (isset($_SESSION['success'])): ?>
+          <div class="alert alert-success">
+            <?= $_SESSION['success'] ?>
+            <?php unset($_SESSION['success']); ?>
+          </div>
+        <?php endif; ?>
+
+        <?php if (isset($_SESSION['error'])): ?>
+          <div class="alert alert-danger">
+            <?= $_SESSION['error'] ?>
+            <?php unset($_SESSION['error']); ?>
+          </div>
+        <?php endif; ?>
+
         <div class="admin-card">
           <div class="admin-card-header">
             <h2>Lista de Categorias</h2>
@@ -99,52 +113,58 @@ $usuario = Auth::getUser();
                   <tr>
                     <th>Imagem</th>
                     <th>Nome</th>
-                    <th>Slug</th>
                     <th>Produtos</th>
                     <th>Destaque</th>
                     <th>Ações</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>
-                      <img
-                        src="../images/categories/interior.jpg"
-                        alt="Plantas de Interior"
-                        class="product-thumbnail" />
-                    </td>
-                    <td>Plantas de Interior</td>
-                    <td>plantas-de-interior</td>
-                    <td>32</td>
-                    <td><span class="status-badge instock">Sim</span></td>
-                    <td>
-                      <div class="action-buttons">
-                        <button
-                          class="action-btn edit-btn"
-                          title="Editar"
-                          data-id="1">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button
-                          class="action-btn delete-btn"
-                          title="Excluir"
-                          data-id="1">
-                          <i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button
-                          class="action-btn view-btn"
-                          title="Visualizar"
-                          data-id="1">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
+                  <?php foreach ($categorias as $categoria): ?>
+                    <tr>
+                      <td>
+                        <?php if (!empty($categoria['imagem'])): ?>
+                          <img src="<?= htmlspecialchars($categoria['imagem']) ?>"
+                            alt="<?= htmlspecialchars($categoria['nome']) ?>"
+                            class="product-thumbnail" />
+                        <?php else: ?>
+                          <span class="no-image">Sem imagem</span>
+                        <?php endif; ?>
+                      </td>
+                      <td><?= htmlspecialchars($categoria['nome']) ?></td>
+                      <td><?= htmlspecialchars($categoria['quantidade_produtos']) ?></td>
+                      <td>
+                        <?php if ($categoria['destaque']): ?>
+                          <span class="status-badge instock">Sim</span>
+                        <?php else: ?>
+                          <span class="status-badge outofstock">Não</span>
+                        <?php endif; ?>
+                      </td>
+                      <td>
+                        <div class="action-buttons">
+                          <button
+                            class="action-btn edit-btn"
+                            title="Editar"
+                            data-id="<?= $categoria['id'] ?>"
+                            data-nome="<?= htmlspecialchars($categoria['nome']) ?>"
+                            data-imagem="<?= htmlspecialchars($categoria['imagem']) ?>"
+                            data-destaque="<?= $categoria['destaque'] ?>">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          <button
+                            class="action-btn delete-btn"
+                            title="Excluir"
+                            data-id="<?= $categoria['id'] ?>">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
                 </tbody>
               </table>
             </div>
 
-            <div class="admin-table-actions">
+            <!-- <div class="admin-table-actions">
               <div class="pagination">
                 <button class="pagination-btn" disabled>
                   <i class="fas fa-chevron-left"></i>
@@ -155,7 +175,7 @@ $usuario = Auth::getUser();
                   <i class="fas fa-chevron-right"></i>
                 </button>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -167,57 +187,38 @@ $usuario = Auth::getUser();
     <div class="admin-modal-content">
       <div class="admin-modal-header">
         <h3 id="categoryModalTitle">Adicionar Categoria</h3>
-        <button class="admin-modal-close">&times;</button>
+        <button type="button" class="admin-modal-close">&times;</button>
       </div>
       <div class="admin-modal-body">
-        <form id="categoryForm" class="admin-form">
-          <input type="hidden" id="categoryId" value="" />
+        <form id="categoryForm" class="admin-form" method="POST" action="<?= BASE_URL ?>/adminCategorias/create">
+          <input type="hidden" id="categoryId" name="id" value="" />
           <div class="form-group">
             <label for="categoryName">Nome da Categoria*</label>
-            <input
-              type="text"
-              id="categoryName"
-              name="categoryName"
-              required />
+            <input type="text" id="categoryName" name="nome" required />
           </div>
           <div class="form-group">
-            <label for="categorySlug">Slug*</label>
-            <input
-              type="text"
-              id="categorySlug"
-              name="categorySlug"
-              required />
-          </div>
-          <div class="form-group">
-            <label for="categoryImage">Imagem da Categoria*</label>
-            <input
-              type="text"
-              id="categoryImage"
-              name="categoryImage"
-              required />
+            <label for="categoryImage">Imagem da Categoria</label>
+            <input type="text" id="categoryImage" name="imagem" />
           </div>
           <div class="form-group">
             <label>Destaque</label>
-            <input
-              type="checkbox"
-              id="categoryFeatured"
-              name="categoryFeatured" />
+            <input type="checkbox" id="categoryFeatured" name="destaque" value="1" />
+          </div>
+          <div class="admin-modal-footer">
+            <button type="button" class="admin-btn admin-btn-secondary admin-modal-cancel">
+              Cancelar
+            </button>
+            <button type="submit" class="admin-btn admin-btn-primary">
+              Salvar
+            </button>
           </div>
         </form>
-      </div>
-      <div class="admin-modal-footer">
-        <button class="admin-btn admin-btn-secondary admin-modal-cancel">
-          Cancelar
-        </button>
-        <button class="admin-btn admin-btn-primary" id="saveCategoryBtn">
-          Salvar
-        </button>
       </div>
     </div>
   </div>
 
   <!-- Delete Confirmation Modal -->
-  <div class="admin-modal" id="deleteModal">
+  <!-- <div class="admin-modal" id="deleteModal">
     <div class="admin-modal-content">
       <div class="admin-modal-header">
         <h3>Confirmar Exclusão</h3>
@@ -239,7 +240,7 @@ $usuario = Auth::getUser();
         </button>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <script src="../js/admin.js"></script>
   <script>
@@ -271,17 +272,6 @@ $usuario = Auth::getUser();
       });
     });
 
-    // Fechar dropdowns ao clicar fora
-    document.addEventListener("click", function() {
-      document
-        .querySelectorAll(
-          ".admin-notification-dropdown, .admin-profile-dropdown"
-        )
-        .forEach((dropdown) => {
-          dropdown.classList.remove("show");
-        });
-    });
-
     // Category Modal
     const categoryModal = document.getElementById("categoryModal");
     const categoryForm = document.getElementById("categoryForm");
@@ -298,15 +288,6 @@ $usuario = Auth::getUser();
         categoryModal.classList.add("show");
       });
 
-    // Open Edit Category Modal
-    const editButtons = document.querySelectorAll(".edit-btn");
-    editButtons.forEach((button) => {
-      button.addEventListener("click", function() {
-        categoryModalTitle.textContent = "Editar Categoria";
-        categoryModal.classList.add("show");
-      });
-    });
-
     // Close Modal
     const closeButtons = document.querySelectorAll(
       ".admin-modal-close, .admin-modal-cancel"
@@ -319,16 +300,54 @@ $usuario = Auth::getUser();
       });
     });
 
+    // Open Edit Category Modal
+    const editButtons = document.querySelectorAll(".edit-btn");
+    editButtons.forEach((button) => {
+      button.addEventListener("click", function() {
+        const id = this.dataset.id;
+        const nome = this.dataset.nome;
+        const imagem = this.dataset.imagem;
+        const destaque = this.dataset.destaque === "1";
+
+        categoryForm.action = "<?= BASE_URL ?>/adminCategorias/update";
+        categoryModalTitle.textContent = "Editar Categoria";
+
+        document.getElementById("categoryId").value = id;
+        document.getElementById("categoryName").value = nome;
+        document.getElementById("categoryImage").value = imagem;
+        document.getElementById("categoryFeatured").checked = destaque;
+
+        categoryModal.classList.add("show");
+      });
+    });
 
     // Delete Category
-    const deleteModal = document.getElementById("deleteModal");
     const deleteButtons = document.querySelectorAll(".delete-btn");
     deleteButtons.forEach((button) => {
       button.addEventListener("click", function() {
-        deleteModal.classList.add("show");
+        const id = this.dataset.id;
+        const confirmDelete = confirm("Tem certeza que deseja excluir esta categoria?");
+        if (confirmDelete) {
+          window.location.href = `<?= BASE_URL ?>/adminCategorias/delete/${id}`;
+        }
+      });
+    });
+
+    // Fechar modal após submit (opcional)
+    document.getElementById('categoryForm').addEventListener('submit', function() {
+      document.querySelectorAll('.admin-modal').forEach(modal => {
+        modal.classList.remove('show');
       });
     });
   </script>
 </body>
+
+<!-- // const deleteModal = document.getElementById("deleteModal");
+// const deleteButtons = document.querySelectorAll(".delete-btn");
+// deleteButtons.forEach((button) => {
+//   button.addEventListener("click", function() {
+//     deleteModal.classList.add("show");
+//   });
+// }); -->
 
 </html>

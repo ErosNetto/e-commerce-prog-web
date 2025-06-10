@@ -87,11 +87,9 @@ $usuario = Auth::getUser();
         <div class="admin-card">
           <div class="admin-card-header">
             <h2>Lista de Produtos</h2>
-            <a
-              href="produto-adicionar.html"
-              class="admin-btn admin-btn-primary">
+            <button class="admin-btn admin-btn-primary" id="addProdutoBtn">
               <i class="fas fa-plus"></i> Adicionar Produto
-            </a>
+            </button>
           </div>
           <div class="admin-card-body">
             <!-- <div class="admin-filters">
@@ -192,8 +190,67 @@ $usuario = Auth::getUser();
     </main>
   </div>
 
+  <!-- Add/Edit Category Modal -->
+  <div class="admin-modal" id="produtoModal">
+    <div class="admin-modal-content">
+      <div class="admin-modal-header">
+        <h3 id="produtoModalTitle">Adicionar Produto</h3>
+        <button type="button" class="admin-modal-close">&times;</button>
+      </div>
+      <div class="admin-modal-body">
+        <form id="produtoForm" class="admin-form" method="POST" action="<?= BASE_URL ?>/adminCategorias/create">
+          <input type="hidden" id="produtoId" name="id" value="" />
+
+          <div class="form-group">
+            <label for="produtoName">Nome da Produto*</label>
+            <input type="text" id="produtoName" name="nome" required />
+          </div>
+
+          <div class="form-group">
+            <label for="produtoDescricao">Descrição</label>
+            <input type="text" id="produtoDescricao" name="descricao" required />
+          </div>
+
+          <div class="form-group">
+            <label for="produtoDescricaoCurta">Descrição Curta</label>
+            <input type="text" id="produtoDescricaoCurta" name="descricaoCurta" required />
+          </div>
+
+          <div class="form-group">
+            <label for="produtoImage">Imagem do Produto*</label>
+            <input type="text" id="produtoImage" name="imagem" />
+          </div>
+
+          <div class="form-group">
+            <label for="produtoPreco">Preco*</label>
+            <input type="number" id="produtoPreco" name="preco" />
+          </div>
+
+          <div class="form-group">
+            <label for="produtoEstoque">Estoque*</label>
+            <input type="number" id="produtoEstoque" name="estoque" />
+          </div>
+
+          <div class="form-group">
+            <label>Destaque</label>
+            <input type="checkbox" id="produtoFeatured" name="destaque" value="1" />
+          </div>
+
+          <div class="admin-modal-footer">
+            <button type="button" class="admin-btn admin-btn-secondary admin-modal-cancel">
+              Cancelar
+            </button>
+            <button type="submit" class="admin-btn admin-btn-primary">
+              Salvar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <!-- Delete Confirmation Modal -->
-  <div class="admin-modal" id="deleteModal">
+  <!-- <div class="admin-modal" id="deleteModal">
     <div class="admin-modal-content">
       <div class="admin-modal-header">
         <h3>Confirmar Exclusão</h3>
@@ -214,7 +271,7 @@ $usuario = Auth::getUser();
         </button>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <script src="../js/admin.js"></script>
   <script>
@@ -246,16 +303,21 @@ $usuario = Auth::getUser();
       });
     });
 
-    // Fechar dropdowns ao clicar fora
-    document.addEventListener("click", function() {
-      document
-        .querySelectorAll(
-          ".admin-notification-dropdown, .admin-profile-dropdown"
-        )
-        .forEach((dropdown) => {
-          dropdown.classList.remove("show");
-        });
-    });
+    // Category Modal
+    const categoryModal = document.getElementById("produtoModal");
+    const categoryForm = document.getElementById("produtoForm");
+    const categoryModalTitle =
+      document.getElementById("produtoModalTitle");
+
+    // Open Add Category Modal
+    document
+      .getElementById("addProdutoBtn")
+      .addEventListener("click", function() {
+        categoryModalTitle.textContent = "Adicionar Produto";
+        categoryForm.reset();
+        document.getElementById("produtoId").value = "";
+        categoryModal.classList.add("show");
+      });
 
     // Close Modal
     const closeButtons = document.querySelectorAll(
@@ -269,15 +331,59 @@ $usuario = Auth::getUser();
       });
     });
 
-    // Delete Product
-    const deleteModal = document.getElementById("deleteModal");
-    const deleteButtons = document.querySelectorAll(".delete-btn");
 
-    deleteButtons.forEach((button) => {
+
+
+    // AQUI
+    // Open Edit Category Modal
+    const editButtons = document.querySelectorAll(".edit-btn");
+    editButtons.forEach((button) => {
       button.addEventListener("click", function() {
-        deleteModal.classList.add("show");
+        const id = this.dataset.id;
+        const nome = this.dataset.nome;
+        const imagem = this.dataset.imagem;
+        const destaque = this.dataset.destaque === "1";
+
+        categoryForm.action = "<?= BASE_URL ?>/adminCategorias/update";
+        categoryModalTitle.textContent = "Editar Categoria";
+
+        document.getElementById("categoryId").value = id;
+        document.getElementById("categoryName").value = nome;
+        document.getElementById("categoryImage").value = imagem;
+        document.getElementById("categoryFeatured").checked = destaque;
+
+        categoryModal.classList.add("show");
       });
     });
+
+    // Delete Category
+    const deleteButtons = document.querySelectorAll(".delete-btn");
+    deleteButtons.forEach((button) => {
+      button.addEventListener("click", function() {
+        const id = this.dataset.id;
+        const confirmDelete = confirm("Tem certeza que deseja excluir esta categoria?");
+        if (confirmDelete) {
+          window.location.href = `<?= BASE_URL ?>/adminCategorias/delete/${id}`;
+        }
+      });
+    });
+
+    // Fechar modal após submit (opcional)
+    document.getElementById('categoryForm').addEventListener('submit', function() {
+      document.querySelectorAll('.admin-modal').forEach(modal => {
+        modal.classList.remove('show');
+      });
+    });
+
+    // // Delete Product
+    // const deleteModal = document.getElementById("deleteModal");
+    // const deleteButtons = document.querySelectorAll(".delete-btn");
+
+    // deleteButtons.forEach((button) => {
+    //   button.addEventListener("click", function() {
+    //     deleteModal.classList.add("show");
+    //   });
+    // });
   </script>
 </body>
 

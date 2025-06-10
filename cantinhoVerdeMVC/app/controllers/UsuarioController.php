@@ -55,7 +55,7 @@ class UsuarioController extends Controller
                         'senha' => $senhaHash,
                         'telefone' => $telefone,
                         'data_nascimento' => $data_nascimento,
-                        'tipo' => 'cliente' // Padrão para novo cadastro
+                        'tipo' => 'cliente'
                     ];
 
                     if ($usuarioModel->cadastrarUsuario($dados)) {
@@ -154,5 +154,3 @@ class UsuarioController extends Controller
         $this->view('adminDashboard');
     }
 }
-
-

@@ -191,10 +191,6 @@ Auth::iniciarSessao();
                         alt="<?= htmlspecialchars($produto['nome']) ?>" />
                     </a>
 
-                    <?php /* if ($produto['novo'] == 1): ?>
-                          <div class="product-tag">Novo</div>
-                         <?php endif; */ ?>
-
                     <?php if ($produto['destaque'] == 1): ?>
                       <div class="product-tag">Destaque</div>
                     <?php endif; ?>

@@ -35,4 +35,10 @@ class Controller
         }
         return $query ? '&' . implode('&', $query) : '';
     }
+
+    protected function redirect($url)
+    {
+        header('Location: ' . BASE_URL . $url);
+        exit();
+    }
 }

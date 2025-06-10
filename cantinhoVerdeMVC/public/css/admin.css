@@ -24,6 +24,25 @@
   --admin-transition: all 0.3s ease;
 }
 
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
 /* Reset e Estilos Gerais */
 .admin-body {
   font-family: 'Roboto', sans-serif;
@@ -484,19 +503,6 @@
   margin-bottom: 20px;
 }
 
-.admin-filter-group {
-  min-width: 200px;
-}
-
-.admin-filter-group select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid var(--admin-border);
-  border-radius: 4px;
-  background-color: var(--admin-white);
-  outline: none;
-}
-
 .product-thumbnail {
   width: 50px;
   height: 50px;
@@ -881,10 +887,6 @@
 
   .admin-filters {
     flex-direction: column;
-  }
-
-  .admin-filter-group {
-    width: 100%;
   }
 
   .admin-table-actions {
