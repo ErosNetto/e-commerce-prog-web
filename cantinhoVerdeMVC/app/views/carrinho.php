@@ -80,18 +80,9 @@ Auth::iniciarSessao();
           <div class="step-label">Carrinho</div>
         </div>
         <div class="step-line"></div>
+        <div class="step-line"></div>
         <div class="step">
           <div class="step-number">2</div>
-          <div class="step-label">Entrega</div>
-        </div>
-        <div class="step-line"></div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <div class="step-label">Pagamento</div>
-        </div>
-        <div class="step-line"></div>
-        <div class="step">
-          <div class="step-number">4</div>
           <div class="step-label">Confirmação</div>
         </div>
       </div>
@@ -112,7 +103,7 @@ Auth::iniciarSessao();
                 <img src="img/produto1.jpg" alt="Zamioculca" />
                 <div>
                   <h3>Zamioculca</h3>
-                  <p>Tamanho: Médio | Vaso: Cerâmica</p>
+                  <!-- <p>Tamanho: Médio | Vaso: Cerâmica</p> -->
                 </div>
               </div>
             </div>
@@ -150,51 +141,7 @@ Auth::iniciarSessao();
             </div>
           </div>
 
-          <div class="cart-item">
-            <div class="product-col">
-              <div class="product-info">
-                <img src="img/produto4.jpg" alt="Costela de Adão" />
-                <div>
-                  <h3>Costela de Adão</h3>
-                  <p>Tamanho: Grande | Vaso: Cerâmica</p>
-                </div>
-              </div>
-            </div>
-            <div class="price-col">
-              <span class="price">R$ 119,90</span>
-            </div>
-            <div class="quantity-col">
-              <div class="quantity-selector">
-                <button
-                  class="quantity-btn"
-                  onclick="updateQuantity(2, 'decrease')">
-                  -
-                </button>
-                <input
-                  type="number"
-                  id="quantity-2"
-                  value="2"
-                  min="1"
-                  max="10"
-                  onchange="updateSubtotal(2)" />
-                <button
-                  class="quantity-btn"
-                  onclick="updateQuantity(2, 'increase')">
-                  +
-                </button>
-              </div>
-            </div>
-            <div class="subtotal-col">
-              <span class="subtotal" id="subtotal-2">R$ 239,80</span>
-            </div>
-            <div class="action-col">
-              <button class="remove-btn" onclick="removeItem(2)">
-                <i class="fas fa-trash-alt"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="cart-actions">
+          <!-- <div class="cart-actions">
             <div class="coupon">
               <input type="text" placeholder="Código do cupom" />
               <button class="btn">Aplicar Cupom</button>
@@ -204,28 +151,11 @@ Auth::iniciarSessao();
               onclick="window.location.href='produtos.html'">
               Continuar Comprando
             </button>
-          </div>
+          </div> -->
         </div>
 
         <div class="cart-summary">
           <h2>Resumo do Pedido</h2>
-
-          <div class="summary-item">
-            <span>Subtotal</span>
-            <span id="cart-subtotal">R$ 329,70</span>
-          </div>
-
-          <div class="summary-item">
-            <span>Desconto</span>
-            <span id="cart-discount">R$ 0,00</span>
-          </div>
-
-          <div class="summary-item">
-            <span>Frete</span>
-            <span id="cart-shipping">Calculado na próxima etapa</span>
-          </div>
-
-          <div class="summary-divider"></div>
 
           <div class="summary-item total">
             <span>Total</span>

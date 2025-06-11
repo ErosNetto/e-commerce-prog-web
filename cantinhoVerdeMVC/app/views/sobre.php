@@ -270,15 +270,21 @@ Auth::iniciarSessao();
       <div class="team-container">
         <div class="team-member">
           <div class="member-info">
+            <h3>Eros Netto</h3>
+            <div class="member-role">Líder de Desenvolvimento</div>
+            <p class="member-bio">
+              Colaborou no desenvolvimento do frontend, focando na experiência do usuário e no design visual da plataforma.
+            </p>
+          </div>
+        </div>
+
+        <div class="team-member">
+          <div class="member-info">
             <h3>Gabriel Schultz</h3>
-            <div class="member-role">Desenvolvedor Backend</div>
+            <div class="member-role">Desenvolvedor Frontend</div>
             <p class="member-bio">
               Contribuiu para o desenvolvimento do backend, implementando funcionalidades do servidor e garantindo a integração com o banco de dados.
             </p>
-            <div class="member-social">
-              <a href="#"><i class="fab fa-linkedin-in"></i></a>
-              <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
           </div>
         </div>
 
@@ -289,52 +295,26 @@ Auth::iniciarSessao();
             <p class="member-bio">
               Trabalhou no desenvolvimento do frontend, criando interfaces de usuário responsivas e atraentes para a plataforma.
             </p>
-            <div class="member-social">
-              <a href="https://www.linkedin.com/in/ronald-lucas-16624a205/"><i class="fab fa-linkedin-in"></i></a>
-              <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
           </div>
         </div>
 
         <div class="team-member">
           <div class="member-info">
-            <h3>Eros Neto</h3>
-            <div class="member-role">Desenvolvedor Frontend</div>
-            <p class="member-bio">
-              Colaborou no desenvolvimento do frontend, focando na experiência do usuário e no design visual da plataforma.
-            </p>
-            <div class="member-social">
-              <a href="https://www.linkedin.com/in/eros-netto/"><i class="fab fa-linkedin-in"></i></a>
-              <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="team-member">
-          <div class="member-info">
-            <h3>Luigi</h3>
-            <div class="member-role">Arquiteto de Software</div>
+            <h3>Luigi Gustavo</h3>
+            <div class="member-role">Desenvolvedor Backend</div>
             <p class="member-bio">
               Responsável pela arquitetura do software, projetando a estrutura técnica e garantindo a escalabilidade e eficiência do sistema.
             </p>
-            <div class="member-social">
-              <a href="#"><i class="fab fa-linkedin-in"></i></a>
-              <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
           </div>
         </div>
 
         <div class="team-member">
           <div class="member-info">
-            <h3>Hugo</h3>
+            <h3>Vitor Hugo Deschamps</h3>
             <div class="member-role">Desenvolvedor de Banco de Dados</div>
             <p class="member-bio">
               Projetou e implementou o banco de dados, garantindo a organização e eficiência no armazenamento e recuperação de dados da plataforma.
             </p>
-            <div class="member-social">
-              <a href="#"><i class="fab fa-linkedin-in"></i></a>
-              <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
           </div>
         </div>
       </div>

@@ -99,6 +99,11 @@
   color: #2e7d32;
 }
 
+.iconPass {
+  right: 40px;
+  top: 15px;
+}
+
 /* Botões */
 .btn {
   display: inline-flex;

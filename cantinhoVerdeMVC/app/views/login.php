@@ -115,7 +115,7 @@ Auth::iniciarSessao();
               <div class="input-wrapper">
                 <i class="fas fa-lock"></i>
                 <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
-                <button type="button" class="toggle-password" id="togglePassword">
+                <button type="button" class="toggle-password iconPass" id="togglePassword">
                   <i class="far fa-eye"></i>
                 </button>
               </div>

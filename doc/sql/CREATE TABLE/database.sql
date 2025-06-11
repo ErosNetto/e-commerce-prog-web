@@ -14,22 +14,6 @@ CREATE TABLE usuarios (
     tipo ENUM('cliente', 'admin') DEFAULT 'cliente'
 );
 
--- Tabela de Endereços
-CREATE TABLE enderecos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    usuario_id INT NOT NULL,
-    tipo ENUM('entrega', 'cobranca', 'ambos') DEFAULT 'entrega',
-    cep VARCHAR(10) NOT NULL,
-    logradouro VARCHAR(100) NOT NULL,
-    numero VARCHAR(20) NOT NULL,
-    complemento VARCHAR(100),
-    bairro VARCHAR(100) NOT NULL,
-    cidade VARCHAR(100) NOT NULL,
-    estado VARCHAR(2) NOT NULL,
-    padrao BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
-);
-
 -- Tabela de Categorias
 CREATE TABLE categorias (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -47,19 +31,13 @@ CREATE TABLE produtos (
     imagem_principal VARCHAR(255) NOT NULL,
     preco DECIMAL(10, 2) NOT NULL,
     estoque INT NOT NULL DEFAULT 0,
-    
-
-
     nivel_cuidado ENUM('facil', 'medio', 'avancado'),
     tamanho ENUM('pequeno', 'medio', 'grande'),
     ambiente ENUM('interior', 'exterior', 'ambos'),
     luz ENUM('baixa', 'media', 'alta'),
     agua ENUM('pouca', 'media', 'muita'),
-
-    destaque BOOLEAN DEFAULT FALSE,
-    
+    destaque BOOLEAN DEFAULT FALSE,   
     status ENUM('ativo', 'inativo', 'esgotado') DEFAULT 'ativo',
-
     data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
     data_atualizacao DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -77,10 +55,8 @@ CREATE TABLE produto_categoria (
 CREATE TABLE carrinhos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT,
-    sessao_id VARCHAR(100),
     data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
     data_atualizacao DATETIME ON UPDATE CURRENT_TIMESTAMP,
-    status ENUM('ativo', 'abandonado', 'convertido') DEFAULT 'ativo',
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE SET NULL
 );
 
@@ -114,7 +90,6 @@ CREATE TABLE pedidos (
     data_pedido DATETIME DEFAULT CURRENT_TIMESTAMP,
     data_atualizacao DATETIME ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE SET NULL,
-    FOREIGN KEY (endereco_entrega_id) REFERENCES enderecos(id) ON DELETE SET NULL,
 );
 
 -- Tabela de Itens do Pedido
@@ -127,29 +102,6 @@ CREATE TABLE pedido_itens (
     subtotal DECIMAL(10, 2) NOT NULL,
     FOREIGN KEY (pedido_id) REFERENCES pedidos(id) ON DELETE CASCADE,
     FOREIGN KEY (produto_id) REFERENCES produtos(id) ON DELETE CASCADE
-);
-
--- Tabela de Status do Pedido (histórico)
-CREATE TABLE pedido_status_historico (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    pedido_id INT NOT NULL,
-    status ENUM('aguardando_pagamento', 'pagamento_aprovado', 'em_preparacao', 'enviado', 'entregue', 'cancelado') NOT NULL,
-    comentario TEXT,
-    data_alteracao DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (pedido_id) REFERENCES pedidos(id) ON DELETE CASCADE
-);
-
--- Tabela de Pagamentos
-CREATE TABLE pagamentos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    pedido_id INT NOT NULL,
-    metodo VARCHAR(50) NOT NULL,
-    status ENUM('pendente', 'aprovado', 'recusado', 'estornado') DEFAULT 'pendente',
-    valor DECIMAL(10, 2) NOT NULL,
-    codigo_transacao VARCHAR(100),
-    data_pagamento DATETIME,
-    data_atualizacao DATETIME ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (pedido_id) REFERENCES pedidos(id) ON DELETE CASCADE
 );
 
 -- Índices para melhorar a performance

@@ -154,7 +154,7 @@ Auth::iniciarSessao();
               <div class="input-wrapper">
                 <i class="fas fa-lock"></i>
                 <input type="password" id="senha" name="senha" placeholder="Mínimo 6 caracteres" required>
-                <button type="button" class="toggle-password" id="togglePassword">
+                <button type="button" class="toggle-password iconPass" id="togglePassword">
                   <i class="far fa-eye"></i>
                 </button>
               </div>
@@ -165,7 +165,7 @@ Auth::iniciarSessao();
               <div class="input-wrapper">
                 <i class="fas fa-lock"></i>
                 <input type="password" id="confirmar_senha" name="confirmar_senha" placeholder="Digite a senha novamente" required>
-                <button type="button" class="toggle-password" id="toggleConfirmPassword">
+                <button type="button" class="toggle-password iconPass" id="toggleConfirmPassword">
                   <i class="far fa-eye"></i>
                 </button>
               </div>
@@ -204,13 +204,6 @@ Auth::iniciarSessao();
               <div>
                 <strong>Ofertas Exclusivas</strong>
                 <p>Receba promoções especiais por email</p>
-              </div>
-            </li>
-            <li>
-              <i class="fas fa-star"></i>
-              <div>
-                <strong>Avaliações</strong>
-                <p>Avalie produtos e ajude outros clientes</p>
               </div>
             </li>
           </ul>

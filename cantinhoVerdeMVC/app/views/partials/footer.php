@@ -19,7 +19,6 @@
         <ul>
           <li><a href="<?= BASE_URL ?>/home">Início</a></li>
           <li><a href="<?= BASE_URL ?>/produtos">Produtos</a></li>
-          <li><a href="<?= BASE_URL ?>/categorias">Categorias</a></li>
           <li><a href="<?= BASE_URL ?>/sobre">Sobre Nós</a></li>
           <li><a href="<?= BASE_URL ?>/contato">Contato</a></li>
         </ul>
@@ -31,7 +30,6 @@
           <li><a href="<?= BASE_URL ?>/">Plantas de Exterior</a></li>
           <li><a href="<?= BASE_URL ?>/produtos?categoria=2&&url=produtos">Suculentas</a></li>
           <li><a href="<?= BASE_URL ?>/produtos?categoria=4&&url=produtos">Vasos e Acessórios</a></li>
-          <li><a href="<?= BASE_URL ?>/">Sementes</a></li>
         </ul>
       </div>
       <div class="footer-col">

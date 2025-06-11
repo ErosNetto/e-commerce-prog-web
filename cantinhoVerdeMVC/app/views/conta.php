@@ -84,9 +84,6 @@ Auth::iniciarSessao();
           <nav class="account-nav">
             <ul>
               <li class="active"><a href="#orders" data-tab="orders"><i class="fas fa-shopping-bag"></i> Meus Pedidos</a></li>
-              <li><a href="#addresses" data-tab="addresses"><i class="fas fa-map-marker-alt"></i> Endereços</a></li>
-              <li><a href="#profile" data-tab="profile"><i class="fas fa-user-edit"></i> Editar Perfil</a></li>
-              <li><a href="#password" data-tab="password"><i class="fas fa-lock"></i> Alterar Senha</a></li>
               <li><a href="<?= BASE_URL ?>/usuario/logout"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
             </ul>
           </nav>
@@ -245,7 +242,7 @@ Auth::iniciarSessao();
           </div>
 
           <!-- Addresses Tab -->
-          <div class="account-tab" id="addresses">
+          <!-- <div class="account-tab" id="addresses">
             <h2>Meus Endereços</h2>
 
             <div class="addresses-container">
@@ -285,7 +282,7 @@ Auth::iniciarSessao();
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <!-- Wishlist Tab -->
           <!-- <div class="account-tab" id="wishlist">
@@ -418,7 +415,7 @@ Auth::iniciarSessao();
           </div> -->
 
           <!-- Profile Tab -->
-          <div class="account-tab" id="profile">
+          <!-- <div class="account-tab" id="profile">
             <h2>Editar Perfil</h2>
 
             <form class="profile-form">
@@ -488,10 +485,10 @@ Auth::iniciarSessao();
                 <button type="submit" class="btn">Salvar Alterações</button>
               </div>
             </form>
-          </div>
+          </div> -->
 
           <!-- Password Tab -->
-          <div class="account-tab" id="password">
+          <!-- <div class="account-tab" id="password">
             <h2>Alterar Senha</h2>
 
             <form class="password-form">
@@ -534,7 +531,7 @@ Auth::iniciarSessao();
                 <button type="submit" class="btn">Alterar Senha</button>
               </div>
             </form>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

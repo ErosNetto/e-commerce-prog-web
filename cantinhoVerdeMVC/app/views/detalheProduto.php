@@ -140,7 +140,6 @@ Auth::iniciarSessao();
                 <button class="quantity-btn plus">+</button>
               </div>
               <button class="btn-add-to-cart">Adicionar ao Carrinho</button>
-              <button class="btn-buy-now">Comprar Agora</button>
             </div>
           <?php endif; ?>
         </div>
