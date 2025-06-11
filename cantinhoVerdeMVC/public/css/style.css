@@ -316,22 +316,6 @@ nav ul li a.active::after {
   color: var(--primary-color);
 }
 
-.btn-add-cart {
-  width: 100%;
-  padding: 10px;
-  background-color: var(--primary-color);
-  color: var(--white);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: var(--transition);
-  font-weight: 500;
-}
-
-.btn-add-cart:hover {
-  background-color: var(--secondary-color);
-}
-
 .view-all {
   text-align: center;
   margin-top: 40px;
@@ -520,4 +504,107 @@ footer {
   .section-title {
     font-size: 1.5rem;
   }
+}
+
+/* Estilos para o contador do carrinho */
+.cart-icon {
+  position: relative;
+  display: inline-block;
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: var(--red-color);
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.cart-count.show {
+  display: flex;
+}
+
+/* Estilos para alertas */
+.alert {
+  padding: 15px;
+  margin: 20px auto;
+  border-radius: 5px;
+  max-width: 1200px;
+  width: 90%;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Estilos para carrinho vazio */
+.empty-cart {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: var(--light-bg);
+  border-radius: 10px;
+  margin: 40px 0;
+}
+
+.empty-cart i {
+  font-size: 4rem;
+  color: var(--light-text);
+  margin-bottom: 20px;
+}
+
+.empty-cart h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: var(--text-color);
+}
+
+.empty-cart p {
+  color: var(--light-text);
+  margin-bottom: 30px;
+}
+
+.empty-cart .btn {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 12px 30px;
+  border-radius: 5px;
+  text-decoration: none;
+  display: inline-block;
+  transition: var(--transition);
+}
+
+.empty-cart .btn:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Estilos para botões desabilitados */
+.btn-add-to-cart.disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn-add-to-cart.disabled:hover {
+  background-color: #ccc;
+  transform: none;
 }

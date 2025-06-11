@@ -133,13 +133,24 @@ Auth::iniciarSessao();
           </div>
 
           <?php if ($produto['estoque'] > 0): ?>
-            <div class="product-actions">
+            <form method="POST" action="<?= BASE_URL ?>/carrinho/adicionar" class="product-actions">
+              <input type="hidden" name="produto_id" value="<?= $produto['id'] ?>">
               <div class="quantity-selector">
-                <button class="quantity-btn minus">-</button>
-                <input type="number" value="1" min="1" max="<?= $produto['estoque'] ?>" class="quantity-input" />
-                <button class="quantity-btn plus">+</button>
+                <button type="button" class="quantity-btn minus">-</button>
+                <input type="number" name="quantidade" value="1" min="1" max="<?= $produto['estoque'] ?>" class="quantity-input" />
+                <button type="button" class="quantity-btn plus">+</button>
               </div>
-              <button class="btn-add-to-cart">Adicionar ao Carrinho</button>
+              <button type="submit" class="btn-add-to-cart">
+                <i class="fas fa-shopping-cart"></i>
+                Adicionar ao Carrinho
+              </button>
+            </form>
+          <?php else: ?>
+            <div class="product-actions">
+              <button class="btn-add-to-cart disabled" disabled>
+                <i class="fas fa-times"></i>
+                Produto Esgotado
+              </button>
             </div>
           <?php endif; ?>
         </div>
@@ -219,3 +230,44 @@ Auth::iniciarSessao();
 </body>
 
 </html>
+  <script>
+    // Controle de quantidade
+    document.querySelector('.quantity-btn.minus').addEventListener('click', function() {
+      const input = document.querySelector('.quantity-input');
+      const currentValue = parseInt(input.value);
+      if (currentValue > 1) {
+        input.value = currentValue - 1;
+      }
+    });
+
+    document.querySelector('.quantity-btn.plus').addEventListener('click', function() {
+      const input = document.querySelector('.quantity-input');
+      const currentValue = parseInt(input.value);
+      const maxValue = parseInt(input.max);
+      if (currentValue < maxValue) {
+        input.value = currentValue + 1;
+      }
+    });
+
+    // Zoom da imagem
+    const mainImage = document.getElementById('mainImage');
+    const modal = document.getElementById('imageZoomModal');
+    const zoomedImage = document.getElementById('zoomedImage');
+    const closeZoom = document.querySelector('.close-zoom');
+
+    mainImage.addEventListener('click', function() {
+      modal.style.display = 'block';
+      zoomedImage.src = this.src;
+    });
+
+    closeZoom.addEventListener('click', function() {
+      modal.style.display = 'none';
+    });
+
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+  </script>
+

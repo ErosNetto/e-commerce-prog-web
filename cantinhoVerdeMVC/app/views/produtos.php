@@ -202,7 +202,6 @@ Auth::iniciarSessao();
                     <div class="product-price">
                       <span class="price">R$ <?= number_format($produto['preco'], 2, ',', '.') ?></span>
                     </div>
-                    <button class="btn-add-cart">Adicionar ao Carrinho</button>
                   </div>
                 </div>
               <?php endforeach; ?>

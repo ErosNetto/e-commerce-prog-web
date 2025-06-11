@@ -364,4 +364,14 @@ class Produto extends Model
     $stmt->bindValue(':id', $id);
     return $stmt->execute();
   }
+
+  public function buscarPorId($id)
+  {
+    $sql = "SELECT * FROM produtos WHERE id = :id";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+  }
 }

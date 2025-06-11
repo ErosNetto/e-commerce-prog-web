@@ -84,6 +84,7 @@ Auth::iniciarSessao();
           <nav class="account-nav">
             <ul>
               <li class="active"><a href="#orders" data-tab="orders"><i class="fas fa-shopping-bag"></i> Meus Pedidos</a></li>
+              <li><a href="#password" data-tab="password"><i class="fas fa-lock"></i> Alterar Senha</a></li>
               <li><a href="<?= BASE_URL ?>/usuario/logout"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
             </ul>
           </nav>
@@ -488,7 +489,7 @@ Auth::iniciarSessao();
           </div> -->
 
           <!-- Password Tab -->
-          <!-- <div class="account-tab" id="password">
+          <div class="account-tab" id="password">
             <h2>Alterar Senha</h2>
 
             <form class="password-form">
@@ -531,7 +532,7 @@ Auth::iniciarSessao();
                 <button type="submit" class="btn">Alterar Senha</button>
               </div>
             </form>
-          </div> -->
+          </div>
         </div>
       </div>
     </div>
