@@ -77,8 +77,8 @@ Auth::iniciarSessao();
       <div class="account-container">
         <div class="account-sidebar">
           <div class="user-info">
-            <h3>Maria Silva</h3>
-            <p>maria.silva@email.com</p>
+            <h3><?= htmlspecialchars(Auth::getUser()['name']) ?></h3>
+            <p><?= htmlspecialchars(Auth::getUser()['email']) ?></p>
           </div>
 
           <nav class="account-nav">
@@ -87,7 +87,7 @@ Auth::iniciarSessao();
               <li><a href="#addresses" data-tab="addresses"><i class="fas fa-map-marker-alt"></i> Endereços</a></li>
               <li><a href="#profile" data-tab="profile"><i class="fas fa-user-edit"></i> Editar Perfil</a></li>
               <li><a href="#password" data-tab="password"><i class="fas fa-lock"></i> Alterar Senha</a></li>
-              <li><a href="index.html"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+              <li><a href="<?= BASE_URL ?>/usuario/logout"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
             </ul>
           </nav>
         </div>

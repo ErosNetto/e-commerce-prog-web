@@ -900,3 +900,38 @@
     justify-content: center;
   }
 }
+
+/* Dropdown (Select) Styling for Admin Forms */
+.form-group select {
+  appearance: none; /* Remove default browser styling */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%234CAF50" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 20px;
+  padding-right: 30px; /* Make space for the custom arrow */
+}
+
+.form-group select:focus {
+  border-color: var(--admin-primary);
+  box-shadow: 0 0 0 2px var(--admin-primary-light);
+}
+
+/* Form Columns for Modals */
+.admin-form .form-columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .admin-form .form-columns {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.admin-form .form-columns .column {
+  display: flex;
+  flex-direction: column;
+}

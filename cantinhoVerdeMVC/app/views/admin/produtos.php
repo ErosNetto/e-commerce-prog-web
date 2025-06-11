@@ -78,6 +78,20 @@ $usuario = Auth::getUser();
 
       <!-- Products Content -->
       <div class="admin-content">
+        <?php if (isset($_SESSION['success'])): ?>
+          <div class="alert alert-success">
+            <?= $_SESSION['success'] ?>
+            <?php unset($_SESSION['success']); ?>
+          </div>
+        <?php endif; ?>
+
+        <?php if (isset($_SESSION['error'])): ?>
+          <div class="alert alert-danger">
+            <?= $_SESSION['error'] ?>
+            <?php unset($_SESSION['error']); ?>
+          </div>
+        <?php endif; ?>
+
         <div class="admin-card">
           <div class="admin-card-header">
             <h2>Lista de Produtos</h2>
@@ -114,6 +128,7 @@ $usuario = Auth::getUser();
               <table class="admin-table">
                 <thead>
                   <tr>
+                    <th>ID</th>
                     <th>Imagem</th>
                     <th>Nome</th>
                     <th>Categoria</th>
@@ -125,43 +140,66 @@ $usuario = Auth::getUser();
                 </thead>
 
                 <tbody>
-                  <tr>
-                    <td>
-                      <img
-                        src="../images/products/planta1.jpg"
-                        alt="Zamioculca"
-                        class="product-thumbnail" />
-                    </td>
-                    <td>Zamioculca</td>
-                    <td>Planta de Interior</td>
-                    <td>R$ 89,90</td>
-                    <td>15</td>
-                    <td>
-                      <span class="status-badge instock">Em Estoque</span>
-                    </td>
-                    <td>
-                      <div class="action-buttons">
-                        <a
-                          href="produto-editar.html?id=1"
-                          class="action-btn edit-btn"
-                          title="Editar">
-                          <i class="fas fa-edit"></i>
-                        </a>
-                        <button
-                          class="action-btn delete-btn"
-                          title="Excluir"
-                          data-id="1">
-                          <i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button
-                          class="action-btn view-btn"
-                          title="Visualizar"
-                          data-id="1">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
+                  <?php foreach ($produtos as $produto): ?>
+                    <tr>
+                      <td><?= htmlspecialchars($produto['id']) ?></td>
+                      <td>
+                        <?php if (!empty($produto['imagem_principal'])): ?>
+                          <img src="<?= htmlspecialchars($produto['imagem_principal']) ?>"
+                            alt="<?= htmlspecialchars($produto['nome']) ?>"
+                            class="product-thumbnail" />
+                        <?php else: ?>
+                          <span class="no-image">Sem imagem</span>
+                        <?php endif; ?>
+                      </td>
+                      <td><?= htmlspecialchars($produto['nome']) ?></td>
+                      <td>
+                        <?php if (!empty($produto['categorias_nomes'][0])): ?>
+                          <?= htmlspecialchars($produto['categorias_nomes'][0]) ?>
+                        <?php else: ?>
+                          Sem categoria
+                        <?php endif; ?>
+                      </td>
+                      <td>R$ <?= number_format($produto['preco'], 2, ',', '.') ?></td>
+                      <td><?= htmlspecialchars($produto['estoque']) ?></td>
+                      <td>
+                        <?php if ($produto['estoque'] > 0): ?>
+                          <span class="status-badge instock">Em Estoque</span>
+                        <?php else: ?>
+                          <span class="status-badge outofstock">Fora de Estoque</span>
+                        <?php endif; ?>
+                      </td>
+                      <td>
+                        <div class="action-buttons">
+                          <button
+                            class="action-btn edit-btn"
+                            title="Editar"
+                            data-id="<?= $produto['id'] ?>"
+                            data-nome="<?= htmlspecialchars($produto['nome']) ?>"
+                            data-descricao="<?= htmlspecialchars($produto['descricao']) ?>"
+                            data-descricaocurta="<?= htmlspecialchars($produto['descricao_curta']) ?>"
+                            data-imagem="<?= htmlspecialchars($produto['imagem_principal']) ?>"
+                            data-preco="<?= htmlspecialchars($produto['preco']) ?>"
+                            data-estoque="<?= htmlspecialchars($produto['estoque']) ?>"
+                            data-nivelcuidado="<?= htmlspecialchars($produto['nivel_cuidado']) ?>"
+                            data-tamanho="<?= htmlspecialchars($produto['tamanho']) ?>"
+                            data-ambiente="<?= htmlspecialchars($produto['ambiente']) ?>"
+                            data-luz="<?= htmlspecialchars($produto['luz']) ?>"
+                            data-agua="<?= htmlspecialchars($produto['agua']) ?>"
+                            data-destaque="<?= $produto['destaque'] ?>"
+                            data-categoria="<?= !empty($produto['categorias_ids'][0]) ? $produto['categorias_ids'][0] : '' ?>">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          <button
+                            class="action-btn delete-btn"
+                            title="Excluir"
+                            data-id="<?= $produto['id'] ?>">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
                 </tbody>
               </table>
             </div>
@@ -192,62 +230,102 @@ $usuario = Auth::getUser();
         <button type="button" class="admin-modal-close">&times;</button>
       </div>
       <div class="admin-modal-body">
-        <form id="produtoForm" class="admin-form" method="POST" action="<?= BASE_URL ?>/adminCategorias/create">
+        <form id="produtoForm" class="admin-form" method="POST" action="<?= BASE_URL ?>/adminProdutos/create">
           <input type="hidden" id="produtoId" name="id" value="" />
 
-          <div class="form-group">
-            <label for="produtoName">Nome da Produto*</label>
-            <input type="text" id="produtoName" name="nome" required />
-          </div>
+          <div class="form-columns">
+            <div class="column">
+              <div class="form-group">
+                <label for="produtoName">Nome da Produto*</label>
+                <input type="text" id="produtoName" name="nome" required />
+              </div>
 
-          <div class="form-group">
-            <label for="produtoDescricao">Descrição</label>
-            <input type="text" id="produtoDescricao" name="descricao" required />
-          </div>
+              <div class="form-group">
+                <label for="produtoDescricao">Descrição</label>
+                <input type="text" id="produtoDescricao" name="descricao" />
+              </div>
 
-          <div class="form-group">
-            <label for="produtoDescricaoCurta">Descrição Curta</label>
-            <input type="text" id="produtoDescricaoCurta" name="descricaoCurta" required />
-          </div>
+              <div class="form-group">
+                <label for="produtoDescricaoCurta">Descrição Curta</label>
+                <input type="text" id="produtoDescricaoCurta" name="descricaoCurta" />
+              </div>
 
-          <div class="form-group">
-            <label for="produtoImage">Imagem do Produto*</label>
-            <input type="text" id="produtoImage" name="imagem" />
-          </div>
+              <div class="form-group">
+                <label for="produtoImage">Imagem do Produto*</label>
+                <input type="text" id="produtoImage" name="imagem" required />
+              </div>
 
-          <div class="form-group">
-            <label for="produtoPreco">Preco*</label>
-            <input type="number" id="produtoPreco" name="preco" />
-          </div>
+              <div class="form-group">
+                <label for="produtoPreco">Preco*</label>
+                <input type="number" id="produtoPreco" name="preco" required />
+              </div>
 
-          <div class="form-group">
-            <label for="produtoEstoque">Estoque*</label>
-            <input type="number" id="produtoEstoque" name="estoque" />
-          </div>
+              <div class="form-group">
+                <label for="produtoEstoque">Estoque*</label>
+                <input type="number" id="produtoEstoque" name="estoque" required />
+              </div>
+            </div>
 
-          <div class="form-group">
-            <label>Nivel de cuidado</label>
-          </div>
+            <div class="column">
+              <div class="form-group">
+                <label for="produtoNivelCuidado">Nível de Cuidado</label>
+                <select id="produtoNivelCuidado" name="nivel_cuidado">
+                  <option value="facil">Fácil</option>
+                  <option value="medio">Médio</option>
+                  <option value="avancado">Avançado</option>
+                </select>
+              </div>
 
-          <div class="form-group">
-            <label>Tamanho</label>
-          </div>
+              <div class="form-group">
+                <label for="produtoTamanho">Tamanho</label>
+                <select id="produtoTamanho" name="tamanho">
+                  <option value="pequeno">Pequeno</option>
+                  <option value="medio">Médio</option>
+                  <option value="grande">Grande</option>
+                </select>
+              </div>
 
-          <div class="form-group">
-            <label>Ambiente</label>
-          </div>
+              <div class="form-group">
+                <label for="produtoAmbiente">Ambiente</label>
+                <select id="produtoAmbiente" name="ambiente">
+                  <option value="interior">Interior</option>
+                  <option value="exterior">Exterior</option>
+                  <option value="ambos">Ambos</option>
+                </select>
+              </div>
 
-          <div class="form-group">
-            <label>Luz</label>
-          </div>
+              <div class="form-group">
+                <label for="produtoLuz">Luz</label>
+                <select id="produtoLuz" name="luz">
+                  <option value="baixa">Baixa</option>
+                  <option value="media">Média</option>
+                  <option value="alta">Alta</option>
+                </select>
+              </div>
 
-          <div class="form-group">
-            <label>Água</label>
-          </div>
+              <div class="form-group">
+                <label for="produtoAgua">Água</label>
+                <select id="produtoAgua" name="agua">
+                  <option value="pouca">Pouca</option>
+                  <option value="media">Média</option>
+                  <option value="muita">Muita</option>
+                </select>
+              </div>
 
-          <div class="form-group">
-            <label>Destaque</label>
-            <input type="checkbox" id="produtoFeatured" name="destaque" value="1" />
+              <div class="form-group">
+                <label>Destaque</label>
+                <input type="checkbox" id="produtoFeatured" name="destaque" value="1" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="categoriaProduto">Categoria do Produto</label>
+              <select id="categoriaProduto" name="categoria">
+                <?php foreach ($categorias as $categoria): ?>
+                  <option value="<?= htmlspecialchars($categoria['id']) ?>"><?= htmlspecialchars($categoria['nome']) ?></option>
+                <?php endforeach; ?>
+              </select>
+            </div>
           </div>
 
           <div class="admin-modal-footer">
@@ -262,30 +340,6 @@ $usuario = Auth::getUser();
       </div>
     </div>
   </div>
-
-  <!-- Delete Confirmation Modal -->
-  <!-- <div class="admin-modal" id="deleteModal">
-    <div class="admin-modal-content">
-      <div class="admin-modal-header">
-        <h3>Confirmar Exclusão</h3>
-        <button class="admin-modal-close">&times;</button>
-      </div>
-      <div class="admin-modal-body">
-        <p>
-          Tem certeza que deseja excluir este produto? Esta ação não pode ser
-          desfeita.
-        </p>
-      </div>
-      <div class="admin-modal-footer">
-        <button class="admin-btn admin-btn-secondary admin-modal-cancel">
-          Cancelar
-        </button>
-        <button class="admin-btn admin-btn-danger" id="confirmDelete">
-          Sim, Excluir
-        </button>
-      </div>
-    </div>
-  </div> -->
 
   <script src="../js/admin.js"></script>
   <script>
@@ -345,59 +399,73 @@ $usuario = Auth::getUser();
       });
     });
 
-
-
-
-    // AQUI
-    // Open Edit Category Modal
+    // Open Edit Produto Modal
     const editButtons = document.querySelectorAll(".edit-btn");
     editButtons.forEach((button) => {
       button.addEventListener("click", function() {
         const id = this.dataset.id;
         const nome = this.dataset.nome;
+        const descricao = this.dataset.descricao;
+        const descricaoCurta = this.dataset.descricaocurta;
         const imagem = this.dataset.imagem;
+        const preco = this.dataset.preco;
+        const estoque = this.dataset.estoque;
+        const nivelCuidado = this.dataset.nivelcuidado;
+        const tamanho = this.dataset.tamanho;
+        const ambiente = this.dataset.ambiente;
+        const luz = this.dataset.luz;
+        const agua = this.dataset.agua;
         const destaque = this.dataset.destaque === "1";
+        const categoriaId = this.dataset.categoria;
 
-        categoryForm.action = "<?= BASE_URL ?>/adminCategorias/update";
-        categoryModalTitle.textContent = "Editar Categoria";
+        categoryForm.action = "<?= BASE_URL ?>/adminProdutos/update";
+        categoryModalTitle.textContent = "Editar Produto";
 
-        document.getElementById("categoryId").value = id;
-        document.getElementById("categoryName").value = nome;
-        document.getElementById("categoryImage").value = imagem;
-        document.getElementById("categoryFeatured").checked = destaque;
+        document.getElementById("produtoId").value = id;
+        document.getElementById("produtoName").value = nome;
+        document.getElementById("produtoDescricao").value = descricao;
+        document.getElementById("produtoDescricaoCurta").value = descricaoCurta;
+        document.getElementById("produtoImage").value = imagem;
+        document.getElementById("produtoPreco").value = preco;
+        document.getElementById("produtoEstoque").value = estoque;
+        document.getElementById("produtoNivelCuidado").value = nivelCuidado;
+        document.getElementById("produtoTamanho").value = tamanho;
+        document.getElementById("produtoAmbiente").value = ambiente;
+        document.getElementById("produtoLuz").value = luz;
+        document.getElementById("produtoAgua").value = agua;
+        document.getElementById("produtoFeatured").checked = destaque;
+
+        if (categoriaId) {
+          document.getElementById("categoriaProduto").value = categoriaId;
+        } else {
+          document.getElementById("categoriaProduto").selectedIndex = 0;
+        }
 
         categoryModal.classList.add("show");
       });
     });
 
-    // Delete Category
+    // Delete Produto
     const deleteButtons = document.querySelectorAll(".delete-btn");
     deleteButtons.forEach((button) => {
       button.addEventListener("click", function() {
         const id = this.dataset.id;
-        const confirmDelete = confirm("Tem certeza que deseja excluir esta categoria?");
+        const confirmDelete = confirm("Tem certeza que deseja excluir esse produto?");
         if (confirmDelete) {
-          window.location.href = `<?= BASE_URL ?>/adminCategorias/delete/${id}`;
+          window.location.href = `<?= BASE_URL ?>/adminProdutos/delete/${id}`;
         }
       });
     });
 
     // Fechar modal após submit (opcional)
-    document.getElementById('categoryForm').addEventListener('submit', function() {
+    document.getElementById('produtoForm').addEventListener('submit', function() {
       document.querySelectorAll('.admin-modal').forEach(modal => {
         modal.classList.remove('show');
       });
     });
 
-    // // Delete Product
-    // const deleteModal = document.getElementById("deleteModal");
-    // const deleteButtons = document.querySelectorAll(".delete-btn");
-
-    // deleteButtons.forEach((button) => {
-    //   button.addEventListener("click", function() {
-    //     deleteModal.classList.add("show");
-    //   });
-    // });
+    // Ao abrir o modal para edição
+    document.getElementById("produtoPreco").value = parseFloat(preco).toFixed(2);
   </script>
 </body>
 

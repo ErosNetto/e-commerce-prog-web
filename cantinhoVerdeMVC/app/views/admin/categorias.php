@@ -336,12 +336,4 @@ $usuario = Auth::getUser();
   </script>
 </body>
 
-<!-- // const deleteModal = document.getElementById("deleteModal");
-// const deleteButtons = document.querySelectorAll(".delete-btn");
-// deleteButtons.forEach((button) => {
-//   button.addEventListener("click", function() {
-//     deleteModal.classList.add("show");
-//   });
-// }); -->
-
 </html>
