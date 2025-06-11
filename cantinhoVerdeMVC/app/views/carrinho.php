@@ -180,9 +180,10 @@ Auth::iniciarSessao();
             </div>
 
             <?php if (Auth::isLoggedIn()): ?>
-              <button class="btn checkout-btn" onclick="window.location.href='<?= BASE_URL ?>/pedido/finalizar'">
-                Finalizar Pedido
-              </button>
+              <form method="POST" action="<?= BASE_URL ?>/confirmacao">
+                <input type="hidden" name="total" value="<?= $total ?>">
+                <button class="btn checkout-btn" type="submit">Finalizar Pedido</button>
+              </form>
             <?php else: ?>
               <button class="btn checkout-btn" onclick="window.location.href='<?= BASE_URL ?>/usuario/login'">
                 Fazer Login para Finalizar

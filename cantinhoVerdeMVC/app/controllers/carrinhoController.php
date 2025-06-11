@@ -163,4 +163,53 @@ class CarrinhoController extends Controller
 
         return $carrinho_id;
     }
+
+    public function finalizarPedido()
+    {
+        if (!Auth::isLoggedIn()) {
+            $_SESSION['mensagem_erro'] = "Você precisa estar logado para finalizar o pedido.";
+            $this->redirect('/login');
+            return;
+        }
+
+        $usuario = Auth::getUser();
+        $carrinho_id = $this->obterCarrinhoId();
+
+        $carrinhoItemModel = $this->model('CarrinhoItem');
+        $pedidoModel = $this->model('Pedido');
+        $pedidoItemModel = $this->model('PedidoItem');
+
+        $itens = $carrinhoItemModel->buscarItensPorCarrinho($carrinho_id);
+
+        if (empty($itens)) {
+            $_SESSION['mensagem_erro'] = "Seu carrinho está vazio.";
+            $this->redirect('/carrinho');
+            return;
+        }
+
+        $total = 0;
+        foreach ($itens as $item) {
+            $total += $item['quantidade'] * $item['preco_unitario'];
+        }
+
+        // Criar pedido
+        $pedido_id = $pedidoModel->criarPedido($usuario['id'], $total);
+
+        // Adicionar itens ao pedido
+        foreach ($itens as $item) {
+            $pedidoItemModel->adicionarItem(
+                $pedido_id,
+                $item['produto_id'],
+                $item['quantidade'],
+                $item['preco_unitario']
+            );
+        }
+
+        // (Opcional) Limpar carrinho
+        $carrinhoModel = $this->model('Carrinho');
+        $carrinhoModel->limparCarrinho($carrinho_id);
+
+        $_SESSION['mensagem_sucesso'] = "Pedido realizado com sucesso!";
+        $this->redirect('/pedido/sucesso/' . $pedido_id);
+    }
 }

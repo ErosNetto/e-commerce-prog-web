@@ -43,4 +43,12 @@ class Carrinho extends Model
             return null;
         }
     }
+
+    private function limparCarrinho($carrinho_id)
+    {
+        $sql = "DELETE FROM carrinho_itens WHERE carrinho_id = :carrinho_id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':carrinho_id', $carrinho_id);
+        $stmt->execute();
+    }
 }
