@@ -99,21 +99,6 @@
   color: #2e7d32;
 }
 
-/* Opções do formulário */
-.form-options {
-  margin-bottom: 25px;
-}
-
-.forgot-password {
-  color: #2e7d32;
-  text-decoration: none;
-  font-size: 14px;
-}
-
-.forgot-password:hover {
-  text-decoration: underline;
-}
-
 /* Botões */
 .btn {
   display: inline-flex;
@@ -151,6 +136,7 @@
   text-align: center;
   color: #666;
   font-size: 14px;
+  margin-top: 15px;
 }
 
 .auth-footer a {

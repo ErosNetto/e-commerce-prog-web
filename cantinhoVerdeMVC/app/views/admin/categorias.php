@@ -33,12 +33,6 @@ $usuario = Auth::getUser();
       <nav class="admin-nav">
         <ul>
           <li>
-            <a href="<?= BASE_URL ?>/adminDashboard/dashboard">
-              <i class="fas fa-tachometer-alt"></i>
-              <span>Dashboard</span>
-            </a>
-          </li>
-          <li>
             <a href="<?= BASE_URL ?>/adminProdutos/produtos">
               <i class="fas fa-leaf"></i>
               <span>Produtos</span>
@@ -197,7 +191,7 @@ $usuario = Auth::getUser();
             <input type="text" id="categoryName" name="nome" required />
           </div>
           <div class="form-group">
-            <label for="categoryImage">Imagem da Categoria</label>
+            <label for="categoryImage">Imagem da Categoria*</label>
             <input type="text" id="categoryImage" name="imagem" />
           </div>
           <div class="form-group">

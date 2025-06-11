@@ -34,7 +34,7 @@ Auth::iniciarSessao();
       <div class="icons">
         <?php if (Auth::isLoggedIn()): ?>
           <?php if (Auth::isAdmin()): ?>
-            <a href="<?= BASE_URL ?>/adminDashboard" title="Painel Administrativo">
+            <a href="<?= BASE_URL ?>/adminProdutos" title="Painel Administrativo">
               <i class="fas fa-tachometer-alt"></i>
             </a>
           <?php endif; ?>
@@ -45,7 +45,6 @@ Auth::iniciarSessao();
 
           <a href="<?= BASE_URL ?>/usuario/perfil" title="Meu Perfil">
             <i class="fas fa-user"></i>
-            <!-- <span><?= htmlspecialchars(Auth::getUser()['name']) ?></span> -->
           </a>
 
           <a href="<?= BASE_URL ?>/usuario/logout" title="Sair">
@@ -69,8 +68,10 @@ Auth::iniciarSessao();
       <div class="breadcrumb">
         <a href="<?= BASE_URL ?>/home">Início</a> /
         <a href="<?= BASE_URL ?>/produtos">Produtos</a> /
-        <?php if (!empty($produto['categorias'])): ?>
-          <a href="<?= BASE_URL ?>/categorias/<?= $produto['categorias'][0] ?>"><?= $produto['categorias'][0] ?></a> /
+        <?php if (!empty($produto['categorias']) && !empty($produto['categoria_ids'])): ?>
+          <a href="<?= BASE_URL ?>/produtos?categoria=<?= $produto['categoria_ids'][0] ?>&url=produtos">
+            <?= $produto['categorias'][0] ?>
+          </a> /
         <?php endif; ?>
         <span><?= $produto['nome'] ?></span>
       </div>
@@ -85,24 +86,6 @@ Auth::iniciarSessao();
         <div class="product-images">
           <div class="product-main-image">
             <img src="<?= $produto['imagem_principal'] ?>" alt="<?= $produto['nome'] ?>" id="mainImage" />
-          </div>
-
-          <div class="product-thumbnails">
-            <!-- Miniatura da imagem principal -->
-            <div class="thumbnail active" data-image="<?= $produto['imagem_principal'] ?>">
-              <img src="<?= $produto['imagem_principal'] ?>" alt="<?= $produto['nome'] ?> - Imagem principal" />
-            </div>
-
-            <!-- Miniaturas adicionais -->
-            <?php if (!empty($produto['imagens_adicionais'])): ?>
-              <?php foreach ($produto['imagens_adicionais'] as $imagem): ?>
-                <?php if ($imagem !== $produto['imagem_principal']): ?>
-                  <div class="thumbnail" data-image="<?= BASE_URL ?>/<?= $imagem ?>">
-                    <img src="<?= $imagem ?>" alt="<?= $produto['nome'] ?>" />
-                  </div>
-                <?php endif; ?>
-              <?php endforeach; ?>
-            <?php endif; ?>
           </div>
         </div>
 
@@ -234,32 +217,6 @@ Auth::iniciarSessao();
   </div>
 
   <?php require_once 'partials/footer.php'; ?>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Seleciona os elementos
-      const mainImage = document.getElementById('mainImage');
-      const thumbnails = document.querySelectorAll('.thumbnail');
-
-      // Adiciona evento de clique para cada miniatura
-      thumbnails.forEach(thumbnail => {
-        thumbnail.addEventListener('click', function() {
-          // Obtém a imagem da miniatura clicada
-          const thumbnailImg = this.querySelector('img');
-          const newSrc = thumbnailImg.src;
-
-          // Atualiza a imagem principal
-          mainImage.src = newSrc;
-
-          // Remove a classe 'active' de todas as miniaturas
-          thumbnails.forEach(t => t.classList.remove('active'));
-
-          // Adiciona a classe 'active' na miniatura clicada
-          this.classList.add('active');
-        });
-      });
-    });
-  </script>
 </body>
 
 </html>

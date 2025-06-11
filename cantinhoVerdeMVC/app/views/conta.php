@@ -34,7 +34,7 @@ Auth::iniciarSessao();
       <div class="icons">
         <?php if (Auth::isLoggedIn()): ?>
           <?php if (Auth::isAdmin()): ?>
-            <a href="<?= BASE_URL ?>/adminDashboard" title="Painel Administrativo">
+            <a href="<?= BASE_URL ?>/adminProdutos" title="Painel Administrativo">
               <i class="fas fa-tachometer-alt"></i>
             </a>
           <?php endif; ?>
@@ -45,7 +45,6 @@ Auth::iniciarSessao();
 
           <a href="<?= BASE_URL ?>/usuario/perfil" title="Meu Perfil" class="active">
             <i class="fas fa-user"></i>
-            <!-- <span><?= htmlspecialchars(Auth::getUser()['name']) ?></span> -->
           </a>
 
           <a href="<?= BASE_URL ?>/usuario/logout" title="Sair">
@@ -84,11 +83,8 @@ Auth::iniciarSessao();
 
           <nav class="account-nav">
             <ul>
-              <li class="active"><a href="#dashboard" data-tab="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-              <li><a href="#orders" data-tab="orders"><i class="fas fa-shopping-bag"></i> Meus Pedidos</a></li>
+              <li class="active"><a href="#orders" data-tab="orders"><i class="fas fa-shopping-bag"></i> Meus Pedidos</a></li>
               <li><a href="#addresses" data-tab="addresses"><i class="fas fa-map-marker-alt"></i> Endereços</a></li>
-              <!-- <li><a href="#wishlist" data-tab="wishlist"><i class="fas fa-heart"></i> Lista de Desejos</a></li> -->
-              <!-- <li><a href="#reviews" data-tab="reviews"><i class="fas fa-star"></i> Avaliações</a></li> -->
               <li><a href="#profile" data-tab="profile"><i class="fas fa-user-edit"></i> Editar Perfil</a></li>
               <li><a href="#password" data-tab="password"><i class="fas fa-lock"></i> Alterar Senha</a></li>
               <li><a href="index.html"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
@@ -97,137 +93,8 @@ Auth::iniciarSessao();
         </div>
 
         <div class="account-content">
-          <!-- Dashboard Tab -->
-          <div class="account-tab active" id="dashboard">
-            <h2>Dashboard</h2>
-
-            <div class="dashboard-welcome">
-              <p>Olá <strong>Maria</strong>, bem-vinda à sua conta. Aqui você pode gerenciar seus pedidos, endereços, lista de desejos e muito mais.</p>
-            </div>
-
-            <div class="dashboard-stats">
-              <div class="stat-card">
-                <div class="stat-icon">
-                  <i class="fas fa-shopping-bag"></i>
-                </div>
-                <div class="stat-info">
-                  <h3>5</h3>
-                  <p>Pedidos</p>
-                </div>
-              </div>
-
-              <div class="stat-card">
-                <div class="stat-icon">
-                  <i class="fas fa-heart"></i>
-                </div>
-                <div class="stat-info">
-                  <h3>12</h3>
-                  <p>Lista de Desejos</p>
-                </div>
-              </div>
-
-              <div class="stat-card">
-                <div class="stat-icon">
-                  <i class="fas fa-star"></i>
-                </div>
-                <div class="stat-info">
-                  <h3>8</h3>
-                  <p>Avaliações</p>
-                </div>
-              </div>
-
-              <div class="stat-card">
-                <div class="stat-icon">
-                  <i class="fas fa-map-marker-alt"></i>
-                </div>
-                <div class="stat-info">
-                  <h3>2</h3>
-                  <p>Endereços</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="dashboard-sections">
-              <div class="dashboard-section">
-                <h3>Pedidos Recentes</h3>
-                <div class="recent-orders">
-                  <div class="order-item">
-                    <div class="order-info">
-                      <span class="order-id">#12345</span>
-                      <span class="order-date">15/03/2023</span>
-                      <span class="order-status delivered">Entregue</span>
-                    </div>
-                    <div class="order-total">
-                      <span>R$ 189,70</span>
-                      <a href="#orders" class="btn-small" data-tab="orders">Ver Detalhes</a>
-                    </div>
-                  </div>
-
-                  <div class="order-item">
-                    <div class="order-info">
-                      <span class="order-id">#12346</span>
-                      <span class="order-date">02/04/2023</span>
-                      <span class="order-status processing">Em Processamento</span>
-                    </div>
-                    <div class="order-total">
-                      <span>R$ 259,80</span>
-                      <a href="#orders" class="btn-small" data-tab="orders">Ver Detalhes</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- <div class="dashboard-section">
-                <h3>Lista de Desejos</h3>
-                <div class="wishlist-preview">
-                  <div class="product-card small">
-                    <div class="product-image">
-                      <img src="img/produto9.jpg" alt="Orquídea Phalaenopsis">
-                    </div>
-                    <div class="product-info">
-                      <h4>Orquídea Phalaenopsis</h4>
-                      <div class="product-price">
-                        <span class="price">R$ 129,90</span>
-                      </div>
-                      <button class="btn-add-cart small">Adicionar ao Carrinho</button>
-                    </div>
-                  </div>
-
-                  <div class="product-card small">
-                    <div class="product-image">
-                      <img src="img/produto10.jpg" alt="Vaso Cerâmica">
-                    </div>
-                    <div class="product-info">
-                      <h4>Vaso Cerâmica</h4>
-                      <div class="product-price">
-                        <span class="price">R$ 79,90</span>
-                      </div>
-                      <button class="btn-add-cart small">Adicionar ao Carrinho</button>
-                    </div>
-                  </div>
-
-                  <div class="product-card small">
-                    <div class="product-image">
-                      <img src="img/produto7.jpg" alt="Lírio da Paz">
-                    </div>
-                    <div class="product-info">
-                      <h4>Lírio da Paz</h4>
-                      <div class="product-price">
-                        <span class="price">R$ 59,90</span>
-                      </div>
-                      <button class="btn-add-cart small">Adicionar ao Carrinho</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="view-all">
-                  <a href="#wishlist" class="btn-outline" data-tab="wishlist">Ver Lista Completa</a>
-                </div>
-              </div> -->
-            </div>
-          </div>
-
           <!-- Orders Tab -->
-          <div class="account-tab" id="orders">
+          <div class="account-tab active" id="orders">
             <h2>Meus Pedidos</h2>
 
             <div class="orders-list">
@@ -678,53 +545,50 @@ Auth::iniciarSessao();
   <script>
     // Funções para a página de conta
     document.addEventListener('DOMContentLoaded', function() {
-      // Navegação entre as abas
-      const tabLinks = document.querySelectorAll('.account-nav a');
+      // Elementos
+      const tabLinks = document.querySelectorAll('.account-nav a[data-tab]');
       const tabContents = document.querySelectorAll('.account-tab');
 
-      tabLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
+      // Função para ativar uma aba
+      function activateTab(tabId) {
+        // Remove todas as classes active
+        tabLinks.forEach(link => link.parentElement.classList.remove('active'));
+        tabContents.forEach(tab => tab.classList.remove('active'));
 
-          const tabId = this.getAttribute('data-tab');
+        // Ativa a aba selecionada
+        const selectedLink = document.querySelector(`.account-nav a[data-tab="${tabId}"]`);
+        const selectedTab = document.getElementById(tabId);
 
-          // Remove active class from all links and tabs
-          tabLinks.forEach(link => link.parentElement.classList.remove('active'));
-          tabContents.forEach(tab => tab.classList.remove('active'));
-
-          // Add active class to current link and tab
-          this.parentElement.classList.add('active');
-          document.getElementById(tabId).classList.add('active');
-
-          // Update URL hash
+        if (selectedLink && selectedTab) {
+          selectedLink.parentElement.classList.add('active');
+          selectedTab.classList.add('active');
           window.location.hash = tabId;
-        });
-      });
-
-      // Check for hash in URL on page load
-      if (window.location.hash) {
-        const hash = window.location.hash.substring(1);
-        const tabLink = document.querySelector(`.account-nav a[data-tab="${hash}"]`);
-
-        if (tabLink) {
-          tabLink.click();
         }
       }
 
-      // Links from dashboard to other tabs
-      const dashboardLinks = document.querySelectorAll('.dashboard-section a[data-tab]');
-
-      dashboardLinks.forEach(link => {
+      // Eventos para os links das abas
+      tabLinks.forEach(link => {
         link.addEventListener('click', function(e) {
           e.preventDefault();
-
           const tabId = this.getAttribute('data-tab');
-          const tabLink = document.querySelector(`.account-nav a[data-tab="${tabId}"]`);
-
-          if (tabLink) {
-            tabLink.click();
-          }
+          activateTab(tabId);
         });
+      });
+
+      // Verifica o hash na URL ou define 'orders' como padrão
+      const defaultTab = 'orders';
+      const initialTab = window.location.hash.substring(1) || defaultTab;
+      activateTab(initialTab);
+
+      // Eventos para links que redirecionam para abas
+      document.querySelectorAll('[data-tab]').forEach(link => {
+        if (!link.closest('.account-nav')) {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const tabId = this.getAttribute('data-tab');
+            activateTab(tabId);
+          });
+        }
       });
     });
   </script>

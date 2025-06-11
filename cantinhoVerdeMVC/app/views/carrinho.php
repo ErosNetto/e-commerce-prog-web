@@ -34,7 +34,7 @@ Auth::iniciarSessao();
       <div class="icons">
         <?php if (Auth::isLoggedIn()): ?>
           <?php if (Auth::isAdmin()): ?>
-            <a href="<?= BASE_URL ?>/adminDashboard" title="Painel Administrativo">
+            <a href="<?= BASE_URL ?>/adminProdutos" title="Painel Administrativo">
               <i class="fas fa-tachometer-alt"></i>
             </a>
           <?php endif; ?>
@@ -45,7 +45,6 @@ Auth::iniciarSessao();
 
           <a href="<?= BASE_URL ?>/usuario/perfil" title="Meu Perfil">
             <i class="fas fa-user"></i>
-            <!-- <span><?= htmlspecialchars(Auth::getUser()['name']) ?></span> -->
           </a>
 
           <a href="<?= BASE_URL ?>/usuario/logout" title="Sair">

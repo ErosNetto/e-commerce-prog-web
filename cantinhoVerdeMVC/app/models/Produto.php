@@ -6,10 +6,9 @@ class Produto extends Model
   public function getProdutosDestaque($limit)
   {
     try {
-      $query = "SELECT p.id, p.nome, p.descricao_curta, p.preco, p.preco_promocional, 
-                  p.destaque, pi.url as imagem_principal
+      $query = "SELECT p.id, p.nome, p.descricao_curta, p.preco, 
+                  p.destaque, p.imagem_principal
               FROM produtos p
-              LEFT JOIN produto_imagens pi ON (p.id = pi.produto_id AND pi.principal = TRUE)
               WHERE p.destaque = 1 AND p.status = 'ativo' AND p.estoque > 0
               LIMIT :limit";
 
@@ -36,10 +35,9 @@ class Produto extends Model
       $offset = ($pagina - 1) * $itensPorPagina;
       $params = [];
 
-      $query = "SELECT SQL_CALC_FOUND_ROWS p.id, p.nome, p.descricao_curta, p.preco, 
-                  p.preco_promocional, p.destaque, pi.url as imagem_principal
-                FROM produtos p
-                LEFT JOIN produto_imagens pi ON (p.id = pi.produto_id AND pi.principal = TRUE)";
+      $query = "SELECT SQL_CALC_FOUND_ROWS p.id, p.nome, p.descricao_curta, p.preco,
+                 p.destaque, p.imagem_principal
+                FROM produtos p";
 
       // Adiciona JOIN com a tabela de relacionamento se houver filtro por categoria
       if (!empty($filtros['categoria_id'])) {
@@ -56,7 +54,7 @@ class Produto extends Model
 
       // Filtro por preço
       if (!empty($filtros['preco_max'])) {
-        $query .= " AND (COALESCE(p.preco_promocional, p.preco) <= :preco_max)";
+        $query .= " AND p.preco <= :preco_max";
         $params[':preco_max'] = $filtros['preco_max'];
       }
 
@@ -118,9 +116,9 @@ class Produto extends Model
   {
     switch ($ordenacao) {
       case 'price-low':
-        return " ORDER BY COALESCE(preco_promocional, preco) ASC";
+        return " ORDER BY preco ASC";
       case 'price-high':
-        return " ORDER BY COALESCE(preco_promocional, preco) DESC";
+        return " ORDER BY preco DESC";
       case 'newest':
         return " ORDER BY p.data_cadastro DESC";
       default:
@@ -132,17 +130,14 @@ class Produto extends Model
   {
     try {
       $query = "SELECT 
-                    p.*,
-                    pi.url as imagem_principal,
-                    GROUP_CONCAT(DISTINCT pi2.url) as imagens_adicionais,
-                    GROUP_CONCAT(DISTINCT c.nome) as categorias
-                FROM produtos p
-                LEFT JOIN produto_imagens pi ON (p.id = pi.produto_id AND pi.principal = TRUE)
-                LEFT JOIN produto_imagens pi2 ON (p.id = pi2.produto_id AND pi2.principal = FALSE)
-                LEFT JOIN produto_categoria pc ON p.id = pc.produto_id
-                LEFT JOIN categorias c ON pc.categoria_id = c.id
-                WHERE p.id = :id AND p.status = 'ativo'
-                GROUP BY p.id";
+          p.*,
+          GROUP_CONCAT(DISTINCT CONCAT(c.id, ':', c.nome)) as categorias_completas
+        FROM produtos p
+        LEFT JOIN produto_categoria pc ON p.id = pc.produto_id
+        LEFT JOIN categorias c ON pc.categoria_id = c.id
+        WHERE p.id = :id AND p.status = 'ativo'
+        GROUP BY p.id";
+
 
       $stmt = $this->db->prepare($query);
       $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -151,29 +146,28 @@ class Produto extends Model
       $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
       if ($result) {
-        // Processa as imagens adicionais
-        $result['imagens_adicionais'] = $result['imagens_adicionais']
-          ? explode(',', $result['imagens_adicionais'])
-          : [];
+        // Processa categorias como pares id:nome
+        $result['categorias'] = [];
+        $result['categoria_ids'] = [];
 
-        // Processa as categorias
-        $result['categorias'] = $result['categorias']
-          ? explode(',', $result['categorias'])
-          : [];
+        if (!empty($result['categorias_completas'])) {
+          $pares = explode(',', $result['categorias_completas']);
+          foreach ($pares as $par) {
+            list($id, $nome) = explode(':', $par);
+            $result['categoria_ids'][] = $id;
+            $result['categorias'][] = $nome;
+          }
+        }
+
+        unset($result['categorias_completas']); // não precisa mais
 
         // Formata o preço
         $result['preco_formatado'] = number_format($result['preco'], 2, ',', '.');
 
-        if ($result['preco_promocional']) {
-          $result['preco_promocional_formatado'] = number_format($result['preco_promocional'], 2, ',', '.');
-          $result['parcelamento'] = $result['preco_promocional'] > 0
-            ? 'ou 3x de R$' . number_format($result['preco_promocional'] / 3, 2, ',', '.') . ' sem juros'
-            : '';
-        } else {
-          $result['parcelamento'] = $result['preco'] > 0
-            ? 'ou 3x de R$' . number_format($result['preco'] / 3, 2, ',', '.') . ' sem juros'
-            : '';
-        }
+        // Parcelamento
+        $result['parcelamento'] = $result['preco'] > 0
+          ? 'ou 3x de R$' . number_format($result['preco'] / 3, 2, ',', '.') . ' sem juros'
+          : '';
       }
 
       return $result;

@@ -35,7 +35,7 @@ CREATE TABLE categorias (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     destaque BOOLEAN DEFAULT FALSE,
-    imagem VARCHAR(255),
+    imagem VARCHAR(255) NOT NULL
 );
 
 -- Tabela de Produtos
@@ -44,7 +44,7 @@ CREATE TABLE produtos (
     nome VARCHAR(100) NOT NULL,
     descricao TEXT,
     descricao_curta VARCHAR(255),
-    imagem VARCHAR(255) NOT NULL,
+    imagem_principal VARCHAR(255) NOT NULL,
     preco DECIMAL(10, 2) NOT NULL,
     estoque INT NOT NULL DEFAULT 0,
     
@@ -71,16 +71,6 @@ CREATE TABLE produto_categoria (
     PRIMARY KEY (produto_id, categoria_id),
     FOREIGN KEY (produto_id) REFERENCES produtos(id) ON DELETE CASCADE,
     FOREIGN KEY (categoria_id) REFERENCES categorias(id) ON DELETE CASCADE
-);
-
--- Tabela de Imagens de Produtos
-CREATE TABLE produto_imagens (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    produto_id INT NOT NULL,
-    url VARCHAR(255) NOT NULL,
-    ordem INT DEFAULT 0,
-    principal BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (produto_id) REFERENCES produtos(id) ON DELETE CASCADE
 );
 
 -- Tabela de Carrinhos

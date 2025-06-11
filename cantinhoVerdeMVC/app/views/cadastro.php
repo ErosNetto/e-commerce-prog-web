@@ -36,7 +36,7 @@ Auth::iniciarSessao();
       <div class="icons">
         <?php if (Auth::isLoggedIn()): ?>
           <?php if (Auth::isAdmin()): ?>
-            <a href="<?= BASE_URL ?>/adminDashboard" title="Painel Administrativo">
+            <a href="<?= BASE_URL ?>/adminProdutos" title="Painel Administrativo">
               <i class="fas fa-tachometer-alt"></i>
             </a>
           <?php endif; ?>
@@ -47,7 +47,6 @@ Auth::iniciarSessao();
 
           <a href="<?= BASE_URL ?>/usuario/perfil" title="Meu Perfil">
             <i class="fas fa-user"></i>
-            <!-- <span><?= htmlspecialchars(Auth::getUser()['name']) ?></span> -->
           </a>
 
           <a href="<?= BASE_URL ?>/usuario/logout" title="Sair">
@@ -186,13 +185,6 @@ Auth::iniciarSessao();
         <div class="auth-benefits">
           <h3>Por que se cadastrar?</h3>
           <ul>
-            <li>
-              <i class="fas fa-heart"></i>
-              <div>
-                <strong>Lista de Desejos</strong>
-                <p>Salve seus produtos favoritos para comprar depois</p>
-              </div>
-            </li>
             <li>
               <i class="fas fa-shipping-fast"></i>
               <div>

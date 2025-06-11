@@ -34,7 +34,7 @@ Auth::iniciarSessao();
       <div class="icons">
         <?php if (Auth::isLoggedIn()): ?>
           <?php if (Auth::isAdmin()): ?>
-            <a href="<?= BASE_URL ?>/adminDashboard" title="Painel Administrativo">
+            <a href="<?= BASE_URL ?>/adminProdutos" title="Painel Administrativo">
               <i class="fas fa-tachometer-alt"></i>
             </a>
           <?php endif; ?>
@@ -45,7 +45,6 @@ Auth::iniciarSessao();
 
           <a href="<?= BASE_URL ?>/usuario/perfil" title="Meu Perfil">
             <i class="fas fa-user"></i>
-            <!-- <span><?= htmlspecialchars(Auth::getUser()['name']) ?></span> -->
           </a>
 
           <a href="<?= BASE_URL ?>/usuario/logout" title="Sair">
@@ -114,7 +113,7 @@ Auth::iniciarSessao();
         </div>
         <div class="about-intro-image">
           <img
-            src="images/about/about-intro.jpg"
+            src="https://th.bing.com/th/id/OIP.YE0E8C-t1FgTeE5vBpaq0wHaEJ?w=324&h=182&c=7&r=0&o=7&pid=1.7&rm=3"
             alt="Equipe Plantas Marketplace" />
         </div>
       </div>
@@ -134,7 +133,6 @@ Auth::iniciarSessao();
       <div class="timeline">
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <!-- <div class="timeline-date">2015</div> -->
           <div class="timeline-content">
             <h3>O Início</h3>
             <p>
@@ -147,7 +145,6 @@ Auth::iniciarSessao();
 
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <!-- <div class="timeline-date">2017</div> -->
           <div class="timeline-content">
             <h3>Expansão</h3>
             <p>
@@ -160,7 +157,6 @@ Auth::iniciarSessao();
 
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <!-- <div class="timeline-date">2019</div> -->
           <div class="timeline-content">
             <h3>Entrada no Digital</h3>
             <p>
@@ -172,7 +168,6 @@ Auth::iniciarSessao();
 
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <!-- <div class="timeline-date">2020</div> -->
           <div class="timeline-content">
             <h3>Crescimento Durante a Pandemia</h3>
             <p>
@@ -185,7 +180,6 @@ Auth::iniciarSessao();
 
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <!-- <div class="timeline-date">2022</div> -->
           <div class="timeline-content">
             <h3>Marketplace</h3>
             <p>
@@ -198,7 +192,6 @@ Auth::iniciarSessao();
 
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <!-- <div class="timeline-date">2023</div> -->
           <div class="timeline-content">
             <h3>Presente e Futuro</h3>
             <p>
@@ -276,15 +269,11 @@ Auth::iniciarSessao();
 
       <div class="team-container">
         <div class="team-member">
-          <div class="member-image">
-            <img src="images/team/maria.jpg" alt="Maria Silva" />
-          </div>
           <div class="member-info">
-            <h3>Maria Silva</h3>
-            <div class="member-role">Co-fundadora e CEO</div>
+            <h3>Gabriel Schultz</h3>
+            <div class="member-role">Desenvolvedor Backend</div>
             <p class="member-bio">
-              Bióloga por formação e apaixonada por plantas desde a infância,
-              Maria é a mente criativa por trás da Plantas Marketplace.
+              Contribuiu para o desenvolvimento do backend, implementando funcionalidades do servidor e garantindo a integração com o banco de dados.
             </p>
             <div class="member-social">
               <a href="#"><i class="fab fa-linkedin-in"></i></a>
@@ -294,16 +283,39 @@ Auth::iniciarSessao();
         </div>
 
         <div class="team-member">
-          <div class="member-image">
-            <img src="images/team/joao.jpg" alt="João Santos" />
-          </div>
           <div class="member-info">
-            <h3>João Santos</h3>
-            <div class="member-role">Co-fundador e COO</div>
+            <h3>Ronald Lucas</h3>
+            <div class="member-role">Desenvolvedor Frontend</div>
             <p class="member-bio">
-              Com experiência em gestão e logística, João é responsável por
-              garantir que todas as operações da empresa funcionem
-              perfeitamente.
+              Trabalhou no desenvolvimento do frontend, criando interfaces de usuário responsivas e atraentes para a plataforma.
+            </p>
+            <div class="member-social">
+              <a href="https://www.linkedin.com/in/ronald-lucas-16624a205/"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-member">
+          <div class="member-info">
+            <h3>Eros Neto</h3>
+            <div class="member-role">Desenvolvedor Frontend</div>
+            <p class="member-bio">
+              Colaborou no desenvolvimento do frontend, focando na experiência do usuário e no design visual da plataforma.
+            </p>
+            <div class="member-social">
+              <a href="https://www.linkedin.com/in/eros-netto/"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-member">
+          <div class="member-info">
+            <h3>Luigi</h3>
+            <div class="member-role">Arquiteto de Software</div>
+            <p class="member-bio">
+              Responsável pela arquitetura do software, projetando a estrutura técnica e garantindo a escalabilidade e eficiência do sistema.
             </p>
             <div class="member-social">
               <a href="#"><i class="fab fa-linkedin-in"></i></a>
@@ -313,132 +325,15 @@ Auth::iniciarSessao();
         </div>
 
         <div class="team-member">
-          <div class="member-image">
-            <img src="images/team/ana.jpg" alt="Ana Oliveira" />
-          </div>
           <div class="member-info">
-            <h3>Ana Oliveira</h3>
-            <div class="member-role">Especialista em Botânica</div>
+            <h3>Hugo</h3>
+            <div class="member-role">Desenvolvedor de Banco de Dados</div>
             <p class="member-bio">
-              Mestre em Botânica, Ana é nossa especialista em plantas e
-              responsável pela seleção e qualidade de todas as espécies que
-              oferecemos.
+              Projetou e implementou o banco de dados, garantindo a organização e eficiência no armazenamento e recuperação de dados da plataforma.
             </p>
             <div class="member-social">
               <a href="#"><i class="fab fa-linkedin-in"></i></a>
               <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="team-member">
-          <div class="member-image">
-            <img src="images/team/pedro.jpg" alt="Pedro Almeida" />
-          </div>
-          <div class="member-info">
-            <h3>Pedro Almeida</h3>
-            <div class="member-role">Gerente de E-commerce</div>
-            <p class="member-bio">
-              Com vasta experiência em comércio eletrônico, Pedro lidera nossa
-              equipe digital e é responsável pela experiência do cliente
-              online.
-            </p>
-            <div class="member-social">
-              <a href="#"><i class="fab fa-linkedin-in"></i></a>
-              <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonials Section -->
-  <section class="testimonials">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">O Que Nossos Clientes Dizem</h2>
-        <p class="section-subtitle">
-          Depoimentos de pessoas que transformaram seus espaços com nossas
-          plantas
-        </p>
-      </div>
-
-      <div class="testimonials-slider">
-        <div class="testimonial-item">
-          <div class="testimonial-content">
-            <div class="testimonial-rating">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-            </div>
-            <p class="testimonial-text">
-              "Comprei várias plantas para meu apartamento e fiquei
-              impressionada com a qualidade e o cuidado no envio. Todas
-              chegaram perfeitas e estão se desenvolvendo muito bem. O
-              atendimento foi excelente!"
-            </p>
-            <div class="testimonial-author">
-              <img src="images/testimonials/client1.jpg" alt="Carla Mendes" />
-              <div class="author-info">
-                <h4>Carla Mendes</h4>
-                <span>São Paulo, SP</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-item">
-          <div class="testimonial-content">
-            <div class="testimonial-rating">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-            </div>
-            <p class="testimonial-text">
-              "As suculentas que comprei são lindas e vieram muito bem
-              embaladas. O guia de cuidados que acompanha cada planta é muito
-              útil. Já recomendei para vários amigos!"
-            </p>
-            <div class="testimonial-author">
-              <img
-                src="images/testimonials/client2.jpg"
-                alt="Roberto Costa" />
-              <div class="author-info">
-                <h4>Roberto Costa</h4>
-                <span>Rio de Janeiro, RJ</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-item">
-          <div class="testimonial-content">
-            <div class="testimonial-rating">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star-half-alt"></i>
-            </div>
-            <p class="testimonial-text">
-              "O que mais me impressionou foi o atendimento personalizado. A
-              equipe me ajudou a escolher as plantas ideais para meu
-              escritório, considerando a iluminação e o espaço disponível.
-              Resultado incrível!"
-            </p>
-            <div class="testimonial-author">
-              <img
-                src="images/testimonials/client3.jpg"
-                alt="Fernanda Lima" />
-              <div class="author-info">
-                <h4>Fernanda Lima</h4>
-                <span>Belo Horizonte, MG</span>
-              </div>
             </div>
           </div>
         </div>
@@ -458,22 +353,19 @@ Auth::iniciarSessao();
 
       <div class="partners-grid">
         <div class="partner-item">
-          <img src="images/partners/partner1.png" alt="Parceiro 1" />
+          <img src="https://www.logo.wine/a/logo/Bayer/Bayer-Logo.wine.svg" alt="Bayer" />
         </div>
         <div class="partner-item">
-          <img src="images/partners/partner2.png" alt="Parceiro 2" />
+          <img src="https://www.logo.wine/a/logo/Syngenta/Syngenta-Logo.wine.svg" alt="Syngenta" />
         </div>
         <div class="partner-item">
-          <img src="images/partners/partner3.png" alt="Parceiro 3" />
+          <img src="https://www.logo.wine/a/logo/Walmart/Walmart-Logo.wine.svg" alt="Walmart" />
         </div>
         <div class="partner-item">
-          <img src="images/partners/partner4.png" alt="Parceiro 4" />
+          <img src="https://www.logo.wine/a/logo/Lowe%27s/Lowe%27s-Logo.wine.svg" alt="Lowe's" />
         </div>
         <div class="partner-item">
-          <img src="images/partners/partner5.png" alt="Parceiro 5" />
-        </div>
-        <div class="partner-item">
-          <img src="images/partners/partner6.png" alt="Parceiro 6" />
+          <img src="https://www.logo.wine/a/logo/Syngenta/Syngenta-Logo.wine.svg" alt="Syngenta" />
         </div>
       </div>
     </div>

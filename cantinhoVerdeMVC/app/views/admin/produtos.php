@@ -32,12 +32,6 @@ $usuario = Auth::getUser();
 
       <nav class="admin-nav">
         <ul>
-          <li>
-            <a href="<?= BASE_URL ?>/adminDashboard/dashboard">
-              <i class="fas fa-tachometer-alt"></i>
-              <span>Dashboard</span>
-            </a>
-          </li>
           <li class="active">
             <a href="<?= BASE_URL ?>/adminProdutos/produtos">
               <i class="fas fa-leaf"></i>
@@ -229,6 +223,26 @@ $usuario = Auth::getUser();
           <div class="form-group">
             <label for="produtoEstoque">Estoque*</label>
             <input type="number" id="produtoEstoque" name="estoque" />
+          </div>
+
+          <div class="form-group">
+            <label>Nivel de cuidado</label>
+          </div>
+
+          <div class="form-group">
+            <label>Tamanho</label>
+          </div>
+
+          <div class="form-group">
+            <label>Ambiente</label>
+          </div>
+
+          <div class="form-group">
+            <label>Luz</label>
+          </div>
+
+          <div class="form-group">
+            <label>Água</label>
           </div>
 
           <div class="form-group">
