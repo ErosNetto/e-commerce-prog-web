@@ -190,9 +190,9 @@ Auth::iniciarSessao();
                         alt="<?= htmlspecialchars($produto['nome']) ?>" />
                     </a>
 
-                    <?php if ($produto['destaque'] == 1): ?>
+                    <!-- <?php if ($produto['destaque'] == 1): ?>
                       <div class="product-tag">Destaque</div>
-                    <?php endif; ?>
+                    <?php endif; ?> -->
                   </div>
                   <div class="product-info">
                     <h3><?= htmlspecialchars($produto['nome']) ?></h3>
