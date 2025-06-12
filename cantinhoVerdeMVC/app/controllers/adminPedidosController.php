@@ -20,14 +20,35 @@ class adminPedidosController extends Controller
     ]);
   }
 
-  // public function visualizar($id)
-  // {
-  //   $pedido = $this->pedidoModel->getPedidoPorId($id);
-  //   $itens = $this->pedidoModel->getItensDoPedido($id);
+  public function visualizar($id)
+  {
+    $pedido = $this->pedidoModel->getPedidoPorId($id);
 
-  //   $this->view("admin/pedidos/visualizar", [
-  //     'pedido' => $pedido,
-  //     'itens' => $itens
-  //   ]);
-  // }
+    if (!$pedido) {
+      // Pode redirecionar para uma página de erro ou mostrar uma mensagem
+      http_response_code(404);
+      $this->view("errors/404", ['mensagem' => 'Pedido não encontrado']);
+      return;
+    }
+
+    $itens = $this->pedidoModel->getItensDoPedido($id);
+
+    $this->view("admin/pedidos/visualizar", [
+      'pedido' => $pedido,
+      'itens' => $itens
+    ]);
+  }
+
+  public function obterPedido($id)
+  {
+    $pedido = $this->pedidoModel->getPedidoPorId($id);
+
+    header('Content-Type: application/json');
+    if ($pedido) {
+      echo json_encode($pedido);
+    } else {
+      http_response_code(404);
+      echo json_encode(['erro' => 'Pedido não encontrado']);
+    }
+  }
 }

@@ -82,56 +82,9 @@ $usuario = Auth::getUser();
         <div class="admin-card">
           <div class="admin-card-header">
             <h2>Lista de Pedidos</h2>
-            <!-- <div class="date-filter">
-              <label>Período:</label>
-              <input type="date" id="startDate" name="startDate" />
-              <span>até</span>
-              <input type="date" id="endDate" name="endDate" />
-              <button
-                class="admin-btn admin-btn-secondary"
-                id="filterDateBtn">
-                Filtrar
-              </button>
-            </div> -->
           </div>
 
           <div class="admin-card-body">
-            <!-- <div class="admin-filters">
-
-              <div class="admin-filter-group">
-                <select id="statusFilter">
-                  <option value="">Todos os Status</option>
-                  <option value="aguardando_pagamento">
-                    Aguardando Pagamento
-                  </option>
-                  <option value="pagamento_confirmado">
-                    Pagamento Confirmado
-                  </option>
-                  <option value="em_processamento">Em Processamento</option>
-                  <option value="enviado">Enviado</option>
-                  <option value="entregue">Entregue</option>
-                  <option value="cancelado">Cancelado</option>
-                </select>
-              </div>
-
-              <div class="admin-filter-group">
-                <select id="paymentFilter">
-                  <option value="">Todos os Pagamentos</option>
-                  <option value="cartao_credito">Cartão de Crédito</option>
-                  <option value="boleto">Boleto</option>
-                  <option value="pix">PIX</option>
-                  <option value="transferencia">Transferência</option>
-                </select>
-              </div>
-
-              <button class="admin-btn admin-btn-secondary" id="filterButton">
-                <i class="fas fa-filter"></i> Filtrar
-              </button>
-              <button class="admin-btn admin-btn-secondary" id="exportButton">
-                <i class="fas fa-file-export"></i> Exportar
-              </button>
-            </div> -->
-
             <div class="admin-table-responsive">
               <table class="admin-table">
                 <thead>
@@ -155,7 +108,10 @@ $usuario = Auth::getUser();
                       <td><?= isset($pedido['data_pedido']) ? date('d/m/Y H:i', strtotime($pedido['data_pedido'])) : 'Data não disponível' ?></td>
                       <td>R$ <?= number_format($pedido['total'], 2, ',', '.') ?></td>
                       <td>
-                        <a class="action-btn view-btn" href="<?= BASE_URL ?>/adminPedidos/visualizar/<?= $pedido['pedido_id'] ?>">
+                        <a
+                          class="action-btn view-btn open-order-modal"
+                          href="#"
+                          data-id="<?= $pedido['pedido_id'] ?>">
                           <i class="fas fa-eye"></i>
                         </a>
                       </td>
@@ -165,19 +121,6 @@ $usuario = Auth::getUser();
 
               </table>
             </div>
-
-            <!-- <div class="admin-table-actions">
-              <div class="pagination">
-                <button class="pagination-btn" disabled>
-                  <i class="fas fa-chevron-left"></i>
-                </button>
-                <button class="pagination-btn active">1</button>
-                <button class="pagination-btn">2</button>
-                <button class="pagination-btn">
-                  <i class="fas fa-chevron-right"></i>
-                </button>
-              </div>
-            </div> -->
           </div>
         </div>
       </div>
@@ -201,19 +144,6 @@ $usuario = Auth::getUser();
               </div>
 
             </div>
-            <!-- <div class="order-actions">
-              <button class="admin-btn admin-btn-secondary">
-                <i class="fas fa-print"></i> Imprimir
-              </button>
-              <button class="admin-btn admin-btn-secondary">
-                <i class="fas fa-file-invoice"></i> Nota Fiscal
-              </button>
-              <button
-                class="admin-btn admin-btn-primary"
-                id="saveOrderStatus">
-                <i class="fas fa-save"></i> Salvar Status
-              </button>
-            </div> -->
           </div>
 
           <div class="order-details-content">
@@ -226,17 +156,6 @@ $usuario = Auth::getUser();
                 <p><strong>CPF:</strong> 123.456.789-00</p>
               </div>
             </div>
-
-            <!-- <div class="order-details-section">
-              <h4>Endereço de Entrega</h4>
-              <div class="order-address-info">
-                <p>Maria Silva</p>
-                <p>Rua das Flores, 123 - Apto 45</p>
-                <p>Jardim Primavera</p>
-                <p>São Paulo - SP</p>
-                <p>CEP: 01234-567</p>
-              </div>
-            </div> -->
 
             <div class="order-details-section">
               <h4>Itens do Pedido</h4>
@@ -278,18 +197,6 @@ $usuario = Auth::getUser();
                     </tr>
                     <tr>
                       <td colspan="3" class="text-right">
-                        <strong>Frete:</strong>
-                      </td>
-                      <td>R$ 0,00</td>
-                    </tr>
-                    <tr>
-                      <td colspan="3" class="text-right">
-                        <strong>Desconto:</strong>
-                      </td>
-                      <td>R$ 0,00</td>
-                    </tr>
-                    <tr>
-                      <td colspan="3" class="text-right">
                         <strong>Total:</strong>
                       </td>
                       <td>R$ 89,90</td>
@@ -298,63 +205,6 @@ $usuario = Auth::getUser();
                 </table>
               </div>
             </div>
-
-            <!-- <div class="order-details-section">
-              <h4>Histórico do Pedido</h4>
-              <ul class="order-history">
-                <li>
-                  <div class="order-history-date">15/04/2023 14:30</div>
-                  <div class="order-history-status">Pedido realizado</div>
-                  <div class="order-history-comment">
-                    Pedido #ORD-0025 criado pelo cliente
-                  </div>
-                </li>
-                <li>
-                  <div class="order-history-date">15/04/2023 14:35</div>
-                  <div class="order-history-status">Pagamento confirmado</div>
-                  <div class="order-history-comment">
-                    Pagamento aprovado via Cartão de Crédito
-                  </div>
-                </li>
-                <li>
-                  <div class="order-history-date">16/04/2023 09:15</div>
-                  <div class="order-history-status">Em processamento</div>
-                  <div class="order-history-comment">
-                    Pedido em preparação para envio
-                  </div>
-                </li>
-                <li>
-                  <div class="order-history-date">16/04/2023 15:40</div>
-                  <div class="order-history-status">Enviado</div>
-                  <div class="order-history-comment">
-                    Pedido enviado via Correios. Código de rastreio:
-                    BR1234567890
-                  </div>
-                </li>
-                <li>
-                  <div class="order-history-date">18/04/2023 10:20</div>
-                  <div class="order-history-status">Entregue</div>
-                  <div class="order-history-comment">
-                    Pedido entregue ao cliente
-                  </div>
-                </li>
-              </ul>
-            </div> -->
-
-            <!-- <div class="order-details-section">
-              <h4>Adicionar Comentário</h4>
-              <div class="order-comment-form">
-                <textarea
-                  id="orderComment"
-                  rows="3"
-                  placeholder="Digite um comentário sobre este pedido..."></textarea>
-                <button
-                  class="admin-btn admin-btn-primary"
-                  id="addCommentBtn">
-                  <i class="fas fa-plus"></i> Adicionar Comentário
-                </button>
-              </div>
-            </div> -->
           </div>
         </div>
       </div>
@@ -402,44 +252,61 @@ $usuario = Auth::getUser();
         });
     });
 
-    // Order Details Modal
     const orderModal = document.getElementById("orderModal");
+    const modalClose = document.querySelector(".admin-modal-close");
 
-    // View Order Details
     const viewButtons = document.querySelectorAll(".view-btn");
     viewButtons.forEach((button) => {
-      button.addEventListener("click", function() {
+      button.addEventListener("click", async function(e) {
+        e.preventDefault();
         const orderId = this.getAttribute("data-id");
-        // Em um ambiente real, você faria uma requisição AJAX para obter os detalhes do pedido
-        orderModal.classList.add("show");
-      });
-    });
 
-    // Close Modal
-    const closeButtons = document.querySelectorAll(".admin-modal-close");
-    closeButtons.forEach((button) => {
-      button.addEventListener("click", function() {
-        document.querySelectorAll(".admin-modal").forEach((modal) => {
-          modal.classList.remove("show");
-        });
-      });
-    });
+        try {
+          const response = await fetch(`<?= BASE_URL ?>/adminPedidos/detalhes/${orderId}`);
+          const pedido = await response.json();
 
-    // Date Filter
-    document
-      .getElementById("filterDateBtn")
-      .addEventListener("click", function() {
-        const startDate = document.getElementById("startDate").value;
-        const endDate = document.getElementById("endDate").value;
+          // Preencher os dados no modal
+          document.querySelector("#orderModal h3").textContent = `Detalhes do Pedido #ORD-${pedido.pedido_id}`;
 
-        if (!startDate || !endDate) {
-          alert("Por favor, selecione um período completo");
-          return;
+          const customerInfo = document.querySelector(".order-customer-info");
+          customerInfo.innerHTML = `
+        <p><strong>Nome:</strong> ${pedido.cliente_nome}</p>
+        <p><strong>Email:</strong> ${pedido.email}</p>
+        <p><strong>Telefone:</strong> ${pedido.telefone ?? 'Não informado'}</p>
+        <p><strong>CPF:</strong> ${pedido.cpf ?? 'Não informado'}</p>
+      `;
+
+          const tbody = document.querySelector("#orderModal tbody");
+          tbody.innerHTML = pedido.itens.map(item => `
+        <tr>
+          <td>
+            <div class="order-product">
+              <img src="<?= BASE_URL ?>/images/products/${item.imagem}" alt="${item.nome_produto}" class="product-thumbnail" />
+              <div>
+                <h5>${item.nome_produto}</h5>
+                <p>SKU: ${item.sku}</p>
+              </div>
+            </div>
+          </td>
+          <td>${item.quantidade}</td>
+          <td>R$ ${item.preco_unitario.toFixed(2).replace('.', ',')}</td>
+          <td>R$ ${item.subtotal.toFixed(2).replace('.', ',')}</td>
+        </tr>
+      `).join('');
+
+          // Mostrar modal
+          orderModal.classList.add("show");
+        } catch (error) {
+          alert("Erro ao carregar os detalhes do pedido.");
+          console.error(error);
         }
-
-        // Em um ambiente real, você faria uma requisição AJAX para filtrar os pedidos por data
-        alert(`Filtrando pedidos de ${startDate} até ${endDate}`);
       });
+    });
+
+    // Fechar modal
+    modalClose.addEventListener("click", function() {
+      orderModal.classList.remove("show");
+    });
   </script>
 </body>
 
