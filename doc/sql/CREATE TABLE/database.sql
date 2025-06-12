@@ -1,7 +1,3 @@
--- Criação do banco de dados
-CREATE DATABASE plantashop;
-USE plantashop;
-
 -- Tabela de Usuários
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -93,10 +89,3 @@ CREATE TABLE pedido_itens (
     FOREIGN KEY (pedido_id) REFERENCES pedidos(id) ON DELETE CASCADE,
     FOREIGN KEY (produto_id) REFERENCES produtos(id) ON DELETE CASCADE
 );
-
--- Índices para melhorar a performance
-CREATE INDEX idx_produtos_nome ON produtos(nome);
-CREATE INDEX idx_produtos_preco ON produtos(preco);
-CREATE INDEX idx_produtos_status ON produtos(status);
-CREATE INDEX idx_pedidos_usuario ON pedidos(usuario_id);
-CREATE INDEX idx_pedidos_status ON pedidos(status);

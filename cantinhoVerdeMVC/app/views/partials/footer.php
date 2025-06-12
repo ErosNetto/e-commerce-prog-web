@@ -37,7 +37,7 @@
         <ul class="contact-info">
           <li><i class="fas fa-map-marker-alt"></i> Av. das Plantas, 123 - São Paulo</li>
           <li><i class="fas fa-phone"></i> (11) 99999-9999</li>
-          <li><i class="fas fa-envelope"></i> contato@plantashop.com.br</li>
+          <li><i class="fas fa-envelope"></i> contato@cantinhoverde.com.br</li>
         </ul>
       </div>
     </div>
