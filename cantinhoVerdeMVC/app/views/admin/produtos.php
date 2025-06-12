@@ -67,7 +67,7 @@ $usuario = Auth::getUser();
         <div class="admin-header-left">
           <h1>Dashboard</h1>
           <nav class="admin-breadcrumb">
-            <a href="dashboard.html">Home</a> / <span>Produtos</span>
+            <a href="<?= BASE_URL ?>">Home</a> / <span>Produtos</span>
           </nav>
         </div>
 
@@ -172,6 +172,12 @@ $usuario = Auth::getUser();
                       <td>
                         <div class="action-buttons">
                           <button
+                            class="action-btn view-btn"
+                            title="Visualizar"
+                            data-id="<?= $produto['id'] ?>">
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button
                             class="action-btn edit-btn"
                             title="Editar"
                             data-id="<?= $produto['id'] ?>"
@@ -256,8 +262,14 @@ $usuario = Auth::getUser();
               </div>
 
               <div class="form-group">
-                <label for="produtoPreco">Preco*</label>
-                <input type="number" id="produtoPreco" name="preco" required />
+                <label for="produtoPreco">Preço*</label>
+                <input
+                  type="text"
+                  id="produtoPreco"
+                  name="preco"
+                  inputmode="decimal"
+                  pattern="[0-9]+([\.][0-9]+)?"
+                  required />
               </div>
 
               <div class="form-group">
@@ -321,6 +333,7 @@ $usuario = Auth::getUser();
             <div class="form-group">
               <label for="categoriaProduto">Categoria do Produto</label>
               <select id="categoriaProduto" name="categoria">
+                <option value="">Sem categoria</option>
                 <?php foreach ($categorias as $categoria): ?>
                   <option value="<?= htmlspecialchars($categoria['id']) ?>"><?= htmlspecialchars($categoria['nome']) ?></option>
                 <?php endforeach; ?>
@@ -343,6 +356,8 @@ $usuario = Auth::getUser();
 
   <script src="../js/admin.js"></script>
   <script>
+    const baseUrl = '<?= BASE_URL ?>';
+
     // Toggle sidebar
     document
       .getElementById("sidebarToggle")
@@ -435,6 +450,9 @@ $usuario = Auth::getUser();
         document.getElementById("produtoAgua").value = agua;
         document.getElementById("produtoFeatured").checked = destaque;
 
+        // Ao abrir o modal para edição
+        // document.getElementById("produtoPreco").value = parseFloat(preco).toFixed(2);
+
         if (categoriaId) {
           document.getElementById("categoriaProduto").value = categoriaId;
         } else {
@@ -464,8 +482,14 @@ $usuario = Auth::getUser();
       });
     });
 
-    // Ao abrir o modal para edição
-    document.getElementById("produtoPreco").value = parseFloat(preco).toFixed(2);
+    // Ver produto
+    const viewButtons = document.querySelectorAll(".view-btn");
+    viewButtons.forEach((button) => {
+      button.addEventListener("click", function() {
+        const produtoId = this.getAttribute("data-id");
+        window.location.href = `${baseUrl}/detalheProduto?idProduto=${encodeURIComponent(produtoId)}`;
+      });
+    });
   </script>
 </body>
 

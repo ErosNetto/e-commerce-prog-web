@@ -165,7 +165,6 @@ Auth::iniciarSessao();
                   <option value="price-low" <?= ($filtros['ordenacao'] ?? '') === 'price-low' ? 'selected' : '' ?>>Preço: Menor para Maior</option>
                   <option value="price-high" <?= ($filtros['ordenacao'] ?? '') === 'price-high' ? 'selected' : '' ?>>Preço: Maior para Menor</option>
                   <option value="newest" <?= ($filtros['ordenacao'] ?? '') === 'newest' ? 'selected' : '' ?>>Mais Recentes</option>
-                  <option value="popular" <?= ($filtros['ordenacao'] ?? '') === 'popular' ? 'selected' : '' ?>>Mais Populares</option>
                 </select>
 
                 <!-- Manter outros parâmetros GET -->

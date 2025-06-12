@@ -88,17 +88,19 @@ Auth::iniciarSessao();
 
   <section class="cart-section">
     <div class="container">
-      <div class="cart-steps">
-        <div class="step active">
-          <div class="step-number">1</div>
-          <div class="step-label">Carrinho</div>
+      <?php if (!empty($itens)): ?>
+        <div class="cart-steps">
+          <div class="step active">
+            <div class="step-number">1</div>
+            <div class="step-label">Carrinho</div>
+          </div>
+          <div class="step-line"></div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-label">Finalizar</div>
+          </div>
         </div>
-        <div class="step-line"></div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <div class="step-label">Finalizar</div>
-        </div>
-      </div>
+      <?php endif; ?>
 
       <?php if (empty($itens)): ?>
         <div class="empty-cart">
@@ -180,7 +182,7 @@ Auth::iniciarSessao();
             </div>
 
             <?php if (Auth::isLoggedIn()): ?>
-              <form method="POST" action="<?= BASE_URL ?>/confirmacao">
+              <form method="POST" action="<?= BASE_URL ?>/?url=carrinho/finalizarPedido">
                 <input type="hidden" name="total" value="<?= $total ?>">
                 <button class="btn checkout-btn" type="submit">Finalizar Pedido</button>
               </form>

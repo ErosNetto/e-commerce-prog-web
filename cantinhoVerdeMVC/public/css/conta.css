@@ -1,5 +1,9 @@
 /* Estilos para a página de conta do usuário */
 
+.containerTeste {
+  height: 25rem;
+}
+
 .page-header {
   background-color: var(--light-bg);
   padding: 40px 0;

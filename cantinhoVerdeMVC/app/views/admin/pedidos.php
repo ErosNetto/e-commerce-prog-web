@@ -68,7 +68,7 @@ $usuario = Auth::getUser();
         <div class="admin-header-left">
           <h1>Dashboard</h1>
           <nav class="admin-breadcrumb">
-            <a href="dashboard.html">Home</a> / <span>Pedidos</span>
+            <a href="<?= BASE_URL ?>">Home</a> / <span>Pedidos</span>
           </nav>
         </div>
 
@@ -82,7 +82,7 @@ $usuario = Auth::getUser();
         <div class="admin-card">
           <div class="admin-card-header">
             <h2>Lista de Pedidos</h2>
-            <div class="date-filter">
+            <!-- <div class="date-filter">
               <label>Período:</label>
               <input type="date" id="startDate" name="startDate" />
               <span>até</span>
@@ -92,7 +92,7 @@ $usuario = Auth::getUser();
                 id="filterDateBtn">
                 Filtrar
               </button>
-            </div>
+            </div> -->
           </div>
 
           <div class="admin-card-body">
@@ -136,53 +136,37 @@ $usuario = Auth::getUser();
               <table class="admin-table">
                 <thead>
                   <tr>
-                    <th>Pedido</th>
+                    <th>#ORD</th>
                     <th>Cliente</th>
-                    <th>Data</th>
-                    <th>Status</th>
-                    <th>Pagamento</th>
-                    <th>Total</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th>Data do Pedido</th>
+                    <th>Total (R$)</th>
                     <th>Ações</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>#ORD-0025</td>
-                    <td>Maria Silva</td>
-                    <td>15/04/2023</td>
-                    <td>
-                      <span class="status-badge completed">Entregue</span>
-                    </td>
-                    <td>Cartão de Crédito</td>
-                    <td>R$ 89,90</td>
-                    <td>
-                      <div class="action-buttons">
-                        <button
-                          class="action-btn view-btn"
-                          title="Visualizar"
-                          data-id="25">
+                  <?php foreach ($data['pedidos'] as $pedido): ?>
+                    <tr>
+                      <td>#ORD-<?= htmlspecialchars($pedido['pedido_id']) ?></td>
+                      <td><?= htmlspecialchars($pedido['cliente_nome']) ?></td>
+                      <td><?= htmlspecialchars($pedido['email']) ?></td>
+                      <td><?= htmlspecialchars($pedido['telefone'] ?? 'Não informado') ?></td>
+                      <td><?= isset($pedido['data_pedido']) ? date('d/m/Y H:i', strtotime($pedido['data_pedido'])) : 'Data não disponível' ?></td>
+                      <td>R$ <?= number_format($pedido['total'], 2, ',', '.') ?></td>
+                      <td>
+                        <a class="action-btn view-btn" href="<?= BASE_URL ?>/adminPedidos/visualizar/<?= $pedido['pedido_id'] ?>">
                           <i class="fas fa-eye"></i>
-                        </button>
-                        <button
-                          class="action-btn edit-btn"
-                          title="Editar"
-                          data-id="25">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button
-                          class="action-btn invoice-btn"
-                          title="Nota Fiscal"
-                          data-id="25">
-                          <i class="fas fa-file-invoice"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
+                        </a>
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
                 </tbody>
+
               </table>
             </div>
 
-            <div class="admin-table-actions">
+            <!-- <div class="admin-table-actions">
               <div class="pagination">
                 <button class="pagination-btn" disabled>
                   <i class="fas fa-chevron-left"></i>
@@ -193,7 +177,7 @@ $usuario = Auth::getUser();
                   <i class="fas fa-chevron-right"></i>
                 </button>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -215,29 +199,9 @@ $usuario = Auth::getUser();
                 <span class="label">Data do Pedido:</span>
                 <span class="value">15/04/2023 14:30</span>
               </div>
-              <div class="order-info-item">
-                <span class="label">Status:</span>
-                <span class="value">
-                  <select id="orderStatus">
-                    <option value="aguardando_pagamento">
-                      Aguardando Pagamento
-                    </option>
-                    <option value="pagamento_confirmado">
-                      Pagamento Confirmado
-                    </option>
-                    <option value="em_processamento">Em Processamento</option>
-                    <option value="enviado">Enviado</option>
-                    <option value="entregue" selected>Entregue</option>
-                    <option value="cancelado">Cancelado</option>
-                  </select>
-                </span>
-              </div>
-              <div class="order-info-item">
-                <span class="label">Pagamento:</span>
-                <span class="value">Cartão de Crédito</span>
-              </div>
+
             </div>
-            <div class="order-actions">
+            <!-- <div class="order-actions">
               <button class="admin-btn admin-btn-secondary">
                 <i class="fas fa-print"></i> Imprimir
               </button>
@@ -249,7 +213,7 @@ $usuario = Auth::getUser();
                 id="saveOrderStatus">
                 <i class="fas fa-save"></i> Salvar Status
               </button>
-            </div>
+            </div> -->
           </div>
 
           <div class="order-details-content">
@@ -263,7 +227,7 @@ $usuario = Auth::getUser();
               </div>
             </div>
 
-            <div class="order-details-section">
+            <!-- <div class="order-details-section">
               <h4>Endereço de Entrega</h4>
               <div class="order-address-info">
                 <p>Maria Silva</p>
@@ -272,7 +236,7 @@ $usuario = Auth::getUser();
                 <p>São Paulo - SP</p>
                 <p>CEP: 01234-567</p>
               </div>
-            </div>
+            </div> -->
 
             <div class="order-details-section">
               <h4>Itens do Pedido</h4>
@@ -335,7 +299,7 @@ $usuario = Auth::getUser();
               </div>
             </div>
 
-            <div class="order-details-section">
+            <!-- <div class="order-details-section">
               <h4>Histórico do Pedido</h4>
               <ul class="order-history">
                 <li>
@@ -375,9 +339,9 @@ $usuario = Auth::getUser();
                   </div>
                 </li>
               </ul>
-            </div>
+            </div> -->
 
-            <div class="order-details-section">
+            <!-- <div class="order-details-section">
               <h4>Adicionar Comentário</h4>
               <div class="order-comment-form">
                 <textarea
@@ -390,7 +354,7 @@ $usuario = Auth::getUser();
                   <i class="fas fa-plus"></i> Adicionar Comentário
                 </button>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -460,56 +424,6 @@ $usuario = Auth::getUser();
         });
       });
     });
-
-
-    // Add Comment
-    document
-      .getElementById("addCommentBtn")
-      .addEventListener("click", function() {
-        const comment = document.getElementById("orderComment").value;
-        if (!comment.trim()) {
-          alert("Por favor, digite um comentário");
-          return;
-        }
-
-        // Em um ambiente real, você faria uma requisição AJAX para adicionar o comentário
-        alert("Comentário adicionado com sucesso!");
-        document.getElementById("orderComment").value = "";
-
-        // Simulando a adição do comentário ao histórico
-        const orderHistory = document.querySelector(".order-history");
-        const now = new Date();
-        const formattedDate = `${now
-              .getDate()
-              .toString()
-              .padStart(2, "0")}/${(now.getMonth() + 1)
-              .toString()
-              .padStart(2, "0")}/${now.getFullYear()} ${now
-              .getHours()
-              .toString()
-              .padStart(2, "0")}:${now
-              .getMinutes()
-              .toString()
-              .padStart(2, "0")}`;
-
-        const newHistoryItem = document.createElement("li");
-        newHistoryItem.innerHTML = `
-                    <div class="order-history-date">${formattedDate}</div>
-                    <div class="order-history-status">Comentário</div>
-                    <div class="order-history-comment">${comment}</div>
-                `;
-
-        orderHistory.appendChild(newHistoryItem);
-      });
-
-    // Export Button
-    document
-      .getElementById("exportButton")
-      .addEventListener("click", function() {
-        alert(
-          "Exportando pedidos... Em um ambiente real, isso geraria um arquivo CSV ou Excel."
-        );
-      });
 
     // Date Filter
     document

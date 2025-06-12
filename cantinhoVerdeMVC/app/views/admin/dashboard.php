@@ -73,7 +73,7 @@ $usuario = Auth::getUser();
         <div class="admin-header-left">
           <h1>Dashboard</h1>
           <nav class="admin-breadcrumb">
-            <a href="dashboard.html">Home</a> / <span>Dashboard</span>
+            <a href="<?= BASE_URL ?>">Home</a> / <span>Dashboard</span>
           </nav>
         </div>
 

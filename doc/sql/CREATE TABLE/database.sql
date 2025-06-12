@@ -1,3 +1,5 @@
+CREATE DATABASE cantinhoverde_db;
+
 -- Tabela de Usuários
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -75,7 +77,7 @@ CREATE TABLE pedidos (
     total DECIMAL(10, 2) NOT NULL,
     data_pedido DATETIME DEFAULT CURRENT_TIMESTAMP,
     data_atualizacao DATETIME ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE SET NULL,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE SET NULL
 );
 
 -- Tabela de Itens do Pedido

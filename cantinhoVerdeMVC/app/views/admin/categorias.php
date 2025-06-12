@@ -67,7 +67,7 @@ $usuario = Auth::getUser();
         <div class="admin-header-left">
           <h1>Dashboard</h1>
           <nav class="admin-breadcrumb">
-            <a href="dashboard.html">Home</a> / <span>Categorias</span>
+            <a href="<?= BASE_URL ?>">Home</a> / <span>Categorias</span>
           </nav>
         </div>
 
@@ -135,6 +135,12 @@ $usuario = Auth::getUser();
                       </td>
                       <td>
                         <div class="action-buttons">
+                          <button
+                            class="action-btn view-btn"
+                            title="Visualizar"
+                            data-id="<?= $categoria['id'] ?>">
+                            <i class="fas fa-eye"></i>
+                          </button>
                           <button
                             class="action-btn edit-btn"
                             title="Editar"
@@ -238,6 +244,8 @@ $usuario = Auth::getUser();
 
   <script src="../js/admin.js"></script>
   <script>
+    const baseUrl = '<?= BASE_URL ?>';
+
     // Toggle sidebar
     document
       .getElementById("sidebarToggle")
@@ -331,6 +339,17 @@ $usuario = Auth::getUser();
     document.getElementById('categoryForm').addEventListener('submit', function() {
       document.querySelectorAll('.admin-modal').forEach(modal => {
         modal.classList.remove('show');
+      });
+    });
+
+
+    // Ver categoria
+    const viewButtons = document.querySelectorAll(".view-btn");
+    viewButtons.forEach((button) => {
+      button.addEventListener("click", function() {
+        const categoriaId = this.getAttribute("data-id");
+        window.location.href = `${baseUrl}/produtos?categoria=${encodeURIComponent(categoriaId)}&&url=produtos`;
+
       });
     });
   </script>

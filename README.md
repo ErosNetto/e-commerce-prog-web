@@ -89,8 +89,10 @@ http://localhost/e-commerce-prog-web/cantinhoVerdeMVC/public
 
 **Credenciais de teste:**
 
-- Admin: `admin@email.com` / `senha123`
-- Cliente: `cliente@email.com` / `senha123`
+- Admin: `carlos.admin@empresa.com` / `password`
+- Admin: `fernanda.admin@empresa.com` / `password`
+- Admin: `ricardo.admin@empresa.com` / `password`
+- Cliente: `cliente@email.com` / `password`
 
 ## 🗂️ Estrutura do Projeto
 

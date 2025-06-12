@@ -210,6 +210,6 @@ class CarrinhoController extends Controller
         $carrinhoModel->limparCarrinho($carrinho_id);
 
         $_SESSION['mensagem_sucesso'] = "Pedido realizado com sucesso!";
-        $this->redirect('/pedido/sucesso/' . $pedido_id);
+        $this->redirect("/confirmacao/sucesso/{$pedido_id}");
     }
 }

@@ -44,7 +44,7 @@ class Carrinho extends Model
         }
     }
 
-    private function limparCarrinho($carrinho_id)
+    public function limparCarrinho($carrinho_id)
     {
         $sql = "DELETE FROM carrinho_itens WHERE carrinho_id = :carrinho_id";
         $stmt = $this->db->prepare($sql);

@@ -98,7 +98,7 @@ Auth::iniciarSessao();
           <?php foreach ($itens as $item): ?>
             <div class="order-item">
               <div class="item-image">
-                <img src="<?= BASE_URL ?>/images/products/<?= $item['imagem'] ?>" alt="<?= htmlspecialchars($item['nome']) ?>" />
+                <img src="<?= $item['imagem_principal'] ?>" alt="<?= htmlspecialchars($item['nome']) ?>" />
               </div>
               <div class="item-details">
                 <h3 class="item-name"><?= htmlspecialchars($item['nome']) ?></h3>

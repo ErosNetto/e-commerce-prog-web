@@ -18,13 +18,15 @@ class PedidoItem extends Model
 
   public function buscarItensPorPedido($pedido_id)
   {
-    $sql = "SELECT pi.*, p.nome, p.imagem
-          FROM pedido_itens pi
-          JOIN produtos p ON pi.produto_id = p.id
+    $sql = "SELECT p.nome, p.imagem_principal, pi.quantidade, pi.preco_unitario 
+          FROM pedido_itens pi 
+          JOIN produtos p ON p.id = pi.produto_id 
           WHERE pi.pedido_id = :pedido_id";
+
     $stmt = $this->db->prepare($sql);
     $stmt->bindParam(':pedido_id', $pedido_id);
     $stmt->execute();
+
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 }

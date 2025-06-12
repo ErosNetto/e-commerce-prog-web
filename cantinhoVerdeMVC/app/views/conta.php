@@ -1,6 +1,10 @@
 <?php
 require_once '../app/helpers/Auth.php';
+
 Auth::iniciarSessao();
+
+$usuario = Auth::getUser();
+
 ?>
 
 <!DOCTYPE html>
@@ -73,7 +77,7 @@ Auth::iniciarSessao();
   </section>
 
   <section class="account-section">
-    <div class="container">
+    <div class="container containerTeste">
       <div class="account-container">
         <div class="account-sidebar">
           <div class="user-info">
@@ -94,151 +98,46 @@ Auth::iniciarSessao();
           <div class="account-tab active" id="orders">
             <h2>Meus Pedidos</h2>
 
-            <div class="orders-list">
-              <div class="order-card">
-                <div class="order-header">
-                  <div class="order-header-left">
-                    <div class="order-id">#12345</div>
-                    <div class="order-date">15/03/2023</div>
-                  </div>
-                  <div class="order-header-right">
-                    <div class="order-status delivered">Entregue</div>
-                    <div class="order-total">R$ 189,70</div>
-                  </div>
-                </div>
-
-                <div class="order-products">
-                  <div class="order-product">
-                    <img src="img/produto1.jpg" alt="Zamioculca">
-                    <div class="product-details">
-                      <h4>Zamioculca</h4>
-                      <p>Tamanho: Médio | Vaso: Cerâmica</p>
-                      <div class="product-price">
-                        <span class="quantity">1x</span>
-                        <span class="price">R$ 89,90</span>
-                      </div>
+            <?php if (!empty($pedidos)) : ?>
+              <?php foreach ($pedidos as $pedido) : ?>
+                <div class="order-card">
+                  <div class="order-header">
+                    <div class="order-header-left">
+                      <div class="order-id">#<?= $pedido['id'] ?></div>
+                      <div class="order-date"><?= date('d/m/Y', strtotime($pedido['data_pedido'])) ?></div>
+                    </div>
+                    <div class="order-header-right">
+                      <div class="order-status delivered">Entregue</div>
+                      <div class="order-total">R$ <?= number_format($pedido['total'], 2, ',', '.') ?></div>
                     </div>
                   </div>
 
-                  <div class="order-product">
-                    <img src="img/produto3.jpg" alt="Suculenta Echeveria">
-                    <div class="product-details">
-                      <h4>Suculenta Echeveria</h4>
-                      <p>Tamanho: Pequeno | Vaso: Plástico</p>
-                      <div class="product-price">
-                        <span class="quantity">2x</span>
-                        <span class="price">R$ 59,80</span>
+                  <div class="order-products">
+                    <?php foreach ($pedido['itens'] as $item) : ?>
+                      <div class="order-product">
+                        <img src="<?= BASE_URL ?>/uploads/<?= $item['imagem_principal'] ?>" alt="<?= htmlspecialchars($item['nome']) ?>">
+                        <div class="product-details">
+                          <h4><?= htmlspecialchars($item['nome']) ?></h4>
+                          <div class="product-price">
+                            <span class="quantity"><?= $item['quantidade'] ?>x</span>
+                            <span class="price">R$ <?= number_format($item['preco_unitario'], 2, ',', '.') ?></span>
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                    <?php endforeach; ?>
+                  </div>
+
+                  <div class="order-actions">
+                    <button class="btn-outline">Ver Detalhes</button>
+                    <button class="btn">Comprar Novamente</button>
                   </div>
                 </div>
+              <?php endforeach; ?>
+            <?php else : ?>
+              <p>Você ainda não fez nenhum pedido.</p>
+            <?php endif; ?>
 
-                <div class="order-actions">
-                  <button class="btn-outline">Ver Detalhes</button>
-                  <button class="btn">Comprar Novamente</button>
-                </div>
-              </div>
 
-              <div class="order-card">
-                <div class="order-header">
-                  <div class="order-header-left">
-                    <div class="order-id">#12346</div>
-                    <div class="order-date">02/04/2023</div>
-                  </div>
-                  <div class="order-header-right">
-                    <div class="order-status processing">Em Processamento</div>
-                    <div class="order-total">R$ 259,80</div>
-                  </div>
-                </div>
-
-                <div class="order-products">
-                  <div class="order-product">
-                    <img src="img/produto4.jpg" alt="Costela de Adão">
-                    <div class="product-details">
-                      <h4>Costela de Adão</h4>
-                      <p>Tamanho: Grande | Vaso: Cerâmica</p>
-                      <div class="product-price">
-                        <span class="quantity">1x</span>
-                        <span class="price">R$ 119,90</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="order-product">
-                    <img src="img/produto10.jpg" alt="Vaso Cerâmica">
-                    <div class="product-details">
-                      <h4>Vaso Cerâmica</h4>
-                      <p>Tamanho: Médio | Cor: Terracota</p>
-                      <div class="product-price">
-                        <span class="quantity">1x</span>
-                        <span class="price">R$ 79,90</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="order-product">
-                    <img src="img/produto11.jpg" alt="Kit Jardinagem">
-                    <div class="product-details">
-                      <h4>Kit Jardinagem</h4>
-                      <p>5 peças | Cor: Verde</p>
-                      <div class="product-price">
-                        <span class="quantity">1x</span>
-                        <span class="price">R$ 59,90</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="order-actions">
-                  <button class="btn-outline">Ver Detalhes</button>
-                  <button class="btn">Rastrear Pedido</button>
-                </div>
-              </div>
-
-              <div class="order-card">
-                <div class="order-header">
-                  <div class="order-header-left">
-                    <div class="order-id">#12347</div>
-                    <div class="order-date">10/02/2023</div>
-                  </div>
-                  <div class="order-header-right">
-                    <div class="order-status delivered">Entregue</div>
-                    <div class="order-total">R$ 149,80</div>
-                  </div>
-                </div>
-
-                <div class="order-products">
-                  <div class="order-product">
-                    <img src="img/produto8.jpg" alt="Jiboia">
-                    <div class="product-details">
-                      <h4>Jiboia</h4>
-                      <p>Tamanho: Médio | Vaso: Cerâmica</p>
-                      <div class="product-price">
-                        <span class="quantity">2x</span>
-                        <span class="price">R$ 79,80</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="order-product">
-                    <img src="img/produto12.jpg" alt="Substrato Premium">
-                    <div class="product-details">
-                      <h4>Substrato Premium</h4>
-                      <p>Embalagem: 5kg</p>
-                      <div class="product-price">
-                        <span class="quantity">2x</span>
-                        <span class="price">R$ 49,80</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="order-actions">
-                  <button class="btn-outline">Ver Detalhes</button>
-                  <button class="btn">Comprar Novamente</button>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -280,21 +179,21 @@ Auth::iniciarSessao();
         });
       });
 
-      // Verifica o hash na URL ou define 'orders' como padrão
-      const defaultTab = 'orders';
-      const initialTab = window.location.hash.substring(1) || defaultTab;
-      activateTab(initialTab);
+      //  // Verifica o hash na URL ou define 'orders' como padrão
+      //  const defaultTab = 'orders';
+      //  const initialTab = window.location.hash.substring(1) || defaultTab;
+      //  activateTab(initialTab);
 
-      // Eventos para links que redirecionam para abas
-      document.querySelectorAll('[data-tab]').forEach(link => {
-        if (!link.closest('.account-nav')) {
-          link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const tabId = this.getAttribute('data-tab');
-            activateTab(tabId);
-          });
-        }
-      });
+      //  // Eventos para links que redirecionam para abas
+      //  document.querySelectorAll('[data-tab]').forEach(link => {
+      //    if (!link.closest('.account-nav')) {
+      //      link.addEventListener('click', function(e) {
+      //        e.preventDefault();
+      //        const tabId = this.getAttribute('data-tab');
+      //        activateTab(tabId);
+      //      });
+      //    }
+      //  });
     });
   </script>
 </body>
