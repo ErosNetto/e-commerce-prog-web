@@ -167,7 +167,6 @@ Auth::iniciarSessao();
                   <option value="newest" <?= ($filtros['ordenacao'] ?? '') === 'newest' ? 'selected' : '' ?>>Mais Recentes</option>
                 </select>
 
-                <!-- Manter outros parâmetros GET -->
                 <input type="hidden" name="pagina" value="1">
                 <?php if (!empty($filtros['categoria_id'])): ?>
                   <input type="hidden" name="categoria" value="<?= htmlspecialchars($filtros['categoria_id']) ?>">
@@ -188,10 +187,6 @@ Auth::iniciarSessao();
                       <img src="<?= htmlspecialchars($produto['imagem_principal'] ?? BASE_URL . '/img/sem-imagem.jpg') ?>"
                         alt="<?= htmlspecialchars($produto['nome']) ?>" />
                     </a>
-
-                    <!-- <?php if ($produto['destaque'] == 1): ?>
-                      <div class="product-tag">Destaque</div>
-                    <?php endif; ?> -->
                   </div>
                   <div class="product-info">
                     <h3><?= htmlspecialchars($produto['nome']) ?></h3>
@@ -246,17 +241,14 @@ Auth::iniciarSessao();
   <?php require_once 'partials/footer.php'; ?>
 
   <script>
-    // Atualiza o valor exibido do range de preço
     document.getElementById('priceRange').addEventListener('input', function() {
       document.getElementById('priceValue').textContent = 'R$ ' + this.value;
     });
 
-    // Remove o submit automático e mantém apenas a atualização visual
     document.getElementById('priceRange').addEventListener('change', function() {
       document.getElementById('priceValue').textContent = 'R$ ' + this.value;
     });
 
-    // Remove o submit automático dos checkboxes
     document.querySelectorAll('.checkbox-group input[type="checkbox"]').forEach(checkbox => {
       checkbox.addEventListener('change', function() {});
     });

@@ -2,7 +2,6 @@
 
 class Produto extends Model
 {
-  // Função para puxar os produtos da HomePage
   public function getProdutosDestaque($limit)
   {
     try {
@@ -17,10 +16,6 @@ class Produto extends Model
       $stmt->execute();
 
       $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-      if (DEBUG_MODE) {
-        error_log('[Produtos] Dados retornados: ' . print_r($result, true));
-      }
 
       return $result;
     } catch (PDOException $e) {
@@ -39,26 +34,22 @@ class Produto extends Model
                  p.destaque, p.imagem_principal
                 FROM produtos p";
 
-      // Adiciona JOIN com a tabela de relacionamento se houver filtro por categoria
       if (!empty($filtros['categoria_id'])) {
         $query .= " JOIN produto_categoria pc ON (p.id = pc.produto_id)";
       }
 
       $query .= " WHERE p.status = 'ativo' AND p.estoque > 0";
 
-      // Filtro por categoria
       if (!empty($filtros['categoria_id'])) {
         $query .= " AND pc.categoria_id = :categoria_id";
         $params[':categoria_id'] = $filtros['categoria_id'];
       }
 
-      // Filtro por preço
       if (!empty($filtros['preco_max'])) {
         $query .= " AND p.preco <= :preco_max";
         $params[':preco_max'] = $filtros['preco_max'];
       }
 
-      // Filtro por tamanho
       if (!empty($filtros['tamanhos']) && is_array($filtros['tamanhos'])) {
         $placeholders = [];
         foreach ($filtros['tamanhos'] as $i => $tamanho) {
@@ -69,7 +60,6 @@ class Produto extends Model
         $query .= " AND p.tamanho IN (" . implode(",", $placeholders) . ")";
       }
 
-      // Filtro por nível de cuidado
       if (!empty($filtros['niveis']) && is_array($filtros['niveis'])) {
         $placeholders = [];
         foreach ($filtros['niveis'] as $i => $nivel) {
@@ -80,17 +70,14 @@ class Produto extends Model
         $query .= " AND p.nivel_cuidado IN (" . implode(",", $placeholders) . ")";
       }
 
-      // Ordenação
       $query .= $this->getOrderBy($filtros['ordenacao'] ?? '');
 
-      // Paginação
       $query .= " LIMIT :limit OFFSET :offset";
       $params[':limit'] = $itensPorPagina;
       $params[':offset'] = $offset;
 
       $stmt = $this->db->prepare($query);
 
-      // Bind dos parâmetros
       foreach ($params as $key => $value) {
         $paramType = is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR;
         $stmt->bindValue($key, $value, $paramType);
@@ -99,7 +86,6 @@ class Produto extends Model
       $stmt->execute();
       $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-      // Obter o total de produtos
       $total = $this->db->query("SELECT FOUND_ROWS()")->fetchColumn();
 
       return [
@@ -146,7 +132,6 @@ class Produto extends Model
       $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
       if ($result) {
-        // Processa categorias como pares id:nome
         $result['categorias'] = [];
         $result['categoria_ids'] = [];
 
@@ -159,12 +144,10 @@ class Produto extends Model
           }
         }
 
-        unset($result['categorias_completas']); // não precisa mais
+        unset($result['categorias_completas']);
 
-        // Formata o preço
         $result['preco_formatado'] = number_format($result['preco'], 2, ',', '.');
 
-        // Parcelamento
         $result['parcelamento'] = $result['preco'] > 0
           ? 'ou 3x de R$' . number_format($result['preco'] / 3, 2, ',', '.') . ' sem juros'
           : '';
@@ -210,10 +193,8 @@ class Produto extends Model
   public function cadastrar($dados)
   {
     try {
-      // Inicia transação
       $this->db->beginTransaction();
 
-      // Insere o produto na tabela produtos
       $queryProduto = "INSERT INTO produtos (
             nome, 
             descricao, 
@@ -259,12 +240,10 @@ class Produto extends Model
       $stmtProduto->execute();
       $produtoId = $this->db->lastInsertId();
 
-      // Insere as relações com categorias
       if (!empty($dados['categorias_ids'])) {
         $queryCategoria = "INSERT INTO produto_categoria (produto_id, categoria_id) VALUES (:produto_id, :categoria_id)";
         $stmtCategoria = $this->db->prepare($queryCategoria);
 
-        // Se for uma string (single ID), converte para array
         $categorias = is_array($dados['categorias_ids']) ? $dados['categorias_ids'] : [$dados['categorias_ids']];
 
         foreach ($categorias as $categoriaId) {
@@ -274,11 +253,9 @@ class Produto extends Model
         }
       }
 
-      // Commit da transação
       $this->db->commit();
       return true;
     } catch (PDOException $e) {
-      // Rollback em caso de erro
       $this->db->rollBack();
       error_log("Erro ao cadastrar produto: " . $e->getMessage());
       return false;
@@ -288,10 +265,8 @@ class Produto extends Model
   public function update($id, $dados)
   {
     try {
-      // Inicia transação
       $this->db->beginTransaction();
 
-      // Atualiza o produto na tabela produtos
       $queryProduto = "UPDATE produtos SET
             nome = :nome, 
             descricao = :descricao, 
@@ -325,18 +300,15 @@ class Produto extends Model
 
       $stmtProduto->execute();
 
-      // Remove todas as categorias atuais do produto
       $queryDeleteCategorias = "DELETE FROM produto_categoria WHERE produto_id = :produto_id";
       $stmtDelete = $this->db->prepare($queryDeleteCategorias);
       $stmtDelete->bindValue(':produto_id', $id);
       $stmtDelete->execute();
 
-      // Insere as novas relações com categorias
       if (!empty($dados['categorias_ids'])) {
         $queryCategoria = "INSERT INTO produto_categoria (produto_id, categoria_id) VALUES (:produto_id, :categoria_id)";
         $stmtCategoria = $this->db->prepare($queryCategoria);
 
-        // Se for uma string (single ID), converte para array
         $categorias = is_array($dados['categorias_ids']) ? $dados['categorias_ids'] : [$dados['categorias_ids']];
 
         foreach ($categorias as $categoriaId) {
@@ -346,11 +318,9 @@ class Produto extends Model
         }
       }
 
-      // Commit da transação
       $this->db->commit();
       return true;
     } catch (PDOException $e) {
-      // Rollback em caso de erro
       $this->db->rollBack();
       error_log("Erro ao atualizar produto: " . $e->getMessage());
       return false;

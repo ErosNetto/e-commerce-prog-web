@@ -1,8 +1,4 @@
 <?php
-// Desativa a exibição de erros (em produção)
-// ini_set('display_errors', 1);  // Não mostra erros na tela
-// error_reporting(0);            // Desativa todos os tipos de erros
-
 // Configurações da aplicação
 define('APP_NAME', 'Cantinho Verde');
 define('APP_VERSION', '1.0.0');

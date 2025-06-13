@@ -227,11 +227,8 @@ Auth::iniciarSessao();
   </div>
 
   <?php require_once 'partials/footer.php'; ?>
-</body>
 
-</html>
   <script>
-    // Controle de quantidade
     document.querySelector('.quantity-btn.minus').addEventListener('click', function() {
       const input = document.querySelector('.quantity-input');
       const currentValue = parseInt(input.value);
@@ -249,7 +246,6 @@ Auth::iniciarSessao();
       }
     });
 
-    // Zoom da imagem
     const mainImage = document.getElementById('mainImage');
     const modal = document.getElementById('imageZoomModal');
     const zoomedImage = document.getElementById('zoomedImage');
@@ -270,4 +266,6 @@ Auth::iniciarSessao();
       }
     });
   </script>
+</body>
 
+</html>

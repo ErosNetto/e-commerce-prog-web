@@ -213,7 +213,6 @@ $usuario = Auth::getUser();
 
   <script src="../js/admin.js"></script>
   <script>
-    // Toggle sidebar
     document
       .getElementById("sidebarToggle")
       .addEventListener("click", function() {
@@ -222,7 +221,6 @@ $usuario = Auth::getUser();
           .classList.toggle("sidebar-collapsed");
       });
 
-    // Toggle dropdowns
     const dropdownToggles = document.querySelectorAll(
       ".admin-notification-btn, .admin-profile-btn"
     );
@@ -232,7 +230,6 @@ $usuario = Auth::getUser();
         const dropdown = this.nextElementSibling;
         dropdown.classList.toggle("show");
 
-        // Fechar outros dropdowns
         dropdownToggles.forEach((otherToggle) => {
           if (otherToggle !== toggle) {
             otherToggle.nextElementSibling.classList.remove("show");
@@ -241,7 +238,6 @@ $usuario = Auth::getUser();
       });
     });
 
-    // Fechar dropdowns ao clicar fora
     document.addEventListener("click", function() {
       document
         .querySelectorAll(
@@ -265,7 +261,6 @@ $usuario = Auth::getUser();
           const response = await fetch(`<?= BASE_URL ?>/adminPedidos/detalhes/${orderId}`);
           const pedido = await response.json();
 
-          // Preencher os dados no modal
           document.querySelector("#orderModal h3").textContent = `Detalhes do Pedido #ORD-${pedido.pedido_id}`;
 
           const customerInfo = document.querySelector(".order-customer-info");
@@ -293,8 +288,6 @@ $usuario = Auth::getUser();
           <td>R$ ${item.subtotal.toFixed(2).replace('.', ',')}</td>
         </tr>
       `).join('');
-
-          // Mostrar modal
           orderModal.classList.add("show");
         } catch (error) {
           alert("Erro ao carregar os detalhes do pedido.");
@@ -303,7 +296,6 @@ $usuario = Auth::getUser();
       });
     });
 
-    // Fechar modal
     modalClose.addEventListener("click", function() {
       orderModal.classList.remove("show");
     });

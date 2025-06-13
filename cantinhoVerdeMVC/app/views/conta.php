@@ -147,19 +147,14 @@ $usuario = Auth::getUser();
   <?php require_once 'partials/footer.php'; ?>
 
   <script>
-    // Funções para a página de conta
     document.addEventListener('DOMContentLoaded', function() {
-      // Elementos
       const tabLinks = document.querySelectorAll('.account-nav a[data-tab]');
       const tabContents = document.querySelectorAll('.account-tab');
 
-      // Função para ativar uma aba
       function activateTab(tabId) {
-        // Remove todas as classes active
         tabLinks.forEach(link => link.parentElement.classList.remove('active'));
         tabContents.forEach(tab => tab.classList.remove('active'));
 
-        // Ativa a aba selecionada
         const selectedLink = document.querySelector(`.account-nav a[data-tab="${tabId}"]`);
         const selectedTab = document.getElementById(tabId);
 
@@ -170,7 +165,6 @@ $usuario = Auth::getUser();
         }
       }
 
-      // Eventos para os links das abas
       tabLinks.forEach(link => {
         link.addEventListener('click', function(e) {
           e.preventDefault();
@@ -178,22 +172,6 @@ $usuario = Auth::getUser();
           activateTab(tabId);
         });
       });
-
-      //  // Verifica o hash na URL ou define 'orders' como padrão
-      //  const defaultTab = 'orders';
-      //  const initialTab = window.location.hash.substring(1) || defaultTab;
-      //  activateTab(initialTab);
-
-      //  // Eventos para links que redirecionam para abas
-      //  document.querySelectorAll('[data-tab]').forEach(link => {
-      //    if (!link.closest('.account-nav')) {
-      //      link.addEventListener('click', function(e) {
-      //        e.preventDefault();
-      //        const tabId = this.getAttribute('data-tab');
-      //        activateTab(tabId);
-      //      });
-      //    }
-      //  });
     });
   </script>
 </body>

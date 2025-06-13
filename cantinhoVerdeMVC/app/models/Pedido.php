@@ -76,7 +76,6 @@ class Pedido extends Model
             return null;
         }
 
-        // Buscar itens do pedido
         $sqlItens = "SELECT 
                     pi.produto_id,
                     pi.quantidade,

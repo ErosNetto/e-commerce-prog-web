@@ -163,19 +163,6 @@ $usuario = Auth::getUser();
                 </tbody>
               </table>
             </div>
-
-            <!-- <div class="admin-table-actions">
-              <div class="pagination">
-                <button class="pagination-btn" disabled>
-                  <i class="fas fa-chevron-left"></i>
-                </button>
-                <button class="pagination-btn active">1</button>
-                <button class="pagination-btn">2</button>
-                <button class="pagination-btn">
-                  <i class="fas fa-chevron-right"></i>
-                </button>
-              </div>
-            </div> -->
           </div>
         </div>
       </div>
@@ -217,36 +204,10 @@ $usuario = Auth::getUser();
     </div>
   </div>
 
-  <!-- Delete Confirmation Modal -->
-  <!-- <div class="admin-modal" id="deleteModal">
-    <div class="admin-modal-content">
-      <div class="admin-modal-header">
-        <h3>Confirmar Exclusão</h3>
-        <button class="admin-modal-close">&times;</button>
-      </div>
-      <div class="admin-modal-body">
-        <p>
-          Tem certeza que deseja excluir esta categoria? Esta ação não pode
-          ser desfeita e todos os produtos associados a esta categoria ficarão
-          sem categoria.
-        </p>
-      </div>
-      <div class="admin-modal-footer">
-        <button class="admin-btn admin-btn-secondary admin-modal-cancel">
-          Cancelar
-        </button>
-        <button class="admin-btn admin-btn-danger" id="confirmDelete">
-          Sim, Excluir
-        </button>
-      </div>
-    </div>
-  </div> -->
-
   <script src="../js/admin.js"></script>
   <script>
     const baseUrl = '<?= BASE_URL ?>';
 
-    // Toggle sidebar
     document
       .getElementById("sidebarToggle")
       .addEventListener("click", function() {
@@ -255,7 +216,6 @@ $usuario = Auth::getUser();
           .classList.toggle("sidebar-collapsed");
       });
 
-    // Toggle dropdowns
     const dropdownToggles = document.querySelectorAll(
       ".admin-notification-btn, .admin-profile-btn"
     );
@@ -265,7 +225,6 @@ $usuario = Auth::getUser();
         const dropdown = this.nextElementSibling;
         dropdown.classList.toggle("show");
 
-        // Fechar outros dropdowns
         dropdownToggles.forEach((otherToggle) => {
           if (otherToggle !== toggle) {
             otherToggle.nextElementSibling.classList.remove("show");
@@ -274,13 +233,11 @@ $usuario = Auth::getUser();
       });
     });
 
-    // Category Modal
     const categoryModal = document.getElementById("categoryModal");
     const categoryForm = document.getElementById("categoryForm");
     const categoryModalTitle =
       document.getElementById("categoryModalTitle");
 
-    // Open Add Category Modal
     document
       .getElementById("addCategoryBtn")
       .addEventListener("click", function() {
@@ -290,7 +247,6 @@ $usuario = Auth::getUser();
         categoryModal.classList.add("show");
       });
 
-    // Close Modal
     const closeButtons = document.querySelectorAll(
       ".admin-modal-close, .admin-modal-cancel"
     );
@@ -302,7 +258,6 @@ $usuario = Auth::getUser();
       });
     });
 
-    // Open Edit Category Modal
     const editButtons = document.querySelectorAll(".edit-btn");
     editButtons.forEach((button) => {
       button.addEventListener("click", function() {
@@ -323,7 +278,6 @@ $usuario = Auth::getUser();
       });
     });
 
-    // Delete Category
     const deleteButtons = document.querySelectorAll(".delete-btn");
     deleteButtons.forEach((button) => {
       button.addEventListener("click", function() {
@@ -335,15 +289,12 @@ $usuario = Auth::getUser();
       });
     });
 
-    // Fechar modal após submit (opcional)
     document.getElementById('categoryForm').addEventListener('submit', function() {
       document.querySelectorAll('.admin-modal').forEach(modal => {
         modal.classList.remove('show');
       });
     });
 
-
-    // Ver categoria
     const viewButtons = document.querySelectorAll(".view-btn");
     viewButtons.forEach((button) => {
       button.addEventListener("click", function() {

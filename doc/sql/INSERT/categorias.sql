@@ -1,4 +1,4 @@
--- 1. Categoria principal: Plantas de Interior 
+-- 1. Categoria principal: Plantas de Interior
 INSERT INTO categorias (nome, imagem, destaque)
 VALUES (
   'Plantas de Interior',
@@ -14,7 +14,7 @@ VALUES (
   TRUE
 );
 
--- 3. Categoria principal: Plantas para Jardim 
+-- 3. Categoria principal: Plantas para Jardim
 INSERT INTO categorias (nome, imagem, destaque)
 VALUES (
   'Plantas para Jardim',
@@ -22,7 +22,7 @@ VALUES (
   TRUE
 );
 
--- 4. Categoria principal: Vasos e Acessórios 
+-- 4. Categoria principal: Vasos e Acessórios
 INSERT INTO categorias (nome, imagem, destaque)
 VALUES (
   'Vasos e Acessórios',

@@ -232,7 +232,6 @@ $usuario = Auth::getUser();
 
   <script src="../js/admin.js"></script>
   <script>
-    // Toggle sidebar
     document
       .getElementById("sidebarToggle")
       .addEventListener("click", function() {
@@ -241,7 +240,6 @@ $usuario = Auth::getUser();
           .classList.toggle("sidebar-collapsed");
       });
 
-    // Fechar dropdowns ao clicar fora
     document.addEventListener("click", function() {
       document
         .querySelectorAll(

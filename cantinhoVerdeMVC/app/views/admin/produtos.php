@@ -100,30 +100,6 @@ $usuario = Auth::getUser();
             </button>
           </div>
           <div class="admin-card-body">
-            <!-- <div class="admin-filters">
-              <div class="admin-filter-group">
-                <select id="categoryFilter">
-                  <option value="">Todas as Categorias</option>
-                  <option value="interior">Plantas de Interior</option>
-                  <option value="exterior">Plantas de Exterior</option>
-                  <option value="suculentas">Suculentas</option>
-                  <option value="cactos">Cactos</option>
-                  <option value="flores">Flores</option>
-                </select>
-              </div>
-              <div class="admin-filter-group">
-                <select id="statusFilter">
-                  <option value="">Todos os Status</option>
-                  <option value="instock">Em Estoque</option>
-                  <option value="lowstock">Estoque Baixo</option>
-                  <option value="outofstock">Fora de Estoque</option>
-                </select>
-              </div>
-              <button class="admin-btn admin-btn-secondary" id="filterButton">
-                <i class="fas fa-filter"></i> Filtrar
-              </button>
-            </div> -->
-
             <div class="admin-table-responsive">
               <table class="admin-table">
                 <thead>
@@ -358,7 +334,6 @@ $usuario = Auth::getUser();
   <script>
     const baseUrl = '<?= BASE_URL ?>';
 
-    // Toggle sidebar
     document
       .getElementById("sidebarToggle")
       .addEventListener("click", function() {
@@ -367,7 +342,6 @@ $usuario = Auth::getUser();
           .classList.toggle("sidebar-collapsed");
       });
 
-    // Toggle dropdowns
     const dropdownToggles = document.querySelectorAll(
       ".admin-notification-btn, .admin-profile-btn"
     );
@@ -377,7 +351,6 @@ $usuario = Auth::getUser();
         const dropdown = this.nextElementSibling;
         dropdown.classList.toggle("show");
 
-        // Fechar outros dropdowns
         dropdownToggles.forEach((otherToggle) => {
           if (otherToggle !== toggle) {
             otherToggle.nextElementSibling.classList.remove("show");
@@ -386,13 +359,11 @@ $usuario = Auth::getUser();
       });
     });
 
-    // Category Modal
     const categoryModal = document.getElementById("produtoModal");
     const categoryForm = document.getElementById("produtoForm");
     const categoryModalTitle =
       document.getElementById("produtoModalTitle");
 
-    // Open Add Category Modal
     document
       .getElementById("addProdutoBtn")
       .addEventListener("click", function() {
@@ -402,7 +373,6 @@ $usuario = Auth::getUser();
         categoryModal.classList.add("show");
       });
 
-    // Close Modal
     const closeButtons = document.querySelectorAll(
       ".admin-modal-close, .admin-modal-cancel"
     );
@@ -414,7 +384,6 @@ $usuario = Auth::getUser();
       });
     });
 
-    // Open Edit Produto Modal
     const editButtons = document.querySelectorAll(".edit-btn");
     editButtons.forEach((button) => {
       button.addEventListener("click", function() {
@@ -450,9 +419,6 @@ $usuario = Auth::getUser();
         document.getElementById("produtoAgua").value = agua;
         document.getElementById("produtoFeatured").checked = destaque;
 
-        // Ao abrir o modal para edição
-        // document.getElementById("produtoPreco").value = parseFloat(preco).toFixed(2);
-
         if (categoriaId) {
           document.getElementById("categoriaProduto").value = categoriaId;
         } else {
@@ -463,7 +429,6 @@ $usuario = Auth::getUser();
       });
     });
 
-    // Delete Produto
     const deleteButtons = document.querySelectorAll(".delete-btn");
     deleteButtons.forEach((button) => {
       button.addEventListener("click", function() {
@@ -475,14 +440,12 @@ $usuario = Auth::getUser();
       });
     });
 
-    // Fechar modal após submit (opcional)
     document.getElementById('produtoForm').addEventListener('submit', function() {
       document.querySelectorAll('.admin-modal').forEach(modal => {
         modal.classList.remove('show');
       });
     });
 
-    // Ver produto
     const viewButtons = document.querySelectorAll(".view-btn");
     viewButtons.forEach((button) => {
       button.addEventListener("click", function() {

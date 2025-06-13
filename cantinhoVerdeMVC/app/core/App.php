@@ -4,10 +4,9 @@
 
 class App
 {
-    // Se a URL for vazia (ex: localhost/projeto/), ele vai abrir HomeController e chamar o método index.
-    protected $controller = 'HomeController'; // valor padrão
-    protected $method = 'index';              // método padrão
-    protected $params = [];                   // parâmetros passados pela URL
+    protected $controller = 'HomeController';
+    protected $method = 'index';
+    protected $params = [];
 
     public function __construct()
     {

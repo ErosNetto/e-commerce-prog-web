@@ -1,9 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
-  // Elementos do formulário
   const loginForm = document.getElementById('loginForm');
   const registerForm = document.getElementById('registerForm');
 
-  // Toggle de senha (mantido igual)
   const togglePasswordButtons = document.querySelectorAll('.toggle-password');
   togglePasswordButtons.forEach((button) => {
     button.addEventListener('click', function () {
@@ -20,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Máscara para telefone
   const phoneInput = document.getElementById('telefone');
   if (phoneInput) {
     phoneInput.addEventListener('input', function () {
@@ -32,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Validação de email em tempo real
   const emailInput = document.getElementById('email');
   if (emailInput) {
     emailInput.addEventListener('blur', function () {
@@ -40,13 +36,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Validação de confirmação de senha em tempo real para cadastro
   const confirmPasswordInput = document.getElementById('confirmar_senha');
   if (confirmPasswordInput) {
     confirmPasswordInput.addEventListener('blur', validatePasswordMatch);
   }
 
-  // Formulário de login - Adiciona validação no submit
   if (loginForm) {
     loginForm.addEventListener('submit', function (e) {
       const formData = {
@@ -57,16 +51,12 @@ document.addEventListener('DOMContentLoaded', function () {
       const errors = validateForm(formData);
 
       if (Object.keys(errors).length > 0) {
-        e.preventDefault(); // Impede a submissão do formulário
+        e.preventDefault();
         showFormErrors(errors);
-      } else {
-        // Se não houver erros, o formulário será submetido normalmente
-        // O PHP no backend fará a validação final
       }
     });
   }
 
-  // Formulário de cadastro - Adiciona validação no submit
   if (registerForm) {
     registerForm.addEventListener('submit', function (e) {
       const formData = {
@@ -82,17 +72,13 @@ document.addEventListener('DOMContentLoaded', function () {
       const errors = validateForm(formData, true);
 
       if (Object.keys(errors).length > 0) {
-        e.preventDefault(); // Impede a submissão do formulário
+        e.preventDefault();
         showFormErrors(errors);
-      } else {
-        // Se não houver erros, o formulário será submetido normalmente
-        // O PHP no backend fará a validação final
       }
     });
   }
 });
 
-// Função para validar confirmação de senha
 function validatePasswordMatch() {
   const password = document.getElementById('senha').value;
   const confirmPassword = document.getElementById('confirmar_senha').value;
@@ -113,15 +99,11 @@ function validatePasswordMatch() {
   return true;
 }
 
-// Função para formatar telefone
 function formatPhone(value) {
-  // Remove tudo que não é dígito
   value = value.replace(/\D/g, '');
 
-  // Limita a 11 dígitos
   value = value.substring(0, 11);
 
-  // Aplica a máscara
   if (value.length <= 10) {
     value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
   } else {
@@ -131,7 +113,6 @@ function formatPhone(value) {
   return value;
 }
 
-// Função para validar telefone
 function validatePhone(phone) {
   const phoneGroup = document.getElementById('telefone').closest('.form-group');
   const cleanPhone = phone.replace(/\D/g, '');
@@ -151,13 +132,11 @@ function validatePhone(phone) {
   return true;
 }
 
-// Função para validar email
 function validateEmail(email) {
   const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   return re.test(email);
 }
 
-// Função para validar campo de email
 function validateEmailField(email) {
   const emailGroup = document.getElementById('email').closest('.form-group');
 
@@ -177,7 +156,6 @@ function validateEmailField(email) {
   }
 }
 
-// Função para validar idade
 function validateBirthDate(birthDate) {
   const birthGroup = document
     .getElementById('data_nascimento')
@@ -189,7 +167,6 @@ function validateBirthDate(birthDate) {
     return false;
   }
 
-  // Verifica se a data é válida (evita 31/02/2000, etc.)
   const dateObj = new Date(birthDate);
   if (isNaN(dateObj.getTime())) {
     showFieldError(birthGroup, 'Data inválida');
@@ -200,7 +177,6 @@ function validateBirthDate(birthDate) {
   return true;
 }
 
-// Função para mostrar erro em campo específico
 function showFieldError(formGroup, message) {
   formGroup.classList.remove('success');
   formGroup.classList.add('error');
@@ -215,7 +191,6 @@ function showFieldError(formGroup, message) {
   errorMsg.textContent = message;
 }
 
-// Função para mostrar sucesso em campo específico
 function showFieldSuccess(formGroup) {
   formGroup.classList.remove('error');
   formGroup.classList.add('success');
@@ -226,7 +201,6 @@ function showFieldSuccess(formGroup) {
   }
 }
 
-// Função para limpar erro de campo
 function clearFieldError(formGroup) {
   formGroup.classList.remove('error', 'success');
 
@@ -236,22 +210,18 @@ function clearFieldError(formGroup) {
   }
 }
 
-// Função para validar formulário completo
 function validateForm(formData, isRegister = false) {
   const errors = {};
 
-  // Validar email
   if (!validateEmailField(formData.email)) {
     errors.email = 'Por favor, digite um email válido';
   }
 
-  // Validar senha
   if (!formData.senha || formData.senha.length < 6) {
     errors.senha = 'A senha deve ter no mínimo 6 caracteres';
   }
 
   if (isRegister) {
-    // Validações específicas do cadastro
     if (!formData.nome || formData.nome.trim().length < 2) {
       errors.nome = 'Nome deve ter pelo menos 2 caracteres';
     }
@@ -276,14 +246,11 @@ function validateForm(formData, isRegister = false) {
   return errors;
 }
 
-// Função para mostrar erros no formulário
 function showFormErrors(errors) {
-  // Limpar erros anteriores
   document.querySelectorAll('.form-group').forEach((group) => {
     clearFieldError(group);
   });
 
-  // Mostrar novos erros
   Object.keys(errors).forEach((field) => {
     const input =
       document.getElementById(field) ||
@@ -294,7 +261,6 @@ function showFormErrors(errors) {
     }
   });
 
-  // Focar no primeiro campo com erro
   const firstError = document.querySelector(
     '.form-group.error input, .form-group.error select'
   );

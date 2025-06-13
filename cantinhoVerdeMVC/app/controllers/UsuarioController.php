@@ -4,7 +4,6 @@ class UsuarioController extends Controller
 {
     public function __construct()
     {
-        // Inicia a sessão se ainda não estiver iniciada
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -42,7 +41,6 @@ class UsuarioController extends Controller
             if (empty($erros)) {
                 $usuarioModel = $this->model('Usuario');
 
-                // Verificar se o e-mail já está cadastrado
                 if ($usuarioModel->buscarUsuarioPorEmail($email)) {
                     $erros[] = "Este e-mail já está cadastrado.";
                 } else {
@@ -99,7 +97,7 @@ class UsuarioController extends Controller
                     $_SESSION['user_type'] = $usuario['tipo'];
 
                     $_SESSION['mensagem_sucesso'] = "Login realizado com sucesso!";
-                    header('Location: ' . BASE_URL . '/home'); // Redireciona para a página inicial ou dashboard
+                    header('Location: ' . BASE_URL . '/home');
                     exit();
                 } else {
                     $erros[] = "E-mail ou senha incorretos.";
@@ -119,7 +117,6 @@ class UsuarioController extends Controller
         exit();
     }
 
-    // Métodos auxiliares para verificação de login e tipo de usuário
     private function isLoggedIn()
     {
         return isset($_SESSION['user_id']);
@@ -130,7 +127,6 @@ class UsuarioController extends Controller
         return $this->isLoggedIn() && $_SESSION['user_type'] === 'admin';
     }
 
-    // Exemplo de uso em um método que requer login
     public function perfil()
     {
         if (!$this->isLoggedIn()) {
@@ -138,19 +134,16 @@ class UsuarioController extends Controller
             header('Location: ' . BASE_URL . '/login');
             exit();
         }
-        // Lógica para exibir o perfil do usuário
-        $this->view('conta', ['usuario' => $_SESSION]); // Passa os dados da sessão para a view
+        $this->view('conta', ['usuario' => $_SESSION]);
     }
 
-    // Exemplo de uso em um método que requer admin
     public function adminDashboard()
     {
         if (!$this->isAdmin()) {
             $_SESSION['mensagem_erro'] = "Acesso negado. Você não tem permissão de administrador.";
-            header('Location: ' . BASE_URL . '/home'); // Ou para uma página de erro/login
+            header('Location: ' . BASE_URL . '/home');
             exit();
         }
-        // Lógica para exibir o dashboard do admin
         $this->view('adminDashboard');
     }
 }

@@ -24,21 +24,18 @@ class AdminCategoriasController extends Controller
   public function create()
   {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      // Sanitizar e validar dados
       $dados = [
         'nome' => trim($_POST['nome']),
         'imagem' => trim($_POST['imagem']),
         'destaque' => isset($_POST['destaque']) ? 1 : 0
       ];
 
-      // Validação
       if (empty($dados['nome'])) {
         $_SESSION['error'] = 'Nome é obrigatório';
         $this->redirect('/adminCategorias');
         return;
       }
 
-      // Cadastrar no banco de dados
       if ($this->categoriaModel->cadastrar($dados)) {
         $_SESSION['success'] = 'Categoria cadastrada com sucesso!';
       } else {

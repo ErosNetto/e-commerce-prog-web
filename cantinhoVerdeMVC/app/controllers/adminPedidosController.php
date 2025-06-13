@@ -25,7 +25,6 @@ class adminPedidosController extends Controller
     $pedido = $this->pedidoModel->getPedidoPorId($id);
 
     if (!$pedido) {
-      // Pode redirecionar para uma página de erro ou mostrar uma mensagem
       http_response_code(404);
       $this->view("errors/404", ['mensagem' => 'Pedido não encontrado']);
       return;

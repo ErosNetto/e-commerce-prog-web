@@ -215,7 +215,6 @@ Auth::iniciarSessao();
   <?php require_once 'partials/footer.php'; ?>
 
   <script>
-    // Atualização automática de quantidade
     document.querySelectorAll('.quantity-input').forEach(input => {
       input.addEventListener('change', function() {
         const form = this.closest('.quantity-form');
@@ -223,7 +222,6 @@ Auth::iniciarSessao();
       });
     });
 
-    // Botões de aumentar/diminuir quantidade
     document.querySelectorAll('.increase-btn').forEach(btn => {
       btn.addEventListener('click', function() {
         const itemId = this.dataset.itemId;
@@ -248,7 +246,6 @@ Auth::iniciarSessao();
       });
     });
 
-    // Auto-hide alerts
     setTimeout(function() {
       const alerts = document.querySelectorAll('.alert');
       alerts.forEach(alert => {

@@ -39,7 +39,6 @@ class CarrinhoController extends Controller
                 return;
             }
 
-            // Buscar informações do produto
             $produtoModel = $this->model('Produto');
             $produto = $produtoModel->buscarPorId($produto_id);
 
@@ -49,7 +48,6 @@ class CarrinhoController extends Controller
                 return;
             }
 
-            // Verificar estoque
             if ($produto['estoque'] < $quantidade) {
                 $_SESSION['mensagem_erro'] = "Quantidade solicitada não disponível em estoque.";
                 $this->redirect('/produto/detalhes/' . $produto_id);
@@ -59,11 +57,9 @@ class CarrinhoController extends Controller
             $carrinho_id = $this->obterCarrinhoId();
             $carrinhoItemModel = $this->model('CarrinhoItem');
 
-            // Verificar se o produto já está no carrinho
             $itemExistente = $carrinhoItemModel->buscarItemPorProdutoECarrinho($carrinho_id, $produto_id);
 
             if ($itemExistente) {
-                // Atualizar quantidade
                 $novaQuantidade = $itemExistente['quantidade'] + $quantidade;
 
                 if ($produto['estoque'] < $novaQuantidade) {
@@ -74,7 +70,6 @@ class CarrinhoController extends Controller
 
                 $carrinhoItemModel->atualizarQuantidade($itemExistente['id'], $novaQuantidade);
             } else {
-                // Adicionar novo item
                 $carrinhoItemModel->adicionarItem($carrinho_id, $produto_id, $quantidade, $produto['preco']);
             }
 
@@ -127,7 +122,6 @@ class CarrinhoController extends Controller
         $carrinho_id = $this->obterCarrinhoId();
         $carrinhoItemModel = $this->model('CarrinhoItem');
 
-        // Remover todos os itens do carrinho
         $itens = $carrinhoItemModel->buscarItensPorCarrinho($carrinho_id);
         foreach ($itens as $item) {
             $carrinhoItemModel->removerItem($item['id']);
@@ -142,20 +136,16 @@ class CarrinhoController extends Controller
         $carrinhoModel = $this->model('Carrinho');
 
         if (Auth::isLoggedIn()) {
-            // Usuário logado - buscar carrinho por usuário
             $user = Auth::getUser();
             $carrinho = $carrinhoModel->buscarCarrinhoPorUsuario($user['id']);
 
             if (!$carrinho) {
-                // Criar novo carrinho para o usuário
                 $carrinho_id = $carrinhoModel->criarCarrinho($user['id']);
             } else {
                 $carrinho_id = $carrinho['id'];
             }
         } else {
-            // Usuário não logado - usar sessão
             if (!isset($_SESSION['carrinho_id'])) {
-                // Criar novo carrinho sem usuário
                 $_SESSION['carrinho_id'] = $carrinhoModel->criarCarrinho();
             }
             $carrinho_id = $_SESSION['carrinho_id'];
@@ -192,10 +182,8 @@ class CarrinhoController extends Controller
             $total += $item['quantidade'] * $item['preco_unitario'];
         }
 
-        // Criar pedido
         $pedido_id = $pedidoModel->criarPedido($usuario['id'], $total);
 
-        // Adicionar itens ao pedido
         foreach ($itens as $item) {
             $pedidoItemModel->adicionarItem(
                 $pedido_id,
@@ -205,7 +193,6 @@ class CarrinhoController extends Controller
             );
         }
 
-        // (Opcional) Limpar carrinho
         $carrinhoModel = $this->model('Carrinho');
         $carrinhoModel->limparCarrinho($carrinho_id);
 

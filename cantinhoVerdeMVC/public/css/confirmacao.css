@@ -154,8 +154,6 @@
   font-size: 1.2rem;
   font-weight: 600;
   margin-top: 15px;
-  /* padding-top: 15px; */
-  /* border-top: 1px solid var(--border-color); */
 }
 
 /* Shipping Info */
@@ -221,7 +219,7 @@
 
 .card-icon {
   font-size: 2rem;
-  color: #1a1f71; /* Visa blue */
+  color: #1a1f71;
 }
 
 .card-details p {

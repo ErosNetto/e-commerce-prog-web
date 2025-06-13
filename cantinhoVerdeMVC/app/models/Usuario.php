@@ -11,7 +11,7 @@ class Usuario extends Model
             $stmt->bindValue(':nome', $dados['nome']);
             $stmt->bindValue(':sobrenome', $dados['sobrenome']);
             $stmt->bindValue(':email', $dados['email']);
-            $stmt->bindValue(':senha', $dados['senha']); // A senha já deve vir com hash
+            $stmt->bindValue(':senha', $dados['senha']);
             $stmt->bindValue(':telefone', $dados['telefone']);
             $stmt->bindValue(':data_nascimento', $dados['data_nascimento']);
             $stmt->bindValue(':tipo', $dados['tipo']);
@@ -42,4 +42,3 @@ class Usuario extends Model
         return password_verify($senhaDigitada, $senhaHash);
     }
 }
-

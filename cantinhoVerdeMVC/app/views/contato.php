@@ -351,19 +351,15 @@ Auth::iniciarSessao();
   <?php require_once 'partials/footer.php'; ?>
 
   <script>
-    // Funções para a página de contato
     document.addEventListener("DOMContentLoaded", function() {
-      // Accordion para as FAQs
       const faqItems = document.querySelectorAll(".faq-item");
 
       faqItems.forEach((item) => {
         const question = item.querySelector(".faq-question");
 
         question.addEventListener("click", function() {
-          // Toggle active class
           item.classList.toggle("active");
 
-          // Toggle icon
           const icon = this.querySelector(".faq-icon i");
           if (item.classList.contains("active")) {
             icon.classList.remove("fa-chevron-down");
@@ -375,19 +371,16 @@ Auth::iniciarSessao();
         });
       });
 
-      // Form submission
       const contactForm = document.querySelector(".contact-form");
 
       contactForm.addEventListener("submit", function(e) {
         e.preventDefault();
 
-        // Simulate form submission
         const submitButton = this.querySelector('button[type="submit"]');
         submitButton.disabled = true;
         submitButton.textContent = "Enviando...";
 
         setTimeout(() => {
-          // Show success message
           const formContainer = document.querySelector(
             ".contact-form-container"
           );

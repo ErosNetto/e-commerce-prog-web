@@ -28,7 +28,6 @@ class AdminProdutosController extends Controller
   public function create()
   {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      // Sanitizar e validar dados
       $dados = [
         'nome' => trim($_POST['nome']),
         'descricao' => trim($_POST['descricao']),
@@ -45,7 +44,6 @@ class AdminProdutosController extends Controller
         'categorias_ids' => trim($_POST['categoria'])
       ];
 
-      // Validação
       $erros = [];
 
       if (empty($dados['nome'])) {
@@ -70,7 +68,6 @@ class AdminProdutosController extends Controller
         return;
       }
 
-      // Cadastrar no banco de dados
       if ($this->produtoModel->cadastrar($dados)) {
         $_SESSION['success'] = 'Produto cadastrado com sucesso!';
       } else {
@@ -86,7 +83,6 @@ class AdminProdutosController extends Controller
   public function update()
   {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      // Sanitizar e validar dados
       $dados = [
         'id' => (int) $_POST['id'],
         'nome' => trim($_POST['nome']),
@@ -104,7 +100,6 @@ class AdminProdutosController extends Controller
         'categorias_ids' => trim($_POST['categoria'])
       ];
 
-      // Validação
       $erros = [];
 
       if (empty($dados['nome'])) {
@@ -129,7 +124,6 @@ class AdminProdutosController extends Controller
         return;
       }
 
-      // Atualizar no banco de dados
       if ($this->produtoModel->update($dados['id'], $dados)) {
         $_SESSION['success'] = 'Produto atualizado com sucesso!';
       } else {

@@ -15,15 +15,8 @@ class Categoria extends Model
       $stmt->execute();
 
       $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-      // Debug condicional
-      if (DEBUG_MODE) {
-        error_log('[Categoria] Dados retornados: ' . print_r($result, true));
-      }
-
       return $result;
     } catch (PDOException $e) {
-      // Log do erro
       error_log("[ERRO] Falha ao buscar categorias em destaque: " . $e->getMessage());
 
       return [];

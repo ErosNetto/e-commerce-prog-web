@@ -7,7 +7,6 @@ class ProdutosController extends Controller
     $pagina = max(1, $_GET['pagina'] ?? 1);
     $itensPorPagina = 12;
 
-    // Processar os filtros recebidos
     $filtros = [
       'categoria_id' => $_GET['categoria'] ?? null,
       'preco_max' => $_GET['preco_max'] ?? null,
